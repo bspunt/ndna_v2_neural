@@ -1,0 +1,38 @@
+{% extends "automation-base.html" %}
+{% block content %}
+<br>
+<br>
+<br>
+<div class="container-fluid my-container">  
+    <div class="text-center"><h6><p style="color:rgb(223, 238, 16)"><i>Hey {{ request.user.username }}! Let's Run the NDNA Program or Run Some Linux Utilities ( ͡ᵔ ͜ʖ ͡ᵔ )</i></p></h6></div>
+    <div class='col-xs-12 text-center'><h6 class="mt-3"><b><i><p style="color:rgb(26, 146, 46)">
+        Use the T3 account (The account is "T3"). The default T3 password is neural123 if it hasn't been changed<br><br> 
+        To Run NDNA, Onced logged into the terminal using the T3 account, issue the following command:
+        <br> <br>
+        <font color="red">cd /usr/DCDP</font><br>
+        And then the following command to launch the program:<br>
+        <font color="red">./DCDP.sh</font>
+        <br> <br>
+        This will launch The NDNA program (For Network Discovery).
+        Then, just follow the instructions, providing username, password and a seed IP
+    </i></b></p></h6></div>
+   <div class='col-xs-12 text-center'>
+    <br>
+    <h4><font color="red"><i>RUN NDNA Discovery or Just Use The Linux Terminal For Linux Utilities</i></font></h4>
+
+    <!-- <p><a href="https://domainname.com:3010/wetty/ssh/T3" ">Click here to log into the browser based Linux Terminal to run NDNA Discovery</a></p> -->
+    
+    <div class='col-sm-12'>   
+                <br> 
+      <iframe src="https://neural.domainname.com:3010/wetty/ssh/T3" width="1650" height="675" frameborder="20"></iframe>
+    </div>
+      <br>
+      <br>
+  </div>
+</div>
+<!-- ==================== -->
+<br>
+<br>
+<br>
+<br>
+{% endblock content %}

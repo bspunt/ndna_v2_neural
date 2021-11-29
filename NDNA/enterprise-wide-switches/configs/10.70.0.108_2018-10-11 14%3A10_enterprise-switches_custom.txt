@@ -1,0 +1,20 @@
+us-smc-a7-sw1#terminal len 0
+us-smc-a7-sw1#
+us-smc-a7-sw1#sh int trun
+
+Port        Mode             Encapsulation  Status        Native vlan
+Te9/1/1     on               802.1q         trunking      999
+Po37        on               802.1q         trunking      1
+
+Port        Vlans allowed on trunk
+Te9/1/1     106,357,801-810,2524-2527,3200,3204,3300
+Po37        106,357,801-810,2524-2527,3200,3204,3300
+
+Port        Vlans allowed and active in management domain
+Te9/1/1     106,357,801-804,810,2524-2527,3200,3204,3300
+Po37        106,357,801-804,810,2524-2527,3200,3204,3300
+
+Port        Vlans in spanning tree forwarding state and not pruned
+Te9/1/1     106,357,801-804,810,2524-2527,3200,3204,3300
+Po37        106,357,801-804,810,2524-2527,3200,3204,3300
+us-smc-a7-sw1#

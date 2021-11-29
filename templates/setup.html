@@ -1,0 +1,81 @@
+{% extends "automation-base.html" %}
+{% block content %}
+<br>
+<br>
+<br>
+<div class="container my-container">  
+    <div class="text-left padding"><h6><p style="color:rgb(223, 238, 16)"><i>Hey {{ request.user.username }}! Let's Run the Initial Setup or Update Your Settings...
+        (FQDN of the NEURAL Server and email notification settings)</i></p></h6></div>
+    <div class="mt-3"><h4><font color=green><i> Initial Setup (FQDN and email_to_address settings - for job notifications and app links )</i></font></h4></div>  
+
+<!-- ===================================================================================================================== -->
+<form method="POST">
+<div class="row my-row">
+    <div class="form-group col-md-6">  
+            <label for="Setup Domain Name"><font color="white">Setup Fully Qualified Domain Name of The NEURAL Server, e.g. neural.domainname.com or neural.subdomain.domainname.com:</font></label>  
+            <textarea class="form-control col-lg-12" rows="1" id="changednsname" name="changednsname"></textarea>  
+        </div>  
+    <div class="form-group col-md-6">  
+            <label for="Setup Email To"><font color="white">Setup "Email To" (For Job Notifications), e.g. an email distribution list or user email address, e.g. email@domainname.com:</font></label>  
+            <textarea class="form-control col-lg-12" rows="1" id="to_email_address" name="to_email_address"></textarea>  
+        </div>  
+        <div class="col-6">
+        {% csrf_token %}
+        <button type="submit" id="btnform1" class="spinner-button btn-primary padding-top" name="btnform1"><i class="fa fa-paper-plane" aria-hidden="true"></i>&nbspSubmit Initial Settings!</button>  
+        </div> 
+    </form>
+   </div> 
+</div>
+
+<div class="container my-container">  
+    <br>
+    <div class="mt-3"><h4><font color=green><i> Update Setup (FQDN and email_to_address for notification settings)</i></font></h4></div>  
+<form method="POST">
+<div class="row my-row">
+    <div class="form-group col-md-6">  
+            <label for="Current Domain Name"><font color="white">Enter The Current Fully Qualified Domain Name of The NEURAL Server:</font></label>  
+            <textarea class="form-control col-lg-12" rows="1" id="currentdnsname" name="currentdnsname"></textarea>  
+        </div>  
+    <div class="form-group col-md-6">  
+            <label for="Current Setup Email To"><font color="white">Enter The Current "Email To" (For Job Notifications):</font></label>  
+            <textarea class="form-control col-lg-12" rows="1" id="current_to_email_address" name="current_to_email_address"></textarea>  
+        </div>  
+    <div class="form-group col-md-6">  
+            <label for="Update Domain Name"><font color="white">Update Fully Qualified Domain Name of The NEURAL Server, e.g. neural.domainname.com or neural.subdomain.domainname.com:</font></label>  
+            <textarea class="form-control col-lg-12" rows="1" id="changednsname2" name="changednsname2"></textarea>  
+        </div>  
+    <div class="form-group col-md-6">  
+            <label for="Update Setup Email To"><font color="white">Update "Email To" (For Job Notifications), e.g. an email distribution list or user email address, e.g. email@domainname.com:</font></label>  
+            <textarea class="form-control col-lg-12" rows="1" id="to_email_address2" name="to_email_address2"></textarea>  
+        </div>  
+        <div class="col-6">
+        {% csrf_token %}
+        <button type="submit" id="btnform2" class="spinner-button btn-primary padding-top" name="btnform2"><i class="fa fa-paper-plane" aria-hidden="true"></i>&nbspSubmit Updated Settings!</button>  
+        </div> 
+    </form>
+   </div> 
+   <br>
+   <div class="mt-3 text-center"><h4><font color=red><i> You'll be redirected back to the home page once the initial setup or update is complete....</i></font></h4></div>  
+</div>
+
+
+<script>$(document).ready(function() {
+$("#btnform1").click(function() {
+// add spinner to button
+$(this).html(
+'<i class="fa fa-circle-o-notch fa-spin"></i> Standby....'
+);
+});
+});
+</script>
+
+<script>$(document).ready(function() {
+$("#btnform2").click(function() {
+// add spinner to button
+$(this).html(
+'<i class="fa fa-circle-o-notch fa-spin"></i> Standby....'
+);
+});
+});
+</script>
+{% endblock content %}

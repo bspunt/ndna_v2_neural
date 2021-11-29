@@ -1,0 +1,55 @@
+DEB [20201026-11:49:28.405] thr=1   paramiko.transport: starting thread (client mode): 0xb66610ccL
+DEB [20201026-11:49:28.406] thr=1   paramiko.transport: Local version/idstring: SSH-2.0-paramiko_2.0.0
+DEB [20201026-11:49:28.559] thr=1   paramiko.transport: Remote version/idstring: SSH-1.99-Cisco-1.25
+INF [20201026-11:49:28.560] thr=1   paramiko.transport: Connected (version 1.99, client Cisco-1.25)
+DEB [20201026-11:49:28.562] thr=1   paramiko.transport: kex algos:[u'diffie-hellman-group-exchange-sha1', u'diffie-hellman-group14-sha1'] server key:[u'ssh-rsa'] client encrypt:[u'aes128-ctr', u'aes192-ctr', u'aes256-ctr'] server encrypt:[u'aes128-ctr', u'aes192-ctr', u'aes256-ctr'] client mac:[u'hmac-sha2-256', u'hmac-sha2-512', u'hmac-sha1', u'hmac-sha1-96'] server mac:[u'hmac-sha2-256', u'hmac-sha2-512', u'hmac-sha1', u'hmac-sha1-96'] client compress:[u'none'] server compress:[u'none'] client lang:[u''] server lang:[u''] kex follows?False
+DEB [20201026-11:49:28.562] thr=1   paramiko.transport: Kex agreed: diffie-hellman-group14-sha1
+DEB [20201026-11:49:28.562] thr=1   paramiko.transport: Cipher agreed: aes128-ctr
+DEB [20201026-11:49:28.562] thr=1   paramiko.transport: MAC agreed: hmac-sha2-256
+DEB [20201026-11:49:28.562] thr=1   paramiko.transport: Compression agreed: none
+DEB [20201026-11:49:28.613] thr=2   paramiko.transport: starting thread (client mode): 0xb666166cL
+DEB [20201026-11:49:28.614] thr=2   paramiko.transport: Local version/idstring: SSH-2.0-paramiko_2.0.0
+DEB [20201026-11:49:28.751] thr=2   paramiko.transport: Remote version/idstring: SSH-1.99-Cisco-1.25
+INF [20201026-11:49:28.751] thr=2   paramiko.transport: Connected (version 1.99, client Cisco-1.25)
+DEB [20201026-11:49:28.767] thr=2   paramiko.transport: kex algos:[u'diffie-hellman-group-exchange-sha1', u'diffie-hellman-group14-sha1'] server key:[u'ssh-rsa'] client encrypt:[u'aes128-ctr', u'aes192-ctr', u'aes256-ctr'] server encrypt:[u'aes128-ctr', u'aes192-ctr', u'aes256-ctr'] client mac:[u'hmac-sha2-256', u'hmac-sha2-512', u'hmac-sha1', u'hmac-sha1-96'] server mac:[u'hmac-sha2-256', u'hmac-sha2-512', u'hmac-sha1', u'hmac-sha1-96'] client compress:[u'none'] server compress:[u'none'] client lang:[u''] server lang:[u''] kex follows?False
+DEB [20201026-11:49:28.767] thr=2   paramiko.transport: Kex agreed: diffie-hellman-group14-sha1
+DEB [20201026-11:49:28.767] thr=2   paramiko.transport: Cipher agreed: aes128-ctr
+DEB [20201026-11:49:28.767] thr=2   paramiko.transport: MAC agreed: hmac-sha2-256
+DEB [20201026-11:49:28.767] thr=2   paramiko.transport: Compression agreed: none
+DEB [20201026-11:49:29.093] thr=1   paramiko.transport: kex engine KexGroup14 specified hash_algo <built-in function openssl_sha1>
+DEB [20201026-11:49:29.165] thr=1   paramiko.transport: Switch to new keys ...
+DEB [20201026-11:49:29.167] thr=2   paramiko.transport: kex engine KexGroup14 specified hash_algo <built-in function openssl_sha1>
+DEB [20201026-11:49:29.216] thr=3   paramiko.transport: Adding ssh-rsa host key for 10.129.141.2
+: c0881d5adf27c5d74443882ee6aad42d
+DEB [20201026-11:49:29.256] thr=2   paramiko.transport: Switch to new keys ...
+DEB [20201026-11:49:29.267] thr=4   paramiko.transport: Adding ssh-rsa host key for 10.129.141.251
+: d7cfb1bedd517c28093aad5390f2abc5
+DEB [20201026-11:49:29.601] thr=1   paramiko.transport: userauth is OK
+DEB [20201026-11:49:29.674] thr=2   paramiko.transport: userauth is OK
+INF [20201026-11:49:29.675] thr=2   paramiko.transport: Auth banner: CC
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==
+= THIS IS A PRIVATE COMPUTER SYSTEM FOR THE USE OF AUTHORIZED USERS ONLY. =
+= Persons using this computer system without authority, or in excess of their =
+= authority, are subject to having all of their activities on this system =
+= monitored and recorded by system personnel. In the course of monitoring =
+= persons improperly using this system, or in the course of system maintenance =
+= the activities of authorized users may also be monitored. Anyone using this =
+= system expressly consents to such monitoring and is advised that if such =
+= monitoring reveals possible evidence of criminal activity, system personnel =
+= may provide the evidence of such monitoring to law enforcement officials. =
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==
+
+INF [20201026-11:49:30.978] thr=2   paramiko.transport: Authentication (password) successful!
+DEB [20201026-11:49:30.986] thr=4   paramiko.transport: [chan 0] Max packet in: 32768 bytes
+DEB [20201026-11:49:31.140] thr=2   paramiko.transport: [chan 0] Max packet out: 4096 bytes
+DEB [20201026-11:49:31.140] thr=2   paramiko.transport: Secsh channel 0 opened.
+DEB [20201026-11:49:31.311] thr=2   paramiko.transport: [chan 0] Sesch channel 0 request ok
+INF [20201026-11:49:31.315] thr=1   paramiko.transport: Authentication (password) successful!
+DEB [20201026-11:49:31.338] thr=3   paramiko.transport: [chan 0] Max packet in: 32768 bytes
+DEB [20201026-11:49:31.465] thr=2   paramiko.transport: [chan 0] Sesch channel 0 request ok
+DEB [20201026-11:49:31.492] thr=1   paramiko.transport: [chan 0] Max packet out: 4096 bytes
+DEB [20201026-11:49:31.492] thr=1   paramiko.transport: Secsh channel 0 opened.
+DEB [20201026-11:49:31.663] thr=1   paramiko.transport: [chan 0] Sesch channel 0 request ok
+DEB [20201026-11:49:31.819] thr=1   paramiko.transport: [chan 0] Sesch channel 0 request ok
+DEB [20201026-11:50:17.609] thr=2   paramiko.transport: EOF in transport thread
+DEB [20201026-11:50:17.955] thr=1   paramiko.transport: EOF in transport thread

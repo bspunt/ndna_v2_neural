@@ -1,0 +1,116 @@
+
+______________________________________________
+   
+Enter username:    
+   
+______________________________________________
+   
+   
+______________________________________________
+   
+####    ////////// Password will be hidden ///////////
+#### Please copy and input your password from an unsaved text file, e.g. not written to disk, a or secure database like KeepPass
+   
+   
+______________________________________________
+   
+   
+Enter Seed IP:    
+______________________________________________
+   
+*** Program is running.....
+   
+*** Be patient and wait for the program to complete
+   
+*** This might take a long time, depending on the size of the network.....
+   
+*** This usually takes about 10 to 15 minutes.....
+   
+*** Starting on Seed Device.....
+   
+*** Progress feedback will be provided at each level.....
+______________________________________________
+   
+   
+.... 
+.... 
+.... 
+.... Seed Device Almost Complete....
+   
+** Completed device 10.129.141.251
+   
+______________________________________________
+   
+** Second level has cdp neighbors. Standby while connecting to Second level devices.....
+_____________________________________________
+ __  __            _               _        
+|  \/  |          (_)             | |       
+| \  / | _____   ___ _ __   __ _  | |_ ___  
+| |\/| |/ _ \ \ / / | '_ \ / _` | | __/ _ \ 
+| |  | | (_) \ V /| | | | | (_| | | || (_) |
+|_|  |_|\___/ \_/ |_|_| |_|\__, |  \__\___/ 
+                            __/ |           
+                           |___/            
+ _   _           _     _                    _
+| \ | |         | |   | |                  | |
+|  \| | _____  _| |_  | |     _____   _____| |
+| . ` |/ _ \ \/ / __| | |    / _ \ \ / / _ \ |
+| |\  |  __/>  <| |_  | |___|  __/\ V /  __/ |
+|_| \_|\___/_/\_ \__| |______\___| \_/ \___|_|
+______________________________________________
+   
+* Authentication Error for 10.186.128.11
+   
+.... 
+   
+* Authentication Error for 10.186.128.12
+   
+.... 
+.... 
+   
+** Completed device 10.129.141.2
+   
+*** Wrapping Up Second Level Devices...Preparing Third Level Connections.....
+______________________________________________
+ __  __            _               _        
+|  \/  |          (_)             | |       
+| \  / | _____   ___ _ __   __ _  | |_ ___  
+| |\/| |/ _ \ \ / / | '_ \ / _` | | __/ _ \ 
+| |  | | (_) \ V /| | | | | (_| | | || (_) |
+|_|  |_|\___/ \_/ |_|_| |_|\__, |  \__\___/ 
+                            __/ |           
+                           |___/            
+ _   _           _     _                    _
+| \ | |         | |   | |                  | |
+|  \| | _____  _| |_  | |     _____   _____| |
+| . ` |/ _ \ \/ / __| | |    / _ \ \ / / _ \ |
+| |\  |  __/>  <| |_  | |___|  __/\ V /  __/ |
+|_| \_|\___/_/\_ \__| |______\___| \_/ \___|_|
+______________________________________________
+   
+** Third level has cdp neighbors. Standby while connecting to third level devices.....
+   
+   
+*** Wrapping Up Third Level Devices...Preparing Fourth Level Connections.....
+______________________________________________
+ __  __            _               _        
+|  \/  |          (_)             | |       
+| \  / | _____   ___ _ __   __ _  | |_ ___  
+| |\/| |/ _ \ \ / / | '_ \ / _` | | __/ _ \ 
+| |  | | (_) \ V /| | | | | (_| | | || (_) |
+|_|  |_|\___/ \_/ |_|_| |_|\__, |  \__\___/ 
+                            __/ |           
+                           |___/            
+ _   _           _     _                    _
+| \ | |         | |   | |                  | |
+|  \| | _____  _| |_  | |     _____   _____| |
+| . ` |/ _ \ \/ / __| | |    / _ \ \ / / _ \ |
+| |\  |  __/>  <| |_  | |___|  __/\ V /  __/ |
+|_| \_|\___/_/\_ \__| |______\___| \_/ \___|_|
+______________________________________________
+   
+** No more cdp neighbors...
+   
+** Preparing final files to use in custom discovery and/or programming
+   
+** The Network Discovery N Automation Program (NDNA) Has Finished

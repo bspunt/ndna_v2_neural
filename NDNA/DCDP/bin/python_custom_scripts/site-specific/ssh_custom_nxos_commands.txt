@@ -1,0 +1,3 @@
+terminal len 0
+sh vpc
+

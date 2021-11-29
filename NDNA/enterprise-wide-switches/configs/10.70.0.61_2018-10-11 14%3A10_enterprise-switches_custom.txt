@@ -1,0 +1,17 @@
+
+us-smc-a1-sw1#terminal len 0
+us-smc-a1-sw1#
+us-smc-a1-sw1#sh int trun
+
+Port        Mode             Encapsulation  Status        Native vlan
+Po1         on               802.1q         trunking      1
+
+Port        Vlans allowed on trunk
+Po1         105-106,291,351,801-810,2500-2503,2527,3200,3204,3300,3749
+
+Port        Vlans allowed and active in management domain
+Po1         105-106,291,351,801-804,810,2500-2503,2527,3200,3204,3300,3749
+
+Port        Vlans in spanning tree forwarding state and not pruned
+Po1         105-106,291,351,801-804,810,2500-2503,2527,3200,3204,3300,3749
+us-smc-a1-sw1#

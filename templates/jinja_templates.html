@@ -1,0 +1,63 @@
+{% extends "datatables-base.html" %}
+{% block content %}
+    <div class="container mb-3 mt-3">
+        <div class="text-left padding"><h6><p style="color:rgb(223, 238, 16)"><i>Hey {{ request.user.username }}! ( ͡ᵔ ͜ʖ ͡ᵔ )</i></p></h6></div>
+
+        <div class="text-left padding"><h6><font color=green><i>Manage Jinja2 Templates<br><font color=white>=================================</font>
+            <br>This allows you to properly delete any uploaded Jinja2 Templates. 
+            <br>The delete option will remove from the database and from the file system</i></font></h6></div>  
+        <table id="mydatatable" class="table table-striped table-bordered table-dark table-sm" style="width:100%">
+        <thead>
+        <tr>
+          <th>jinja_file_name</th>
+          <th>uploaded_by</th>
+          <th>delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for template in jinjatemplates %}
+          <tr>
+            <td>{{ template.jinja_file_name }}</td>
+            <td>{{ template.uploaded_by }}</td>
+            <td>
+              <form method="post" action="{% url 'delete_jinja_config_template' template.pk %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger btn-sm">Delete Jinja2 Template</button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+        <br>
+        <br>
+
+    </div>
+    <!-- ===== tables format and search related ==== -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.bootstrap4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.colVis.min.js"></script>
+    
+    
+    <script type="application/javascript">
+    $(document).ready(function() {
+        var table = $('#mydatatable').DataTable( {
+            lengthChange: true,
+        lengthMenu: [5, 10, 25, 50],
+            buttons: [ 'copy', 'excel', 'pdf', 'csv', 'print', 'colvis' ]
+        } );
+     
+        table.buttons().container()
+            .appendTo( '#mydatatable_wrapper .col-md-6:eq(0)' );
+    } );
+    </script>
+
+{% endblock %}

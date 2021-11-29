@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<br>
+<br>
+<br>
+<div class="progress" style="width: 1000px; margin: auto">
+    <div id="status-bar" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: {{job_result.percent_finished_devices}}%">{{job_result.percent_finished_devices}}% Complete</div>
+</div>
+
+
+<br>
+{% if job_result.status == 'completed' or job_result.status == 'failed' %}
+<div class="d-flex justify-content-center">
+<div><pre><font color="white"><b><a href="{% url 'automation_output_configs' %}"><i class="fa fa-file-text-o" aria-hidden="true"></i>&nbsp<i class="fa fa-download" aria-hidden="true"></i> View All Your Automation Output (Configs)</a><br>
+    Job Has Completed......</b><br><br>Start Time = {{ job_result.started }}<br>End Time = {{ job_result.completed }}
+    <br>total_device_count = {{ job_result.total_device_count }}<br>completed_device_count = {{ job_result.completed_device_count }}
+    <br>failed_device_count = {{ job_result.failed_device_count }}
+    <br>{{ job_result.messages }}<br></font>
+</pre></div>
+<!-- <div><pre><b>Job Has Completed......</b><br><br>Start Time = {{ job_result.started }}<br>End Time = {{ job_result.completed }}<br><br>total_device_count = {{ job_result.total_device_count }}<br>completed_device_count = {{ job_result.completed_device_count }}<br>failed_device_count = {{ job_result.failed_device_count }}<br><br>{{ job_result.messages }}<br><br>{{ job_result.output }}</pre></div> -->
+</div>
+
+{% else %}
+<div class="d-flex justify-content-center">
+<button id="spinner" class="btn btn-primary" type="button" disabled>
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+    Connecting to the Network...Standby...Job is running....
+    </button>
+</div>
+
+{% endif %}
+
+{% endblock %}
+
+
+{% block javascript %}
+
+<script type="application/javascript">
+
+function updateStatusBar(data){
+    console.log((data.failed_device_count + data.completed_device_count) / data.total_device_count)
+    console.log($("#status-bar")[0])
+    var value = (data.failed_device_count + data.completed_device_count) / data.total_device_count *100
+    $("#status-bar").attr("aria-valuenow", value)
+    $("#status-bar").css("width", value +'%')
+    $("#status-bar").text(value +'%')
+}
+
+{% if job_result.status != 'completed' and job_result.status != 'failed' %}
+    var jobid = {{ job_result.pk }}
+{% else %}
+    var jobid = null
+{% endif %}
+
+$(document).ready(function(){
+    timeout=1000;
+    if (jobid !==null){
+        (function checkPendingResult(){
+            $.ajax({
+                url: '/jobresults/' + jobid ,
+                method: 'GET',
+                dataType: 'json',
+                context: this,
+                success: function(data) {
+                    updateStatusBar(data)
+                    if (data.status === 'completed' || data.status === 'failed' || data.status === 'errored'){
+                        console.log("Job finished!")
+                        window.location.reload()
+
+                    } 
+                    else {
+                        setTimeout(checkPendingResult, timeout);
+                        if (timeout < 10000) {
+                            // back off each iteration, until we reach a 10s interval
+                            timeout += 1000
+                        }
+                    }
+                }
+            });
+        })();
+    }
+})
+</script>
+
+{% endblock %}

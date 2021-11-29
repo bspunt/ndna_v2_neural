@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<mysqldump xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<database name="CDP">
+	<table_structure name="CDP_Inventory">
+		<field Field="Local_Hostname" Type="varchar(100)" Null="NO" Key="PRI" Extra="" Comment="" />
+		<field Field="Remote_Platform" Type="varchar(7000)" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="Remote_cdp_neighbors" Type="varchar(3000)" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="local_intf_remote_intf" Type="varchar(5000)" Null="YES" Key="" Extra="" Comment="" />
+		<key Table="CDP_Inventory" Non_unique="0" Key_name="PRIMARY" Seq_in_index="1" Column_name="Local_Hostname" Collation="A" Cardinality="2" Null="" Index_type="BTREE" Comment="" Index_comment="" />
+		<key Table="CDP_Inventory" Non_unique="1" Key_name="Local_Hostname" Seq_in_index="1" Column_name="Local_Hostname" Collation="A" Cardinality="2" Null="" Index_type="BTREE" Comment="" Index_comment="" />
+		<options Name="CDP_Inventory" Engine="InnoDB" Version="10" Row_format="Compact" Rows="2" Avg_row_length="8192" Data_length="16384" Max_data_length="0" Index_length="16384" Data_free="0" Create_time="2020-04-18 18:07:43" Collation="latin1_swedish_ci" Create_options="" Comment="" />
+	</table_structure>
+	<table_data name="CDP_Inventory">
+	<row>
+		<field name="Local_Hostname">ch-zur-sdwanrt1</field>
+		<field name="Remote_Platform">cisco C9300-48UN,  Capabilities: Router Switch IGMP  | Cisco C892FSP-K9,  Capabilities: Router Source-Route-Bridge Switch IGMP </field>
+		<field name="Remote_cdp_neighbors"> ch-zur-sw1.corpzone.internalzone.com |  ch-mceZUE846.cablecom.net</field>
+		<field name="local_intf_remote_intf">GigabitEthernet0/0/1,  Port ID (outgoing port): FiveGigabitEthernet1/0/1 | GigabitEthernet0/0/0,  Port ID (outgoing port): GigabitEthernet0</field>
+	</row>
+	<row>
+		<field name="Local_Hostname">ch-zur-sw1</field>
+		<field name="Remote_Platform">cisco AIR-CAP3602I-E-K9,  Capabilities: Trans-Bridge Source-Route-Bridge IGMP  | cisco ISR4331/K9,  Capabilities: Router Switch IGMP  | cisco AIR-CAP3602I-E-K9,  Capabilities: Trans-Bridge Source-Route-Bridge IGMP </field>
+		<field name="Remote_cdp_neighbors"> ch-zur-ap1.corpzone.internalzone.com |  ch-zur-sdwanrt1 |  CH-ZUR-AP02</field>
+		<field name="local_intf_remote_intf">FiveGigabitEthernet1/0/22,  Port ID (outgoing port): GigabitEthernet0 | FiveGigabitEthernet1/0/1,  Port ID (outgoing port): GigabitEthernet0/0/1 | FiveGigabitEthernet1/0/9,  Port ID (outgoing port): GigabitEthernet0</field>
+	</row>
+	</table_data>
+</database>
+</mysqldump>

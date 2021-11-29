@@ -1,0 +1,2 @@
+terminal len 0
+sh int trun

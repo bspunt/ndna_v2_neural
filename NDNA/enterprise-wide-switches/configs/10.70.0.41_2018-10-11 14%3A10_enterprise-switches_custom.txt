@@ -1,0 +1,17 @@
+
+us-smc-voipsw1#terminal len 0
+us-smc-voipsw1#
+us-smc-voipsw1#sh int trun
+
+Port        Mode             Encapsulation  Status        Native vlan
+Po1         on               802.1q         trunking      999
+
+Port        Vlans allowed on trunk
+Po1         106,392,394-399,584-596,2503,2507,2511,2515,2519,2523,2527,2531,3200
+
+Port        Vlans allowed and active in management domain
+Po1         106,392,394-399,584,586,588-592,596,2503,2507,2511,2515,2519,2523,2527,2531,3200
+
+Port        Vlans in spanning tree forwarding state and not pruned
+Po1         106,392,394-399,584,586,588-592,596,2503,2507,2511,2515,2519,2523,2527,2531,3200
+us-smc-voipsw1#

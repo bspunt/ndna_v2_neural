@@ -1,0 +1,65 @@
+
+us-smc-a1-secsw4#terminal len 0
+us-smc-a1-secsw4#
+us-smc-a1-secsw4#sh int trun
+
+Port        Mode             Encapsulation  Status        Native vlan
+Gi1/0/1     on               802.1q         trunking      999
+Gi1/0/3     on               802.1q         trunking      999
+Gi1/0/4     on               802.1q         trunking      999
+Gi1/0/5     on               802.1q         trunking      999
+Gi1/0/6     on               802.1q         trunking      999
+Gi1/0/7     on               802.1q         trunking      999
+Gi1/0/8     on               802.1q         trunking      999
+Gi1/0/9     on               802.1q         trunking      999
+Gi1/0/10    on               802.1q         trunking      999
+Gi1/0/11    on               802.1q         trunking      999
+Gi1/0/12    on               802.1q         trunking      999
+Gi2/0/10    on               802.1q         trunking      1
+Gi2/0/11    on               802.1q         trunking      999
+
+Port        Vlans allowed on trunk
+Gi1/0/1     1,105,2502
+Gi1/0/3     1,105,2506
+Gi1/0/4     1,105,2510
+Gi1/0/5     1,105,2514
+Gi1/0/6     1,105,2518
+Gi1/0/7     1,105,2522
+Gi1/0/8     1,105,2526
+Gi1/0/9     1,105,2530
+Gi1/0/10    1,105,2534
+Gi1/0/11    1,105,2538
+Gi1/0/12    1,105,2502
+Gi2/0/10    1,105,2542,2546
+Gi2/0/11    105,2502,2506,2510,2514,2518,2522,2526,2530,2534,2538,2542,2546
+
+Port        Vlans allowed and active in management domain
+Gi1/0/1     1,105,2502
+Gi1/0/3     1,105,2506
+Gi1/0/4     1,105,2510
+Gi1/0/5     1,105,2514
+Gi1/0/6     1,105,2518
+Gi1/0/7     1,105,2522
+Gi1/0/8     1,105,2526
+Gi1/0/9     1,105,2530
+Gi1/0/10    1,105,2534
+Gi1/0/11    1,105,2538
+Gi1/0/12    1,105,2502
+Gi2/0/10    1,105,2542,2546
+Gi2/0/11    105,2502,2506,2510,2514,2518,2522,2526,2530,2534,2538,2542,2546
+
+Port        Vlans in spanning tree forwarding state and not pruned
+Gi1/0/1     1,105,2502
+Gi1/0/3     1,105,2506
+Gi1/0/4     1,105,2510
+Gi1/0/5     1,105,2514
+Gi1/0/6     1,105,2518
+Gi1/0/7     1,105,2522
+Gi1/0/8     1,105,2526
+Gi1/0/9     1,105,2530
+Gi1/0/10    1,105,2534
+Gi1/0/11    1,105,2538
+Gi1/0/12    1,105,2502
+Gi2/0/10    1,105,2542,2546
+Gi2/0/11    105,2502,2506,2510,2514,2518,2522,2526,2530,2534,2538,2542,2546
+us-smc-a1-secsw4#

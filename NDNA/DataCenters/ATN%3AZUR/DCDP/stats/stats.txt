@@ -1,0 +1,7 @@
+The total number of Good IP hosts (Total number of successful connections, e.g. Authentication Success) is: 2
+The total number of IOS IP hosts discovered is: 2
+The total number of NXOS IP hosts discovered is: 0
+The total number of L2-IOS IP hosts discovered is: 0
+The total number of L3-IOS IP hosts discovered is: 2
+The total number of hosts with authentication errors is: 2
+The total number of Incompatible SSH version hosts is: 0

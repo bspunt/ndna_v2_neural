@@ -1,0 +1,20 @@
+ca-wat-torsw5#terminal len 0
+ca-wat-torsw5#
+ca-wat-torsw5#sh int trun
+
+Port        Mode             Encapsulation  Status        Native vlan
+Po1         on               802.1q         trunking      999
+Po45        on               802.1q         trunking      1
+
+Port        Vlans allowed on trunk
+Po1         99,105,410-414,600,3600-3608,3612,3801
+Po45        3601,3801
+
+Port        Vlans allowed and active in management domain
+Po1         99,105,410-414,600,3600-3605,3608,3612,3801
+Po45        3601,3801
+
+Port        Vlans in spanning tree forwarding state and not pruned
+Po1         99,105,410-414,600,3600-3605,3608,3612,3801
+Po45        3601,3801
+ca-wat-torsw5#

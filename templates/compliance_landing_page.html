@@ -1,0 +1,177 @@
+{% extends "automation-base.html" %}
+{% load static %}
+{% block content %}
+<br>
+<br>
+<br>
+<div class="container my-container">  
+    <div class="text-left padding"><h6><p style="color:rgb(223, 238, 16)"><i>Hey {{ request.user.username }}!<br><br> Let's Work On Configuration Compliance! (Create, Review, & Compare Against the Live Network) ( ͡ᵔ ͜ʖ ͡ᵔ )</i></p></h6></div>
+   <div class="mt-3"><h4><font color=Green><i>Submit and Create A Golden (Compliant) Config..</i></font></h4></div>  
+   <div class="mt-3"><h6><font color=Yellow><i>Golden Configs Can Be Pasted Just Like They Appear In The Network Device, e.g. indentation is fine, !'s are fine too....</i></font></h6></div>  
+   <!-- <div class="mt-3"><h6><font color=Yellow><i>Lastly, They Must Contain a newline feed at the end of the Golden Config...e.g. Simply Hit "Enter" at the end of your config to create a new line</i></font></h6></div> -->
+
+<!-- =========================================================================================================== -->
+<form method="POST">
+<div class="row my-row">
+    <div class="form-group col-md-12">  
+            <label for="device_type"><font color="white">Enter The Name of Your Golden Config (Platform_Type):</font></label>  
+            <textarea class="form-control col-lg-12" rows="1" id="device_type" name="device_type"></textarea>  
+        </div>  
+
+
+    <div class="form-group col-md-12">  
+<label for="Nodes"><font color="white">Paste The Golden Config Here:</font></label>  
+            <!-- <label for="Nodes"><font color="white">Nodes:</font></label> -->
+            <textarea class="form-control col-lg-12" rows="10" id="goldenconfig" name="goldenconfig" option value="header"></textarea>  
+        </div>  
+
+        <div class="form-group col-lg-4">  
+        {% csrf_token %}
+        <button type="submit" class=" btn btn-primary padding-top btn-sm" name="btnform1"><i class="fa fa-database" aria-hidden="true"></i>&nbsp<i class="fas fa-file-export"></i>&nbspImport Golden Config!</button>  
+        </div> 
+    </form>
+    <div class="col-md-8">  </div> 
+  </div> 
+</div> 
+<!-- =========================================================================================================== -->
+<div class="container my-container">  
+  <div class="mt-3"><h4><font color=Green><i>Load Up A Golden Configuration To Review...</i></font></h4></div>  
+
+  <form method="POST">
+    <div class="row my-row">
+      <div class="input-group col-12">
+      <select class="custom-select" id="device_platform" name="device_platform">
+        <option selected>Choose the Platform...(Name of the Config)</option>
+        {% for d in golden_configs %}
+        <option value="{{ d }}">{{ d }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+        <div class="form-group col-lg-4">  
+        <br>
+        {% csrf_token %}
+        <button type="submit" class=" btn btn-primary padding-top btn-sm" name="btnform2"><i class="fa fa-database" aria-hidden="true"></i>&nbsp<i class="fas fa-file-export"></i>&nbspDisplay Golden Config!</button>  
+        </div> 
+    </form>
+    <div class="col-md-8"></div>
+
+    <div class="col-md-12">
+    <div class="mt-3"><h6><a href="{% url 'display_all_golden_configs' %}">View All Golden Configs!</a></h6></div> 
+    </div>
+
+    {% if gc_output %}
+    <div class="form-group col-md-12">  
+      <label for="Golden Config Output"><font color="white">Golden Config Output:</font></label>  
+            <textarea class="form-control col-lg-12" rows="10" id="displayconfig" name="displayconfig" 
+            {% for line in gc_output %}
+                option value="header">{{ line }}
+            {% endfor %}
+          </textarea>
+        </div>  
+
+    {% else %}
+    {% endif %}
+  </div> 
+</div> 
+
+<!-- =========================================================================================================== -->
+<div class="container my-container">  
+  <div class="mt-3"><h4><font color=Green><i>Remove/Delete A Golden Config...</i></font></h4></div>  
+  <form method="POST">
+    <div class="row my-row">
+
+      <div class="input-group col-12">
+      <select class="custom-select" id="device_platform" name="device_platform">
+        <option selected>Choose the Platform...(Name of the Config)</option>
+        {% for d in golden_configs %}
+        <option value="{{ d }}">{{ d }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+        <div class="form-group col-lg-4">  
+          <br>
+        {% csrf_token %}
+        <button type="submit" class=" btn btn-danger padding-top btn-sm" name="btnform10"><i class="fa fa-database" aria-hidden="true"></i>&nbsp<i class="fa fa-trash-o"></i>&nbspDelete Golden Config!</button>  
+        </div> 
+    </form>
+    <div class="col-md-8">  </div> 
+
+  </div> 
+</div> 
+<!-- =========================================================================================================== -->
+<div class="container my-container">  
+  <div class="mt-3"><h4><font color=Green><i>Run A Compliance Check...</i></font></h4></div>  
+
+  <form method="POST">
+    <div class="row my-row">
+    <div class="form-group col-md-12">  
+        <label for="nodes_list"><font color="white">Enter nodes (Single or Multiple Nodes) to run compliance checks against the live environment:</font></label>  
+        <textarea class="form-control col-lg-12" rows="1" id="nodes_list" name="nodes_list"></textarea>
+    </div>  
+
+      <div class="input-group col-12">
+      <select class="custom-select" id="device_platform" name="device_platform">
+        <option selected>Choose Your Golden Config to Run Compliance Against...</option>
+        {% for d in golden_configs %}
+        <option value="{{ d }}">{{ d }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+        <div class="form-group col-lg-4">  
+        <br>
+        {% csrf_token %}
+        <button type="submit" id="compare_diff" class="spinner-button btn-danger padding-top btn-sm" name="btnform3"><i class="fa fa-code" aria-hidden="true"></i>&nbspSubmit to Run Compliance Check!</button>
+        </div> 
+    </form>
+    <div class="col-md-8">  </div> 
+
+    <!-- {% if gc_output_for_diffs %}
+    <div class="form-group col-md-12">  
+      <label for="Golden Config Output"><font color="white">Reference Golden Config:</font></label>  
+            <textarea class="form-control col-lg-12" rows="10" id="displayconfig" name="displayconfig" 
+            {% for line in gc_output_for_diffs %}
+                option value="header">{{ line }}
+            {% endfor %}
+          </textarea>
+        </div>  
+    {% else %}
+    {% endif %}
+
+    {% if diffs %}
+    <div class="form-group col-md-12">  
+      <h4><font color=Green><i>The following code is out of compliance and doesn't exist in the live configuraton, but does exist in the intended configuraton (The Golden Configuraton)...</i></font></h4>
+      <label for="diff_output"><font color="white">Diffs (Missing from Live Environment)</font></label>  
+            <textarea class="form-control col-lg-12" rows="10" id="diff_output" name="diff_output" 
+            {% for diff in diffs %}
+                option value="header">{{ diff }}
+            {% endfor %}
+          </textarea>
+        </div>  
+    {% else %}
+  <div class="mt-3 col-md-12"><h4><font color=Green><i>Good News! Device Is Compliant...</i></font></h4></div>  
+    {% endif %} -->
+
+  </div> 
+</div> 
+
+
+
+<script>$(document).ready(function() {
+$("#compare_diff").click(function() {
+// add spinner to button
+$(this).html(
+'<i class="fa fa-circle-o-notch fa-spin"></i> loading up your results...Standby'
+);
+});
+});
+</script>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+{% endblock content %}

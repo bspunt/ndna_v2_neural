@@ -1,0 +1,40 @@
+{% extends "automation-base.html" %}
+{% load static %}
+{% block content %}
+<br>
+<br>
+<br>
+<div class="container my-container">  
+  <div class="text-left padding"><h6><p style="color:rgb(223, 238, 16)"><i>Hey {{ request.user.username }}! Let's Import Devices Into Neural ( ͡ᵔ ͜ʖ ͡ᵔ )</i></p></h6></div>
+  <div class="mt-3"><h4><font color=Green><i>Bulk Device Import....You Can Import One Device or Multiple Devices!</i></font></h4></div> 
+  <br> 
+  <div class="text-left padding"><h6><p style="color:rgb(223, 238, 16)"><i>            You can paste the info directly into the web form.
+            <br><br>For bulk imports, it's recommended to 
+            build it out in excel, then open in your favorite text editor and copy/paste into this web form<br><br>
+            <b>NOTE: The column header names are case sensitive and must be exactly as they are pre-populated in the web form!</b></i></p></h6></div>
+
+<br> 
+<form method="POST">
+<div class="row my-row">
+  
+    <div class="form-group col-md-12">  
+            <!-- <label for="Nodes"><font color="white">Nodes:</font></label> -->
+            <textarea class="form-control col-lg-12" rows="10" id="inventorycsv" name="inventorycsv" option value="header">hostname,model,site,device_type,vendor,OS,Region</textarea>  
+        </div>  
+        
+        <div class="form-group col-lg-4">  
+        {% csrf_token %}
+        <button type="submit" class=" btn btn-primary padding-top btn-sm" name="btnform1"><i class="fa fa-database" aria-hidden="true"></i>&nbsp<i class="fas fa-file-export"></i>&nbspSubmit to Import Now!</button>  
+        </div> 
+    </form>
+    <div class="col-md-8">  </div> 
+  </div> 
+</div> 
+<!-- ==================== -->
+<br>
+<br>
+<br>
+<br>
+<br>
+
+{% endblock content %}

@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<mysqldump xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<database name="IOS_INVENTORY">
+	<table_structure name="Cisco_IOS_Inventory">
+		<field Field="Hostname" Type="varchar(100)" Null="NO" Key="PRI" Extra="" Comment="" />
+		<field Field="Local_IPs" Type="varchar(5000)" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="Local_SVI_IPs" Type="varchar(5000)" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="IOS_Image" Type="varchar(200)" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="IOSVersion" Type="varchar(200)" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="Flash" Type="varchar(200)" Null="YES" Key="" Extra="" Comment="" />
+		<field Field="SerialNo" Type="varchar(2000)" Null="YES" Key="" Extra="" Comment="" />
+		<key Table="Cisco_IOS_Inventory" Non_unique="0" Key_name="PRIMARY" Seq_in_index="1" Column_name="Hostname" Collation="A" Cardinality="2" Null="" Index_type="BTREE" Comment="" Index_comment="" />
+		<options Name="Cisco_IOS_Inventory" Engine="InnoDB" Version="10" Row_format="Compact" Rows="2" Avg_row_length="8192" Data_length="16384" Max_data_length="0" Index_length="0" Data_free="0" Create_time="2020-04-18 18:06:48" Collation="latin1_swedish_ci" Create_options="" Comment="" />
+	</table_structure>
+	<table_data name="Cisco_IOS_Inventory">
+	<row>
+		<field name="Hostname">ch-zur-sdwanrt1</field>
+		<field name="Local_IPs">84.72.224.234 | 10.129.141.2 | 1.1.1.1</field>
+		<field name="Local_SVI_IPs"></field>
+		<field name="IOS_Image">X86_64_LINUX_IOSD-UCMK9-M</field>
+		<field name="IOSVersion">16.12.02r, RELEASE SOFTWARE (fc9)</field>
+		<field name="Flash">3258179584 bytes total</field>
+		<field name="SerialNo">FDO2332M0NT</field>
+	</row>
+	<row>
+		<field name="Hostname">ch-zur-sw1</field>
+		<field name="Local_IPs"></field>
+		<field name="Local_SVI_IPs">192.168.3.1 | 10.196.26.1 | 10.186.128.1 | 10.186.192.1 | 10.152.225.1</field>
+		<field name="IOS_Image">CAT9K_IOSXE</field>
+		<field name="IOSVersion">16.12.3a, RELEASE SOFTWARE (fc1)</field>
+		<field name="Flash">11353194496 bytes total</field>
+		<field name="SerialNo">FJC2333S07C</field>
+	</row>
+	</table_data>
+</database>
+</mysqldump>

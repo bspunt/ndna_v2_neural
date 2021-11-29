@@ -1,0 +1,16 @@
+us-smc-a4-sw2#terminal len 0
+us-smc-a4-sw2#
+us-smc-a4-sw2#sh int trun
+
+Port        Mode             Encapsulation  Status        Native vlan
+Te1/1/1     on               802.1q         trunking      999
+
+Port        Vlans allowed on trunk
+Te1/1/1     106,354,801-810,2512-2515,3200,3204,3300
+
+Port        Vlans allowed and active in management domain
+Te1/1/1     106,354,801-804,810,2512-2515,3200,3204,3300
+
+Port        Vlans in spanning tree forwarding state and not pruned
+Te1/1/1     106,354,801-804,810,2512-2515,3200,3204,3300
+us-smc-a4-sw2#

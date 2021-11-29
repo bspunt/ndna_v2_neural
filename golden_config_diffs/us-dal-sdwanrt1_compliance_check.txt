@@ -1,0 +1,720 @@
+
+us-dal-sdwanrt1#term len 0
+us-dal-sdwanrt1#sh run
+Building configuration...
+
+Current configuration : 20108 bytes
+!
+! Last configuration change at 15:21:14 UTC Tue May 18 2021 by NETCONF
+!
+version 16.12
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+platform qfp utilization monitor load 80
+platform punt-keepalive disable-kernel-core
+platform inspect match-statistics per-filter
+!
+hostname us-dal-sdwanrt1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition 1
+rd 1:1
+!
+address-family ipv4
+route-target export 1:1
+route-target import 1:1
+exit-address-family
+!
+address-family ipv6
+exit-address-family
+!
+vrf definition 65528
+!
+address-family ipv4
+exit-address-family
+!
+vrf definition Mgmt-intf
+rd 1:512
+!
+address-family ipv4
+route-target export 1:512
+route-target import 1:512
+exit-address-family
+!
+address-family ipv6
+exit-address-family
+!
+logging buffered 512000
+logging persistent
+no logging rate-limit
+!
+aaa new-model
+!
+!
+aaa group server tacacs+ tacacs-1
+server-private 10.92.1.113 timeout 10 key 7 01190c1d43082a18146864203d2a05353159300e00
+server-private 10.93.8.113 key 7 020c0e4213052336796a23302138002c36511e0f0f
+server-private 10.212.24.133 key 7 130f1d0b130f283d1e00021a110d01202c56357272
+ip vrf forwarding 1
+ip tacacs source-interface Loopback10
+!
+aaa authentication login default local group tacacs-1
+aaa authorization exec default local group tacacs-1
+!
+!
+!
+!
+!
+!
+aaa session-id common
+fhrp version vrrp v3
+!
+!
+!
+!
+!
+!
+!
+ip name-server 8.8.4.4 8.8.8.8
+no ip dhcp use class
+!
+!
+!
+no ip igmp ssm-map query dns
+login on-success log
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+!
+!
+!
+!
+!
+!
+flow record sdwan_flow_record
+description flow and application visibility records
+match ipv4 destination address
+match ipv4 protocol
+match ipv4 source address
+match routing vrf service
+match transport destination-port
+match transport source-port
+collect application name
+collect connection id long
+collect counter bytes long
+collect counter bytes sdwan dropped long
+collect counter packets long
+collect counter packets sdwan dropped long
+collect counter packets sdwan pkt-cxp-d-pkts
+collect counter packets appqoe fec-d-pkts
+collect counter packets appqoe fec-r-pkts
+collect counter packets appqoe pkt-dup-d-pkts-orig
+collect counter packets appqoe pkt-dup-d-pkts-dup
+collect counter packets appqoe pkt-dup-r-pkts
+collect flow end-reason
+collect interface input
+collect interface output
+collect ipv4 dscp
+collect overlay session id input
+collect overlay session id output
+collect timestamp absolute first
+collect timestamp absolute last
+collect transport tcp flags
+collect drop cause id
+collect sdwan sla-not-met
+collect sdwan preferred-color-not-met
+collect sdwan qos-queue-id
+!
+!
+flow exporter sdwan_flow_exporter_0
+description export flow and application visibility records to vManage
+destination local sdwan
+transport udp 5458
+export-protocol ipfix
+option application-attributes
+option drop-cause-table
+option application-table
+!
+!
+flow exporter sdwan_flow_exporter_1
+description export flow records to collector
+destination 10.44.66.239 vrf 1
+source Loopback10
+transport udp 2070
+export-protocol ipfix
+template data timeout 300
+option application-attributes timeout 300
+option tunnel-tloc-table timeout 300
+option drop-cause-table timeout 300
+option interface-table timeout 300
+option application-table timeout 300
+!
+!
+flow monitor sdwan_flow_monitor
+description monitor flows for vManage and external collectors
+exporter sdwan_flow_exporter_0
+exporter sdwan_flow_exporter_1
+cache timeout inactive 10
+cache timeout active 60
+record sdwan_flow_record
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+crypto pki trustpoint TP-self-signed-2180296740
+enrollment selfsigned
+subject-name cn=IOS-Self-Signed-Certificate-2180296740
+revocation-check none
+rsakeypair TP-self-signed-2180296740
+!
+!
+crypto pki certificate chain TP-self-signed-2180296740
+certificate self-signed 01
+30820330 30820218 A0030201 02020101 300D0609 2A864886 F70D0101 05050030
+31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274
+69666963 6174652D 32313830 32393637 3430301E 170D3231 30343139 30393030
+32325A17 0D333030 31303130 30303030 305A3031 312F302D 06035504 03132649
+4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D32 31383032
+39363734 30308201 22300D06 092A8648 86F70D01 01010500 0382010F 00308201
+0A028201 0100ACB4 9C984236 0052FC0E 7477CF6C 9F4C3271 EFE0C9A7 DDE2EA9D
+2D8B6F16 66BC08A7 5AC50936 B1D726A1 DCF73AA5 036569B0 8F8239B5 48F4523C
+A90F48C2 E7F837F1 A4DF826A E9D52688 D0348404 9EA6ED8E FFF47C87 47467BD5
+C85D3FAF F5FA1864 9181A9D9 96DC53A5 57A2BFD5 D2040B26 A8BDA40F 23599E0F
+26DF4F51 429B5F5F D1355342 77974DD3 248F7F7A 95F154CA C027213B 3D022643
+CBED7D6C 8BCDF3BC 2D5C6866 8C818FA3 2475067B 0E1940D1 2A501AA6 0C83AA04
+5AE16438 2F79AF91 9A107140 427EE134 BE0AD751 F3A0C36E 61B24B5A 77F07268
+3C3D67C0 D00D2BC5 E3DC656A 8641579D D3A8A2D9 CEA7BE43 57EE3269 AAE8C832
+96FA2B99 EBC10203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF
+301F0603 551D2304 18301680 146E03F0 DF42EA80 52F02E6D 89E50E74 60C967CE
+80301D06 03551D0E 04160414 6E03F0DF 42EA8052 F02E6D89 E50E7460 C967CE80
+300D0609 2A864886 F70D0101 05050003 82010100 46213B95 BDFC3326 24D8602D
+AB3D3588 1DF86396 450BFD29 3C83F0F7 0DB85CF8 6B26E916 53266A74 D717B109
+6DEAA499 63747CD3 474ABE88 C5A8EB9D C442E402 05D61005 2FA2EEE3 2BCE66B2
+7649D9AC 322F1AC7 7EA8FA32 39724CE1 15864C76 9C18E7F3 1C12AC17 ECB7FB83
+D09721F3 1773EA1E 9E5C8D4A 77C0A329 8280BF42 E0E3234F D83A8CF0 65074750
+8954BD0E AB214BEF E89284BC 058F682A 29F371E0 78439919 CBF50B55 2D667191
+72CBA121 514BCEE0 25B1D81D 66DB70AE 96356DC3 416BFA2F E08927BB C40D7F9F
+FFCB790B 00719A22 8F248FCD 9F35AE5A BEA98B12 D9C9432A B305F1EA BDF1D608
+81FE9B8C C7338404 1D23C650 8263BACC BCDE6795
+	quit
+!
+!
+license udi pid ASR1002-HX sn JAD23341174
+no license smart enable
+memory free low-watermark processor 683761
+!
+!
+spanning-tree extend system-id
+diagnostic bootup level minimal
+!
+username admin privilege 15 secret 9 $9$2F6G3F6G2/MG2E$Mtn2otJDkawKjdPp5d7K3LAF9buXcCXONRYFGuqofvA
+username azhar privilege 15 secret 9 $9$4/MD3lIH1l2I3E$2/D.g81orZp9hH/NFom6pyDVoXbDwyfHdU9MTVz1tkg
+username netauth privilege 15 secret 9 $9$2VQM4.wD1lMI2k$tK9skM35i0nYyDnS1l37RgnzTZ6UYdyBRHhF4Li1qRs
+!
+redundancy
+mode none
+!
+!
+!
+no crypto ikev2 diagnose error
+!
+!
+!
+!
+class-map match-any Queue1
+match qos-group 1
+class-map match-any Queue0
+match qos-group 0
+class-map match-any Queue3
+match qos-group 3
+class-map match-any Queue2
+match qos-group 2
+class-map match-any Queue5
+match qos-group 5
+class-map match-any Queue4
+match qos-group 4
+class-map match-any Queue7
+match qos-group 7
+class-map match-any Queue6
+match qos-group 6
+!
+policy-map WAN-QOS-10-PERCENT-RT
+class Queue0
+priority level 1
+police rate percent 10
+class Queue1
+bandwidth remaining ratio 35
+class Queue3
+bandwidth remaining ratio 3
+class Queue4
+bandwidth remaining ratio 3
+class Queue5
+bandwidth remaining ratio 3
+class Queue6
+bandwidth remaining ratio 24
+class Queue7
+bandwidth remaining ratio 3
+class class-default
+random-detect
+bandwidth remaining ratio 19
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+description OSPF-RID
+vrf forwarding 1
+ip address 10.52.1.249 255.255.255.255
+no ip redirects
+ip mtu 1500
+!
+interface Loopback10
+description Match-System-IP-Using-looback10-FQDN-Should-Use-Lo10
+vrf forwarding 1
+ip address 10.129.4.253 255.255.255.255
+no ip redirects
+ip mtu 1500
+!
+interface Loopback411
+description looback411
+vrf forwarding 1
+ip address 10.128.126.1 255.255.255.255
+no ip redirects
+ip mtu 1500
+!
+interface Loopback65528
+vrf forwarding 65528
+ip address 192.168.1.1 255.255.255.255
+!
+interface Tunnel101003
+ip unnumbered GigabitEthernet0/0/3.101
+no ip redirects
+ipv6 unnumbered GigabitEthernet0/0/3.101
+no ipv6 redirects
+tunnel source GigabitEthernet0/0/3.101
+tunnel mode sdwan
+!
+interface Tunnel10000010
+ip unnumbered TenGigabitEthernet0/1/0
+no ip redirects
+ipv6 unnumbered TenGigabitEthernet0/1/0
+no ipv6 redirects
+tunnel source TenGigabitEthernet0/1/0
+tunnel mode sdwan
+!
+interface GigabitEthernet0/0/0
+no ip address
+negotiation auto
+!
+interface GigabitEthernet0/0/1
+no ip address
+no ip redirects
+load-interval 30
+negotiation auto
+arp timeout 1200
+!
+interface GigabitEthernet0/0/1.171
+description US-DAL-SW1-GIG-4-17
+encapsulation dot1Q 171
+vrf forwarding 1
+ip address 10.129.4.102 255.255.255.252 secondary
+ip address 10.129.4.2 255.255.255.252
+no ip redirects
+ip mtu 1496
+ip nbar protocol-discovery
+ip tcp adjust-mss 1370
+ip ospf authentication message-digest
+ip ospf message-digest-key 1 md5 7 075F021E6B5D495146465F5C257A0D757C
+ip ospf network point-to-point
+ip ospf dead-interval 40
+ip ospf 1 area 0
+ip ospf cost 1
+ipv6 address 2607:A600:202:8001::3/127
+arp timeout 1200
+!
+interface GigabitEthernet0/0/2
+no ip address
+no ip redirects
+load-interval 30
+negotiation auto
+arp timeout 1200
+!
+interface GigabitEthernet0/0/2.172
+description US-DAL-SW2-GIG-4-17
+encapsulation dot1Q 172
+vrf forwarding 1
+ip address 10.129.4.106 255.255.255.252 secondary
+ip address 10.129.4.6 255.255.255.252
+no ip redirects
+ip mtu 1496
+ip nbar protocol-discovery
+ip tcp adjust-mss 1370
+ip ospf authentication message-digest
+ip ospf message-digest-key 1 md5 7 025627092E525F751D1A5D492447345A58
+ip ospf network point-to-point
+ip ospf dead-interval 40
+ip ospf 1 area 0
+ip ospf cost 2
+ipv6 address 2607:A600:202:8002::3/127
+arp timeout 1200
+!
+interface GigabitEthernet0/0/3
+description Must-Put-Top-Level-Int-in-vpn0-For-Subs-rt1-rt2-x-connect
+no ip address
+no ip redirects
+load-interval 30
+negotiation auto
+arp timeout 1200
+!
+interface GigabitEthernet0/0/3.101
+description gold_color_indirect_internet_tunnel
+encapsulation dot1Q 101
+ip address 10.129.4.17 255.255.255.252
+no ip redirects
+ip mtu 1496
+arp timeout 1200
+!
+interface GigabitEthernet0/0/3.102
+description biz-internet-color_tunnel_tloc_ext
+encapsulation dot1Q 102
+ip address 10.129.4.21 255.255.255.252
+no ip redirects
+ip mtu 1496
+arp timeout 1200
+!
+interface GigabitEthernet0/0/4
+no ip address
+negotiation auto
+!
+interface GigabitEthernet0/0/5
+no ip address
+negotiation auto
+!
+interface GigabitEthernet0/0/6
+no ip address
+negotiation auto
+!
+interface GigabitEthernet0/0/7
+no ip address
+negotiation auto
+!
+interface TenGigabitEthernet0/1/0
+description biz-internet_color_direct_internet_tunnel
+ip address 161.69.64.1 255.255.255.248
+ip nat outside
+load-interval 30
+arp timeout 1200
+service-policy output WAN-QOS-10-PERCENT-RT
+!
+interface TenGigabitEthernet0/1/1
+no ip address
+!
+interface TenGigabitEthernet0/1/2
+no ip address
+!
+interface TenGigabitEthernet0/1/3
+no ip address
+!
+interface TenGigabitEthernet0/1/4
+no ip address
+!
+interface TenGigabitEthernet0/1/5
+no ip address
+!
+interface TenGigabitEthernet0/1/6
+no ip address
+!
+interface TenGigabitEthernet0/1/7
+no ip address
+!
+interface GigabitEthernet0
+vrf forwarding Mgmt-intf
+ip address 10.52.0.1 255.255.255.0
+no ip redirects
+load-interval 30
+shutdown
+negotiation auto
+arp timeout 1200
+!
+router omp
+!
+router ospf 1 vrf 1
+router-id 10.129.4.253
+timers throttle spf 200 1000 10000
+redistribute connected
+redistribute omp
+default-information originate
+!
+router isis
+vrf 1
+!
+no ip http server
+ip http secure-server
+ip visibility global flow monitor sdwan_flow_monitor input
+ip visibility policy flow monitor sdwan_flow_monitor input
+ip forward-protocol nd
+!
+ip nat route vrf 65528 0.0.0.0 0.0.0.0 global
+ip nat translation tcp-timeout 3600
+ip nat translation udp-timeout 60
+no ip nat service skinny tcp port 2000
+no ip nat service sip tcp port 5060
+no ip nat service sip udp port 5060
+no ip nat service H225
+no ip nat service ras
+no ip nat service rtsp udp
+no ip nat service rtsp tcp
+no ip nat service dns tcp
+no ip nat service dns udp
+no ip nat service netbios-ns tcp
+no ip nat service netbios-ns udp
+no ip nat service netbios-ssn
+no ip nat service netbios-dgm
+no ip nat service ldap
+no ip nat service sunrpc udp
+no ip nat service sunrpc tcp
+no ip nat service msrpc tcp
+no ip nat service tftp
+no ip nat service rcmd
+no ip nat service pptp
+no ip nat service ftp
+no ip nat service gatekeeper
+no ip nat service dns-reset-ttl
+ip nat inside source list nat-dia-vpn-hop-access-list interface TenGigabitEthernet0/1/0 overload
+ip route 0.0.0.0 0.0.0.0 10.129.4.18
+ip route 0.0.0.0 0.0.0.0 161.69.64.3
+ip route vrf Mgmt-intf 0.0.0.0 0.0.0.0 10.52.0.252
+ip route vrf 1 161.69.0.0 255.255.0.0 10.129.4.1
+ip route vrf 1 161.69.0.0 255.255.0.0 10.129.4.5 2
+ip scp server enable
+!
+!
+logging source-interface Loopback10 vrf 1
+logging host 10.95.65.148 vrf 1
+ipv6 route vrf 1 2607:A600:200::/44 2607:A600:202:8001::2
+!
+!
+snmp-server view Default dod.* included
+snmp-server community Cacti0nlyString view Default RO
+snmp-server community McAfeeR0 view Default RO
+snmp-server trap-source Loopback10
+snmp-server contact Helpdesk@McAfee.com / ServiceDesk@McAfee.com 1.972.963.7774
+snmp-server enable traps snmp authentication linkdown linkup coldstart warmstart
+snmp-server enable traps vrrp
+snmp-server enable traps pfr
+snmp-server enable traps flowmon
+snmp-server enable traps ds1
+snmp-server enable traps entity-perf throughput-notif
+snmp-server enable traps call-home message-send-fail server-fail
+snmp-server enable traps tty
+snmp-server enable traps eigrp
+snmp-server enable traps ospf state-change
+snmp-server enable traps ospf errors
+snmp-server enable traps ospf retransmit
+snmp-server enable traps ospf lsa
+snmp-server enable traps ospf cisco-specific state-change nssa-trans-change
+snmp-server enable traps ospf cisco-specific state-change shamlink interface
+snmp-server enable traps ospf cisco-specific state-change shamlink neighbor
+snmp-server enable traps ospf cisco-specific errors
+snmp-server enable traps ospf cisco-specific retransmit
+snmp-server enable traps ospf cisco-specific lsa
+snmp-server enable traps casa
+snmp-server enable traps smart-license
+snmp-server enable traps license
+snmp-server enable traps cnpd
+snmp-server enable traps aaa_server
+snmp-server enable traps atm subif
+snmp-server enable traps bfd
+snmp-server enable traps bgp cbgp2
+snmp-server enable traps memory bufferpeak
+snmp-server enable traps config-copy
+snmp-server enable traps config
+snmp-server enable traps config-ctid
+snmp-server enable traps dhcp
+snmp-server enable traps dial
+snmp-server enable traps diameter
+snmp-server enable traps dlsw
+snmp-server enable traps dsp card-status
+snmp-server enable traps dsp oper-state
+snmp-server enable traps dsp video-usage
+snmp-server enable traps dsp video-out-of-resource
+snmp-server enable traps fru-ctrl
+snmp-server enable traps entity
+snmp-server enable traps event-manager
+snmp-server enable traps vrrpv3
+snmp-server enable traps frame-relay multilink bundle-mismatch
+snmp-server enable traps frame-relay
+snmp-server enable traps frame-relay subif
+snmp-server enable traps hsrp
+snmp-server enable traps pimstdmib neighbor-loss invalid-register invalid-join-prune rp-mapping-change interface-election
+snmp-server enable traps ipmulticast
+snmp-server enable traps msdp
+snmp-server enable traps mvpn
+snmp-server enable traps ospfv3 state-change
+snmp-server enable traps ospfv3 errors
+snmp-server enable traps pim neighbor-change rp-mapping-change invalid-pim-message
+snmp-server enable traps pppoe
+snmp-server enable traps cpu threshold
+snmp-server enable traps pw vc
+snmp-server enable traps rsvp
+snmp-server enable traps ipsla
+snmp-server enable traps syslog
+snmp-server enable traps l2tun session
+snmp-server enable traps l2tun pseudowire status
+snmp-server enable traps pki
+snmp-server enable traps adslline
+snmp-server enable traps vdsl2line
+snmp-server enable traps ethernet evc status create delete
+snmp-server enable traps ether-oam
+snmp-server enable traps ethernet cfm cc mep-up mep-down cross-connect loop config
+snmp-server enable traps ethernet cfm crosscheck mep-missing mep-unknown service-up
+snmp-server enable traps auth-framework sec-violation
+snmp-server enable traps entity-qfp mem-res-thresh throughput-notif
+snmp-server enable traps entity-state
+snmp-server enable traps lisp
+snmp-server enable traps entity-sensor
+snmp-server enable traps flash insertion removal lowspace
+snmp-server enable traps firewall serverstatus
+snmp-server enable traps netsync
+snmp-server enable traps ptp
+snmp-server enable traps lost-ptp-slave
+snmp-server enable traps breach-ptp-offset-threshold
+snmp-server enable traps sbc adj-status
+snmp-server enable traps sbc blacklist
+snmp-server enable traps sbc congestion-alarm
+snmp-server enable traps sbc h248-ctrlr-status
+snmp-server enable traps sbc media-source
+snmp-server enable traps sbc radius-conn-status
+snmp-server enable traps sbc sla-violation
+snmp-server enable traps sbc sla-violation-rev1
+snmp-server enable traps sbc svc-state
+snmp-server enable traps sbc qos-statistics
+snmp-server enable traps srp
+snmp-server enable traps isdn call-information
+snmp-server enable traps isdn layer2
+snmp-server enable traps isdn chan-not-avail
+snmp-server enable traps isdn ietf
+snmp-server enable traps entity-diag boot-up-fail hm-test-recover hm-thresh-reached scheduled-test-fail
+snmp-server enable traps ike policy add
+snmp-server enable traps ike policy delete
+snmp-server enable traps ike tunnel start
+snmp-server enable traps ike tunnel stop
+snmp-server enable traps ipsec cryptomap add
+snmp-server enable traps ipsec cryptomap delete
+snmp-server enable traps ipsec cryptomap attach
+snmp-server enable traps ipsec cryptomap detach
+snmp-server enable traps ipsec tunnel start
+snmp-server enable traps ipsec tunnel stop
+snmp-server enable traps ipsec too-many-sas
+snmp-server enable traps gdoi gm-start-registration
+snmp-server enable traps gdoi gm-registration-complete
+snmp-server enable traps gdoi gm-re-register
+snmp-server enable traps gdoi gm-rekey-rcvd
+snmp-server enable traps gdoi gm-rekey-fail
+snmp-server enable traps gdoi ks-rekey-pushed
+snmp-server enable traps gdoi gm-incomplete-cfg
+snmp-server enable traps gdoi ks-no-rsa-keys
+snmp-server enable traps gdoi ks-new-registration
+snmp-server enable traps gdoi ks-reg-complete
+snmp-server enable traps gdoi ks-role-change
+snmp-server enable traps gdoi ks-gm-deleted
+snmp-server enable traps gdoi ks-peer-reachable
+snmp-server enable traps gdoi ks-peer-unreachable
+snmp-server enable traps cef resource-failure peer-state-change peer-fib-state-change inconsistency
+snmp-server enable traps sonet
+snmp-server enable traps resource-policy
+snmp-server enable traps otn
+snmp-server enable traps nhrp nhs
+snmp-server enable traps nhrp nhc
+snmp-server enable traps nhrp nhp
+snmp-server enable traps nhrp quota-exceeded
+snmp-server enable traps isis
+snmp-server enable traps ip local pool
+snmp-server enable traps mpls rfc ldp
+snmp-server enable traps mpls ldp
+snmp-server enable traps mpls rfc traffic-eng
+snmp-server enable traps mpls traffic-eng
+snmp-server enable traps mpls fast-reroute protected
+snmp-server enable traps bulkstat collection transfer
+snmp-server enable traps alarms informational
+snmp-server enable traps voice
+snmp-server enable traps vrfmib vrf-up vrf-down vnet-trunk-up vnet-trunk-down
+snmp-server enable traps ethernet cfm alarm
+snmp-server enable traps rf
+snmp-server enable traps transceiver all
+snmp-server enable traps mpls vpn
+snmp-server enable traps mpls rfc vpn
+snmp-server host 10.160.94.32 vrf 1 version 2c McAfeeR0
+snmp-server host 10.44.64.160 vrf 1 version 2c McAfeeR0
+snmp-server host 10.44.64.210 vrf 1 version 2c McAfeeR0
+snmp-server host 10.92.72.22 vrf 1 version 2c McAfeeR0
+snmp-server host 10.92.79.77 vrf 1 version 2c McAfeeR0
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+line con 0
+stopbits 1
+line aux 0
+stopbits 1
+line vty 0 4
+transport input ssh
+line vty 5 80
+transport input ssh
+!
+ntp server vrf 1 10.53.65.123
+ntp server vrf 1 10.92.65.123
+ntp server vrf 1 10.172.64.123
+nat64 translation timeout udp 1
+nat64 translation timeout tcp 60
+!
+!
+!
+!
+!
+netconf-yang
+netconf-yang feature candidate-datastore
+end
+
+us-dal-sdwanrt1#

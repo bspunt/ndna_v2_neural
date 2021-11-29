@@ -1,0 +1,13 @@
+[34m[1m* Running CDP Device Inventory script
+* Connection to MySQL has been validated...
+* Database Errors will be logged to: [33mSQL_Error_Log.txt[34m
+* You can view the DB inventory @ http://<your VM IP>/phpmyadmin/index.php
+
+[31m* CDP Information extracted from 10.129.141.251
+
+[31m* CDP Information extracted from 10.129.141.2
+
+
+* Successfully Built CDP Inventory.
+
+* See /usr/DCDP/logs/CDP_INVENTORY.log for Log File

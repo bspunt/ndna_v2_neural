@@ -1,0 +1,13 @@
+
+cl-san-rt1#terminal len 0
+cl-san-rt1#
+cl-san-rt1#sh ip inter brie
+Interface                  IP-Address      OK? Method Status                Protocol
+GigabitEthernet0/0         10.74.57.241    YES NVRAM  up                    up      
+GigabitEthernet0/1         10.74.57.251    YES NVRAM  up                    up      
+GigabitEthernet0/2         10.129.100.126  YES NVRAM  up                    up      
+ATM3/0                     unassigned      YES NVRAM  administratively down down    
+ATM3/0.40                  unassigned      YES unset  administratively down down    
+Loopback10                 10.128.124.34   YES NVRAM  up                    up      
+cl-san-rt1#
+cl-san-rt1#exit

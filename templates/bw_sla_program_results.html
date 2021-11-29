@@ -1,0 +1,79 @@
+{% extends "datatables-base.html" %}
+
+{% block content %}
+
+<div class="container mb-3 mt-3">
+
+    <!-- <div class="form-group col-md-12">  
+        <label for="site_var"><font color="white">Choose an AVI Virtual Service</font></label></input>  
+        <select class="custom-select" id="sitevar" name="sitevar">
+            <option selected>AVI Virtual Services</option>
+            {% for t in READ_AVI_API_INFO_FROM_FILE %}
+            <option value="{{ t }}">{{ t }}</option>
+            {% endfor %}
+        </select>
+    </div>  -->
+    
+    <div class="text-left padding"><h6><p style="color:rgb(223, 238, 16)"><i> NEURAL DC to DC SLA B/W Results ( ͡ᵔ ͜ʖ ͡ᵔ )</i></p></h6></div>
+       
+    <table id="mydatatable" class="table table-striped table-bordered table-dark table-sm" style="width:100%">
+        <thead>
+            <tr>
+              <th>Time (PST)</th>
+              <th>Src to Dst Site</th>
+              <th>Throughput</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for result in all_results %}
+            <tr>
+                <td>{{ result.time }}</td>
+                <td>{{ result.src_to_dst_site }}</td>
+                <td>{{ result.throughput_rate }}</td>
+            </tr>
+            {% endfor %}        
+
+        </tbody>
+
+        <tfoot>
+            <tr>
+                <th>Time (PST)</th>
+                <th>Src to Dst Site</th>
+                <th>Throughput</th>
+            </tr>
+        </tfoot>
+    </table>
+    
+</div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.bootstrap4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.colVis.min.js"></script>
+
+
+<script type="application/javascript">
+$(document).ready(function() {
+    var table = $('#mydatatable').DataTable( {
+        lengthChange: true,
+	lengthMenu: [20, 30, 40],
+        buttons: [ 'copy', 'excel', 'pdf', 'csv', 'print', 'colvis' ]
+    } );
+ 
+    table.buttons().container()
+        .appendTo( '#mydatatable_wrapper .col-md-6:eq(0)' );
+} );
+</script>
+
+
+{% endblock %}

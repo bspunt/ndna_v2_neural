@@ -1,0 +1,132 @@
+      <!-- ========= -->
+      <div class='col-xs-12 text-center'>
+        <h4><font color="red">RUN NDNA Discovery</font></h4>
+
+        <p><a href="https://neural.corpzone.internalzone.com:3010/wetty/ssh/T3" ">RUN NDNA Discovery</a></p>
+        
+          <br>
+          <br>
+      </div>
+      <!-- ========= PUT IN INSTRUCTIONS, e.g. cd /usr/DCDP and then run ./DCDP.sh 
+        and follow instructions, T3 pass in Beyond Trust, etc 
+        AND Make sure to adjust port forwarding on VM too to 3010 
+    login for T3
+
+now, just have a script to autostart on boot...And an NDNA page
+with instructions, e.g. cd to /usr/DCDP and run ./DCDP.sh and follow instructions
+Can use ctrl/shift/v to paste password into browser for NDNA discovery browser access or right click and 
+choose paste
+
+-=================================
+script setup on boot via cron:
+wetty --port 3010  --ssl-cert /var/www/django_app/mysite/neural.crt --ssl-key /var/www/django_app/mysite/neural.key --title "Neural NDNA Discovery Access"
+-=================================
+
+AND need to install node/npm yarn on prod box and setup wetty but first SNAPSHOT NEURAL!!! 
+and let's run in lab for awhile and test neural automation, etc....and all pages before attempting this!
+wetty install
+
+whereis COMMAND !!!
+
+
+needs
+
+https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-debian-9
+make sure to get > 14 version of node installed
+
+https://classic.yarnpkg.com/en/docs/install/#windows-stable
+
+https://github.com/butlerx/wetty/blob/main/README.md
+
+
+
+this might be the fix for iframe  -- but looks like will have to use nginx as proxy
+https://github.com/butlerx/wetty/issues/164
+
+
+
+login for T3
+https://192.168.88.61:3010/wetty/ssh/T3
+
+now, just setup SSL and have  a script to autostart on boot...And an NDNA page
+with instructions, e.g. cd to /usr/DCDP and run ./DCDP.sh and follow instructions
+
+
+-=================================
+script setup on boot via cron:
+
+==============================
+/usr/local/bin# chmod 755 start-wetty.sh 
+==============================
+#!/bin/sh
+wetty --port 3010  --ssl-cert /var/www/django_app/mysite/neural.crt --ssl-key /var/www/django_app/mysite/neural.key --title "Neural NDNA Discovery Program"
+==============================
+
+==============================
+https://linuxconfig.org/how-to-automatically-execute-shell-script-at-startup-boot-on-systemd-linux
+==============================
+
+
+
+============ in /etc/systemd/system and called =================
+
+nano start-wetty.service
+
+==============================
+[Unit]
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/start-wetty.sh     
+
+[Install]
+WantedBy=default.target
+-=================================
+
+chmod 664 /etc/systemd/system/start-wetty.service
+systemctl daemon-reload
+systemctl enable start-wetty.service
+
+systemctl start start-wetty.service
+
+
+
+example on lab
+systemctl start start-wetty.serviceroot@NEURAL-VS-CODE-DEV:/etc/systemd/system# systemctl enable start-wetty.service
+Created symlink /etc/systemd/system/default.target.wants/start-wetty.service → /etc/systemd/system/start-wetty.service.
+
+root@NEURAL-VS-CODE-DEV:/etc/systemd/system# systemctl start start-wetty.service
+
+root@NEURAL-VS-CODE-DEV:/etc/systemd/system# netstat -an|grep 3010
+tcp        0      0 0.0.0.0:3010            0.0.0.0:*               LISTEN   
+
+============ in /etc/systemd/system and called =================
+
+
+$ wetty --help
+Options:
+  --help, -h      Print help message                                   [boolean]
+  --version       Show version number                                  [boolean]
+  --conf          config file to load config from                       [string]
+  --ssl-key       path to SSL key                                       [string]
+  --ssl-cert      path to SSL certificate                               [string]
+  --ssh-host      ssh server host                                       [string]
+  --ssh-port      ssh server port                                       [number]
+  --ssh-user      ssh user                                              [string]
+  --title         window title                                          [string]
+  --ssh-auth      defaults to "password", you can use "publickey,password"
+                  instead                                               [string]
+  --ssh-pass      ssh password                                          [string]
+  --ssh-key       path to an optional client private key (connection will be
+                  password-less and insecure!)                          [string]
+  --ssh-config    Specifies an alternative ssh configuration file. For further
+                  details see "-F" option in ssh(1)                     [string]
+  --force-ssh     Connecting through ssh even if running as root       [boolean]
+  --known-hosts   path to known hosts file                              [string]
+  --base, -b      base path to wetty                                    [string]
+  --port, -p      wetty listen port                                     [number]
+  --host          wetty listen host                                     [string]
+  --command, -c   command to run in shell                               [string]
+  --allow-iframe  Allow wetty to be embedded in an iframe, defaults to allowing
+                  same origin                                          [boolean]
+-->

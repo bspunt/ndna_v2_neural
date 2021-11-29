@@ -1,0 +1,17 @@
+
+mil21b-las1#terminal len 0
+mil21b-las1#
+mil21b-las1#sh int trun
+
+Port        Mode             Encapsulation  Status        Native vlan
+Po11        on               802.1q         trunking      999
+
+Port        Vlans allowed on trunk
+Po11        212,3600-3799
+
+Port        Vlans allowed and active in management domain
+Po11        212,3600-3606,3608-3614,3616-3620,3624-3630,3632-3633,3636-3637,3640,3642,3644,3646-3647,3650,3700,3702,3713
+
+Port        Vlans in spanning tree forwarding state and not pruned
+Po11        212,3600-3606,3608-3614,3616-3620,3624-3630,3632-3633,3636-3637,3640,3642,3644,3646-3647,3650,3700,3702,3713
+mil21b-las1#

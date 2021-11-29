@@ -1,0 +1,188 @@
+{% extends "automation-base.html" %}
+{% block content %}
+<br>
+<br>
+<br>
+<div class="container my-container">  
+   <div class="text-left padding"><h4><p style="color:rgb(223, 238, 16)"><i>Let's generate some config templates {{ request.user.username }}! ( ͡ᵔ ͜ʖ ͡ᵔ )</i></p></h4>
+
+   <div class="mt-3"><h6><p style="color:rgb(8, 163, 73)"<i>That includes all types of devices, including spine/leaf.</i></font></p></h6>  
+    <div class="mt-3"><h6><p style="color:rgb(8, 163, 73)"<i>The first option will create configs for all types of devices except spine/leaf. Spine/leaf can be done further down on this page</i></font></p></h6> 
+
+   <a class="btn btn-link btn-danger" href="{% url 'config_templates_example' %}" role="button">
+     <font color="white"><i>You can view examples of the csv and jinja2 file layouts here</i></font>
+   </a></p>
+
+   <br>
+   <br>
+   <form method="POST">
+    <div class="row my-row">
+
+    <div class="col-md-12"> 
+      <label for="UPLOAD"><font color="white">Step 1: Upload your variables file if needed</font><font color = red><i>
+          <b> (This step can be skipped if already uploaded)</b></i></font></label>
+        <p><a href="{% url 'upload_config_templates' %}" class="btn btn-primary btn-sm" name="btnlink1">Upload CSV file - See Instructions!</a></p>
+      </div>  
+
+      
+      <div class="form-group col-md-6"> 
+        <br>
+          <label for="csvfile"><font color="white">Step 2: Choose your variables csv file</font></label></input> 
+          <select class="custom-select" id="csvvarspost" name="csvvarspost">
+          <option selected>Choose your variables file...</option>
+          {% for c in csvvars %}
+          <option value="{{ c }}">{{ c }}</option>
+          {% endfor %}
+        </select>
+        </div>
+
+  
+       
+        
+        <div class="form-group col-md-6">
+          <br>
+          <label for="jinja2varpost"><font color="white">Step 3: Choose your platform (.j2 file).</label></input> 
+            <select class="custom-select" id="jinja2varpost" name="jinja2varpost">
+              <option selected>Choose your platform file...</option>
+              {% for t in jinjatemplates %}
+              <option value="{{ t }}">{{ t }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          
+  
+
+          <div class="form-group col-md-12">  
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success btn-sm" name="btnform2">Generate Configs for all types except spine/leaf</button>
+            </div> 
+
+      </form>
+</div> 
+
+<br>
+<br>
+
+<form method="POST">
+  <div class="row my-row">
+
+  <div class="col-md-12"> 
+    <br>
+    <label for="UPLOAD"><font color="white">Step 1: Upload your variables file if needed</font><font color = red><i>
+        <b> (This step can be skipped if already uploaded)</b></i></font></label>
+      <p><a href="{% url 'upload_config_templates' %}" class="btn btn-primary btn-sm" name="btnlink1">Upload CSV file for spines/leafs</a></p>
+    </div>  
+
+    
+    <div class="form-group col-md-6"> 
+      <br>
+        <label for="csvfile"><font color="white">Step 2: Choose your variables csv file</font></label></input> 
+        <select class="custom-select" id="csvvarspost" name="csvvarspost">
+        <option selected>Choose your variables file...</option>
+        {% for c in csvvars %}
+        <option value="{{ c }}">{{ c }}</option>
+        {% endfor %}
+      </select>
+      </div>
+
+
+     
+      
+      <div class="form-group col-md-6">
+        <br>
+        <label for="jinja2varpost"><font color="white">Step 3: Choose your platform (.j2 file).</label></input> 
+          <select class="custom-select" id="jinja2varpost" name="jinja2varpost">
+            <option selected>Choose your platform file...</option>
+            {% for t in jinjatemplates %}
+            <option value="{{ t }}">{{ t }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        
+
+
+        <div class="form-group col-md-12">  
+          {% csrf_token %}
+          <button type="submit" class="btn btn-success btn-sm" name="btnform3">Generate Configs for spine/leaf</button>
+          </div> 
+
+    </form>
+</div> 
+
+
+
+ 
+
+
+
+<br>
+<br>
+<div class="row my-row">
+        <div class="form-group col-md-6	">  
+            <!-- Button trigger modal -->
+            <button type="button" class="mt-3 btn btn-danger float-left btn-sm" data-toggle="modal" data-target="#exampleModalCenter">
+            More Tips on running unique automation!
+            </button>
+            </div>
+          
+            <!-- Modal -->
+                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Free-form Automation Info</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body">
+                        Don't forget to input pagination, e.g. term len 0 on IOS, <br>etc depending on the device your connecting to....
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                   </div>
+                </div>
+        </div>
+<br>
+
+<div class="row my-row" >
+
+  <div class="float-left col-md-12">
+  
+  <ul class="nav nav-tabs">
+      <li class="nav-item">
+          <a href="#home" class="nav-link active" data-toggle="tab"><b>Instructions</b></a>
+      </li>
+      <li class="nav-item">
+          <a href="#profile" class="nav-link" data-toggle="tab"><b>About CSV Variables</b></a>
+      </li>
+      <li class="nav-item">
+          <a href="#messages" class="nav-link" data-toggle="tab"><b>About Jinja2 Files (Platform Templates)</b></a>
+      </li>
+  </ul>
+  
+  <div class="tab-content">
+      <div class="tab-pane fade show active" id="home">
+          <p><b><br><font color="white">Add in instructions on using the config templating system here. ...</font></b></p>
+      </div>
+      <div class="tab-pane fade" id="profile">
+          <p><b><br>Profile tab content ...</b></p>
+      </div>
+      <div class="tab-pane fade" id="messages">
+          <p><b><br>Messages tab content ...</b></p>
+      </div>
+  
+  
+
+
+</div>
+</div>
+</div>
+</div>
+<br>
+<br>
+<br>
+<br>
+{% endblock content %}

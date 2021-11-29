@@ -1,0 +1,5 @@
+terminal len 0
+sh fex
+show port-channel summary
+show running-config vpc
+show vpc brief

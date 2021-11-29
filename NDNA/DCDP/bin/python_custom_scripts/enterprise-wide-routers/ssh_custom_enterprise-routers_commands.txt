@@ -1,0 +1,8 @@
+terminal len 0
+conf t
+flow exporter wan-to-Stealth
+ description StealtwWatch
+ destination 10.32.7.19
+end
+wr mem
+exit

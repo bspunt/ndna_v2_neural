@@ -1,0 +1,7 @@
+
+aaa group server tacacs+ tacacs-1
+server-private 10.92.1.113 timeout 10 key 7 01190c1d43082a18146864203d2a05353159300e00
+server-private 10.93.8.113 key 7 020c0e4213052336796a23302138002c36511e0f0f
+server-private 10.212.24.133 key 7 130f1d0b130f283d1e00021a110d01202c56357272
+ip vrf forwarding 2
+ip tacacs source-interface Loopback10

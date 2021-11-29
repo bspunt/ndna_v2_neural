@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+<!-- === this is the template that is == to upload_book.html dev reference -->
+<br>
+<br>
+<br>
+{% load crispy_forms_tags %}
+
+{% block content %}
+<body style="background-color:#ebeef0;">
+<div class="container my-container">  
+  <br>
+  <br>
+  <br>
+  <div class="text-left padding"><h4><font color=green><i>Upload Jinja2 templates to merge w/ CSV variables files</i></font></h4></div>  
+  <div class="row my-row">
+    <div class="form-group col-sm-4">  
+  <form method="post" enctype="multipart/form-data">
+    <font color=white>
+    {% csrf_token %}
+    {{ form|crispy }}
+    </font>
+    <br>
+    <button type="submit" class="btn btn-primary">Upload!</button>
+  </form>
+  </div>  
+  <div class="form-group col-sm-8">  </div>
+  <div class="form-group col-sm-8">  
+  <br><h6><font color=green>After you click upload, you'll automatically be redirected to the config-gen page!</font></h6></div>  
+
+</div>
+{% endblock %}

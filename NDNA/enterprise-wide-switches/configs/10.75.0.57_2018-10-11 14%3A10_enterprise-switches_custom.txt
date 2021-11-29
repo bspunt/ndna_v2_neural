@@ -1,0 +1,24 @@
+ca-wat-usersw2#terminal len 0
+ca-wat-usersw2#
+ca-wat-usersw2#sh int trun
+
+Port        Mode             Encapsulation  Status        Native vlan
+Gi4/0/47    on               802.1q         trunking      106
+Gi4/0/48    on               802.1q         trunking      106
+Po1         on               802.1q         trunking      999
+
+Port        Vlans allowed on trunk
+Gi4/0/47    106,3200
+Gi4/0/48    106,3200
+Po1         1-4094
+
+Port        Vlans allowed and active in management domain
+Gi4/0/47    106,3200
+Gi4/0/48    106,3200
+Po1         1,99,105-106,351,999,2501,2503,3200,3600
+
+Port        Vlans in spanning tree forwarding state and not pruned
+Gi4/0/47    106,3200
+Gi4/0/48    106,3200
+Po1         1,99,105-106,351,999,2501,2503,3200,3600
+ca-wat-usersw2#

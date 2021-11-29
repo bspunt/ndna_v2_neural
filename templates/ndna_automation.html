@@ -1,0 +1,293 @@
+{% extends "automation-base.html" %}
+{% block content %}
+<br>
+<br>
+<br>
+<div class="container my-container">  
+    <div class="text-left padding"><h6><p style="color:rgb(223, 238, 16)"><i>Hey {{ request.user.username }}! Let's Run Some NDNA Automation ( ͡ᵔ ͜ʖ ͡ᵔ )</i></p></h6></div>
+
+    <h6><a href="https://www.automate-the-network.com/"><i class="fa fa-cogs" aria-hidden="true"></i> For Info on NDNA Click On The Following Link</a></h6>
+    
+   <div class="mt-3"><h4><font color=green><i> NDNA Automation (Run Now)</i></font></h4></div>  
+   <!-- <div class=""text-center padding""><h2><font color=green><i> Free Form Automation</i></font></h2></div>   -->
+   <!-- ===================================================================================================================== -->
+   <div class="row my-row">
+    <div class="form-group col-md-3">  
+     <!-- Button trigger modal
+     <button type="button" class="mt-3 btn btn-danger btn-sm btn-block" data-toggle="modal" data-target="#ModalCenter1"> -->
+     <button type="button" class="mt-3 btn btn-danger btn-sm" data-toggle="modal" data-target="#ModalCenter1">
+     Job Tip!
+     </button>
+     </div>
+     <!-- Modal -->
+         <div class="modal fade" id="ModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+             <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+             <div class="modal-content">
+                 <div class="modal-header">
+                 <h5 class="modal-title" id="exampleModalLongTitle">Tip of the day!</h5>
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                 </button>
+                 </div>
+                 <div class="modal-body">
+                     If you are pulling information, don't forget to include
+                       commands to disable pagination, e.g. on IOS devices using the command "term len 0" for example. This automation will use IP lists from 
+                       NDNA discovery and thus, the devices will not be in the neural MySQL database and you will need to manually disable pagination!
+                 </div>
+                 <div class="modal-footer">
+                 <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                 </div>
+               </div>
+            </div>
+        </div>
+    </div>
+<!-- ===================================================================================================================== -->
+<form method="POST">
+<div class="row my-row">
+  
+     <!-- <div class="form-group col-md-3">  
+        <label for="password"><font color="white">Password</font></label></input>
+        <input type="password" class="form-control col-lg-12" id="password" name="password" placeholder="password"></input>
+    </div>  -->
+
+    <div class="form-group col-md-3">  
+        <label for="time_sleep"><font color="white">Time_Between_Commands</font></label></input>  
+        <select class="custom-select" id="time_sleep" name="time_sleep">
+            <option selected>Choose Time Sleep...</option>
+            <option value=1>1</option>
+            <option value=2>2</option>
+            <option value=4>4</option>
+            <option value=6>6</option>
+            <option value=8>8</option>
+            <option value=10>10</option>
+            <option value=12>12</option>
+            <option value=14>14</option>
+            <option value=16>16</option>
+            <option value=18>18</option>
+            <option value=20>20</option>
+            <option value=22>22</option>
+            <option value=24>24</option>
+            <option value=26>26</option>
+            <option value=28>28</option>
+            <option value=30>30</option>
+            <option value=32>32</option>
+            <option value=34>34</option>
+            <option value=36>36</option>
+        </select>
+    </div>  
+
+
+    <div class="form-group col-md-3">  
+        <label for="site"><font color="white">NDNA Sites</font></label></input>  
+        <select class="custom-select" id="ndnasite" name="ndnasite">
+            <option selected>Choose an NDNA Site...</option>
+            {% for s in sites %}
+            <option value="{{ s }}">{{ s }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="form-group col-md-3">  
+        <label for="type"><font color="white">Automation Type</font></label></input>  
+        <select class="custom-select" id="ndnatype" name="ndnatype">
+            <option selected>Choose an Automation Type...</option>
+            <option value="Good-IPs.txt">All Devices (NXOS/IOS)</option>
+            <option value="IOS-IPs.txt">All IOS Devices</option>
+            <option value="NX-OS-IPs.txt">All NXOS Devices</option>
+            <option value="L2-IOS-IPs.txt">L2 IOS Devices</option>
+            <option value="L3-IOS-IPs.txt">L3 IOS Devices</option>
+            <option value="L2-NX-OS-IPs.txt">L2 NXOS Devices</option>
+            <option value="L3-NX-OS-IPs.txt">L3 NXOS Devices</option>
+        </select>
+    </div>
+
+    <div class="form-group col-md-3">  
+            <label for="commands"><font color="white">Commands:</font></label>  
+            <textarea class="form-control col-lg-12" rows="1" id="command_list" name="command_list"></textarea>  
+        </div>  
+ 
+        <div class="form-group col-lg-4">  
+        {% csrf_token %}
+        <button type="submit" class=" btn btn-primary padding-top btn-sm" name="btnform1">Submit to Run Now!</button>  
+        </div> 
+    </form>
+</div> 
+  
+  <div class="mt-3"><h4><font color=green><i> Schedule to Run Later!</i></font></h4></div>  
+  <form method="POST">
+    <div class="row my-row">
+
+        <!-- <div class="form-group col-md-3">  
+            <label for="password"><font color="white">Password</font></label></input>
+            <input type="password" class="form-control col-lg-12" id="password" name="password" placeholder="password"></input>
+        </div>  -->
+
+        <div class="form-group col-md-3">  
+            <label for="time_sleep"><font color="white">Time_Between_Commands</font></label></input>  
+            <select class="custom-select" id="time_sleep" name="time_sleep">
+                <option selected>Choose Time Sleep...</option>
+                <option value=1>1</option>
+                <option value=2>2</option>
+                <option value=4>4</option>
+                <option value=6>6</option>
+                <option value=8>8</option>
+                <option value=10>10</option>
+                <option value=12>12</option>
+                <option value=14>14</option>
+                <option value=16>16</option>
+                <option value=18>18</option>
+                <option value=20>20</option>
+                <option value=22>22</option>
+                <option value=24>24</option>
+                <option value=26>26</option>
+                <option value=28>28</option>
+                <option value=30>30</option>
+                <option value=32>32</option>
+                <option value=34>34</option>
+                <option value=36>36</option>
+            </select>
+        </div>  
+                                      
+        <div class="form-group col-md-3">  
+            <label for="site"><font color="white">NDNA Sites</font></label></input>  
+            <select class="custom-select" id="ndnasite" name="ndnasite">
+                <option selected>Choose an NDNA Site...</option>
+                {% for s in sites %}
+                <option value="{{ s }}">{{ s }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    
+        <div class="form-group col-md-3">  
+            <label for="type"><font color="white">Automation Type</font></label></input>  
+            <select class="custom-select" id="ndnatype" name="ndnatype">
+                <option selected>Choose an Automation Type...</option>
+                <option value="Good-IPs.txt">All Devices (NXOS/IOS)</option>
+                <option value="IOS-IPs.txt">All IOS Devices</option>
+                <option value="NX-OS-IPs.txt">All NXOS Devices</option>
+                <option value="L2-IOS-IPs.txt">L2 IOS Devices</option>
+                <option value="L3-IOS-IPs.txt">L3 IOS Devices</option>
+                <option value="L2-NX-OS-IPs.txt">L2 NXOS Devices</option>
+                <option value="L3-NX-OS-IPs.txt">L3 NXOS Devices</option>
+            </select>
+        </div>
+
+        <div class="form-group col-md-3">  
+            <label for="commands"><font color="white">Commands:</font></label>  
+            <textarea class="form-control col-lg-12" rows="1" id="command_list" name="command_list"></textarea>  
+        </div>  
+        <div class="form-group col-md-6">  
+            <!-- This form has datetime field -->
+            {% csrf_token %}
+            {{ form.as_p }}
+            <label for="datetime"><font color="white">Enter the Date and Time <i>(<b>Note:</b> All times are in UTC for the Scheduler)</i></font></label></input>
+        </div>
+        <div class="form-group col-md-6">  </div>  
+        <div class="form-group col-lg-4">  
+        {% csrf_token %}
+        <button type="submit" class=" btn btn-success padding-top btn-sm" name="btnform2">Schedule for Later</button>  
+        </div> 
+        </div>  
+      </form>
+    </div>  
+</div> 
+
+<!-- ==================== -->
+<br>
+<br>
+<br>
+<br>
+<br>
+<!-- =============================================================================================== 
+<div class="container my-container"> 
+<div class="row my-row">
+<br>
+<div class="form-group col-md-6	">  
+
+    <button type="button" class="mt-3 btn btn-danger float-left btn-sm" data-toggle="modal" data-target="#exampleModalCenter">
+    More Tips on running free-form automation!
+    </button>
+    </div>
+  
+
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Free-form Automation Info</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                Don't forget to input pagination, e.g. term len 0 on IOS, <br>etc depending on the device your connecting to....
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+           </div>
+        </div>
+</div>
+<br>
+
+<div class="row my-row" >
+
+<div class="float-left col-md-12">
+
+<ul class="nav nav-tabs">
+<li class="nav-item">
+<a href="#home" class="nav-link active" data-toggle="tab"><b>Job Instructions</b></a>
+</li>
+<li class="nav-item">
+<a href="#profile" class="nav-link" data-toggle="tab"><b>Post Job Tasks</b></a>
+</li>
+<li class="nav-item">
+<a href="#messages" class="nav-link" data-toggle="tab"><b>Additional Info</b></a>
+</li>
+</ul>
+
+<div class="tab-content">
+<div class="tab-pane fade show active" id="home">
+<p><b><br><font color="white">The Time_Between_Commands option is in seconds and is just what is sounds like. It's the time the system will wait in between sending commands to the device. For the commands form, input commands
+    one line at a time, just like a config template. No different, in fact, you can paste a config template directly into the form box. The commmand form is meant to input a configuration just as if you 
+    copy and pasted directly from a config template, e.g.  <br><br>config t<br>int loop0<br>ip address 1.1.1.1/32<br>end<br>copy run start<exit><br><br>If you are pulling information, don't forget to include
+       commands to disable pagination, e.g. on IOS devices using the command "term len 0" for example. Hit submit, and you'll see a progress bar indicating the progress of the job. Once the job completes, you'll be provided links and info on the job results. ...</font></b></p>
+</div>
+<div class="tab-pane fade" id="profile">
+<p><b><br>Profile tab content ...</b></p>
+</div>
+<div class="tab-pane fade" id="messages">
+<p><b><br><font color="white">This is just what it sounds like.<br><br> It's free form and ad_hoc in nature, e.g. you have two options, with the first being to input in any list of nodes to connect to, using any commands. 
+    <br><br>The second option gives you an option to choose a site and device type, also using any commands.
+    <br><br>These are both vendor agnostic in nature.... So as long as the device supports SSH, you can run automation on it. <br><br>
+    The second form of this type of ad_hoc_automation that's based on device inventories is really powerful, giving you the ability to quickly and flexibly run automation on any device
+    that exists in the application database, e.g. the neural database.<br><br> This form of automation is extremely powerful in it's ability to use both site and device type, 
+    or one or the other.<br><br>
+    A few examples:<br><br>If I choose a site named "dal" and a device type named "distribution", then it'll run automation on ALL distribution switches at the site "dal"<br><br>Now, if 
+    I choose "distribution"
+    but do NOT choose a site, then it'll run automation on ALL distribution switches globally (e.g. on all sites).<br><br>Finally, using the same logic in reverse, If I don't choose a device type, but choose a site called
+    "dal", it'll run automation on ALL devices in the database assigned to this site called "dal".<br><br> Pretty cool, huh?<br><br>So you see how flexible and how powerful this is for ad_hoc/on the fly automation, both for
+    troubleshooting and/or for programming the network.</font></b></p>
+</div>
+<br><br>
+
+</div>
+</div>
+</div>
+</div>
+=============================================================================================== -->
+
+<!-- Modal Hover If you want to use -->
+<script>
+    $(function() {
+    
+    $('[data-toggle="modal"]').hover(function() {
+      var modalId = $(this).data('target');
+      $(modalId).modal('show');
+    
+    });
+    
+    });
+    </script>
+{% endblock content %}

@@ -1,0 +1,13 @@
+[34m[1m* Running IOS Device Inventory script
+* Connection to MySQL has been validated...
+* Database Errors will be logged to: [33mSQL_Error_Log.txt[34m
+* You can view the DB inventory @ http://<your VM IP>/phpmyadmin/index.php
+
+[31m* Inventory Information extracted from 10.129.141.251
+
+[31m* Inventory Information extracted from 10.129.141.2
+
+
+* Successfully Built IOS Database Inventory, excluding Devices that reported issues (If any).
+* See /usr/DCDP/logs/IOS_INVENTORY.log for Log File
+* If there were any problem devices, please investigate manually before attempting to run the program again, e.g make sure the device is accessible!

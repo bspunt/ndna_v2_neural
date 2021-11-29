@@ -1,0 +1,21 @@
+
+us-smc-b2-sw1#terminal len 0
+us-smc-b2-sw1#
+us-smc-b2-sw1#sh int trun
+
+Port                Mode         Encapsulation  Status        Native vlan
+Gi9/34              on           802.1q         trunking      1
+Po1                 on           802.1q         trunking      1
+
+Port                Vlans allowed on trunk
+Gi9/34              3621-3622
+Po1                 106,361,801-810,2536-2539,3200,3204,3300,3500,3600-3700,3702,3715
+
+Port                Vlans allowed and active in management domain
+Gi9/34              3621-3622
+Po1                 106,361,801-804,810,2536-2539,3200,3204,3300,3500,3600-3606,3608-3622,3624-3630,3632-3633,3636-3637,3640,3642,3644,3646-3647,3650-3653,3655,3658,3699-3700,3702,3715
+
+Port                Vlans in spanning tree forwarding state and not pruned
+Gi9/34              3621-3622
+Po1                 106,361,801-804,810,2536-2539,3200,3204,3300,3500,3600-3606,3608-3622,3624-3630,3632-3633,3636-3637,3640,3642,3644,3646-3647,3650-3653,3655,3658,3699-3700,3702,3715
+us-smc-b2-sw1#

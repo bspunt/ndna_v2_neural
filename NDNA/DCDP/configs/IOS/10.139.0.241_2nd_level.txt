@@ -1,0 +1,156 @@
+
+ae-dub-1-sw2#terminal length 0
+ae-dub-1-sw2#sh cdp nei detail | i IP
+  IP address: 10.139.7.194
+  IPv6 address: FE80::32E4:DBFF:FE76:255D  (link-local)
+  IP address: 10.139.7.194
+  IP address: 10.139.7.192
+  IPv6 address: FE80::32E4:DBFF:FE45:CCF  (link-local)
+  IP address: 10.139.7.192
+  IP address: 10.139.0.254
+  IP address: 10.139.0.254
+  IP address: 10.139.10.68
+  IP address: 10.139.0.253
+  IP address: 10.139.0.253
+  IP address: 10.139.7.195
+  IPv6 address: FE80::32E4:DBFF:FE45:D79  (link-local)
+  IP address: 10.139.7.195
+  IP address: 10.139.10.64
+  IP address: 10.139.10.63
+  IP address: 10.139.10.62
+  IP address: 10.139.10.69
+  IP address: 10.139.10.65
+  IP address: 10.139.10.66
+ae-dub-1-sw2#sh ip inter brief
+Interface              IP-Address      OK? Method Status                Protocol
+Vlan1                  unassigned      YES NVRAM  up                    up      
+Vlan99                 10.139.0.241    YES NVRAM  up                    up      
+FastEthernet0          unassigned      YES NVRAM  down                  down    
+GigabitEthernet1/0/1   unassigned      YES unset  up                    up      
+GigabitEthernet1/0/2   unassigned      YES unset  up                    up      
+GigabitEthernet1/0/3   unassigned      YES unset  up                    up      
+GigabitEthernet1/0/4   unassigned      YES unset  up                    up      
+GigabitEthernet1/0/5   unassigned      YES unset  up                    up      
+GigabitEthernet1/0/6   unassigned      YES unset  up                    up      
+GigabitEthernet1/0/7   unassigned      YES unset  down                  down    
+GigabitEthernet1/0/8   unassigned      YES unset  down                  down    
+GigabitEthernet1/0/9   unassigned      YES unset  down                  down    
+GigabitEthernet1/0/10  unassigned      YES unset  down                  down    
+GigabitEthernet1/0/11  unassigned      YES unset  down                  down    
+GigabitEthernet1/0/12  unassigned      YES unset  down                  down    
+GigabitEthernet1/0/13  unassigned      YES unset  up                    up      
+GigabitEthernet1/0/14  unassigned      YES unset  up                    up      
+GigabitEthernet1/0/15  unassigned      YES unset  up                    up      
+GigabitEthernet1/0/16  unassigned      YES unset  up                    up      
+GigabitEthernet1/0/17  unassigned      YES unset  up                    up      
+GigabitEthernet1/0/18  unassigned      YES unset  up                    up      
+GigabitEthernet1/0/19  unassigned      YES unset  up                    up      
+GigabitEthernet1/0/20  unassigned      YES unset  up                    up      
+GigabitEthernet1/0/21  unassigned      YES unset  down                  down    
+GigabitEthernet1/0/22  unassigned      YES unset  down                  down    
+GigabitEthernet1/0/23  unassigned      YES unset  up                    up      
+GigabitEthernet1/0/24  unassigned      YES unset  up                    up      
+GigabitEthernet1/0/25  unassigned      YES unset  up                    up      
+GigabitEthernet1/0/26  unassigned      YES unset  down                  down    
+GigabitEthernet1/0/27  unassigned      YES unset  up                    up      
+GigabitEthernet1/0/28  unassigned      YES unset  down                  down    
+GigabitEthernet1/0/29  unassigned      YES unset  down                  down    
+GigabitEthernet1/0/30  unassigned      YES unset  down                  down    
+GigabitEthernet1/0/31  unassigned      YES unset  down                  down    
+GigabitEthernet1/0/32  unassigned      YES unset  down                  down    
+GigabitEthernet1/0/33  unassigned      YES unset  down                  down    
+GigabitEthernet1/0/34  unassigned      YES unset  down                  down    
+GigabitEthernet1/0/35  unassigned      YES unset  down                  down    
+GigabitEthernet1/0/36  unassigned      YES unset  down                  down    
+GigabitEthernet1/0/37  unassigned      YES unset  down                  down    
+GigabitEthernet1/0/38  unassigned      YES unset  down                  down    
+GigabitEthernet1/0/39  unassigned      YES unset  down                  down    
+GigabitEthernet1/0/40  unassigned      YES unset  down                  down    
+GigabitEthernet1/0/41  unassigned      YES unset  down                  down    
+GigabitEthernet1/0/42  unassigned      YES unset  down                  down    
+GigabitEthernet1/0/43  unassigned      YES unset  down                  down    
+GigabitEthernet1/0/44  unassigned      YES unset  up                    up      
+GigabitEthernet1/0/45  unassigned      YES unset  up                    up      
+GigabitEthernet1/0/46  unassigned      YES unset  up                    up      
+GigabitEthernet1/0/47  unassigned      YES unset  up                    up      
+GigabitEthernet1/0/48  unassigned      YES unset  up                    up      
+GigabitEthernet1/0/49  unassigned      YES unset  down                  down    
+GigabitEthernet1/0/50  unassigned      YES unset  down                  down    
+GigabitEthernet1/0/51  unassigned      YES unset  down                  down    
+GigabitEthernet1/0/52  unassigned      YES unset  down                  down    
+Te1/0/1                unassigned      YES unset  down                  down    
+Te1/0/2                unassigned      YES unset  down                  down    
+Loopback0              unassigned      YES NVRAM  up                    up      
+ae-dub-1-sw2#sh ip inter brief vrf all
+                                ^
+% Invalid input detected at '^' marker.
+
+ae-dub-1-sw2#sh version
+Cisco IOS Software, C3750E Software (C3750E-UNIVERSALK9-M), Version 12.2(55)SE12, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2017 by Cisco Systems, Inc.
+Compiled Thu 28-Sep-17 01:04 by prod_rel_team
+Image text-base: 0x00003000, data-base: 0x02800000
+
+ROM: Bootstrap program is C3750E boot loader
+BOOTLDR: C3750E Boot Loader (C3750E-HBOOT-M) Version 12.2(44r)SE5, RELEASE SOFTWARE (fc3)
+
+ae-dub-1-sw2 uptime is 39 weeks, 5 days, 17 hours, 40 minutes
+System returned to ROM by power-on
+System restarted at 10:54:58 UTC Thu Apr 30 2020
+System image file is "flash:/c3750e-universalk9-mz.122-55.SE12.bin"
+
+
+This product contains cryptographic features and is subject to United
+States and local country laws governing import, export, transfer and
+use. Delivery of Cisco cryptographic products does not imply
+third-party authority to import, export, distribute or use encryption.
+Importers, exporters, distributors and users are responsible for
+compliance with U.S. and local country laws. By using this product you
+agree to comply with applicable laws and regulations. If you are unable
+to comply with U.S. and local laws, return this product immediately.
+
+A summary of U.S. laws governing Cisco cryptographic products may be found at:
+http://www.cisco.com/wwl/export/crypto/tool/stqrg.html
+
+If you require further assistance please contact us by sending email to
+export@cisco.com.
+
+License Level: ipservices
+License Type: Permanent
+Next reload license Level: ipservices
+
+cisco WS-C3750E-48PD (PowerPC405) processor (revision E0) with 262144K bytes of memory.
+Processor board ID FDO1235R0T0
+Last reset from power-on
+2 Virtual Ethernet interfaces
+1 FastEthernet interface
+52 Gigabit Ethernet interfaces
+2 Ten Gigabit Ethernet interfaces
+The password-recovery mechanism is enabled.
+
+512K bytes of flash-simulated non-volatile configuration memory.
+Base ethernet MAC Address       : 00:23:33:4C:A4:80
+Motherboard assembly number     : 73-10316-13
+Motherboard serial number       : FDO12350UWU
+Model revision number           : E0
+Motherboard revision number     : A0
+Model number                    : WS-C3750E-48PD-EF
+Daughterboard assembly number   : 800-28590-01
+Daughterboard serial number     : FDO123509E7
+System serial number            : FDO1235R0T0
+Top Assembly Part Number        : 800-28446-04
+Top Assembly Revision Number    : B0
+Version ID                      : V02
+CLEI Code Number                : COM9X10ARA
+Hardware Board Revision Number  : 0x01
+
+
+Switch Ports Model              SW Version            SW Image                 
+------ ----- -----              ----------            ----------               
+*    1 54    WS-C3750E-48PD     12.2(55)SE12          C3750E-UNIVERSALK9-M     
+
+
+Configuration register is 0xF
+
+ae-dub-1-sw2#

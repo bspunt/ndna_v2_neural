@@ -1,0 +1,21 @@
+
+us-smc-mgmtsw2#terminal len 0
+us-smc-mgmtsw2#
+us-smc-mgmtsw2#sh int trun
+
+Port        Mode             Encapsulation  Status        Native vlan
+Gi1/0/49    on               802.1q         trunking      1
+Gi1/0/50    on               802.1q         trunking      1
+
+Port        Vlans allowed on trunk
+Gi1/0/49    99
+Gi1/0/50    99
+
+Port        Vlans allowed and active in management domain
+Gi1/0/49    99
+Gi1/0/50    99
+
+Port        Vlans in spanning tree forwarding state and not pruned
+Gi1/0/49    99
+Gi1/0/50    99
+us-smc-mgmtsw2#

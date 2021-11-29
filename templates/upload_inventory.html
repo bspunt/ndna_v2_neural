@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+<br>
+<br>
+<br>
+{% load crispy_forms_tags %}
+
+{% block content %}
+<body style="background-color:#ebeef0;">
+<div class="container my-container">  
+  <br>
+  <br>
+  <br>
+  <div class="text-left padding"><h4><font color=green><i>Upload Inventory CSV to upload multiple devices into Inventory</i></font></h4></div>  
+  <div class="row my-row">
+    <div class="form-group col-sm-4">  
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <br>
+    <button type="submit" class="btn btn-primary">Upload!</button>
+  </form>
+</div>  
+</div>
+{% endblock %}

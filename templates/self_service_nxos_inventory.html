@@ -1,0 +1,56 @@
+{% extends "automation-base.html" %}
+{% block content %}
+<br>
+<br>
+<br>
+<div class="container my-container">  
+    <div class="text-left padding"><h6><p style="color:rgb(223, 238, 16)"><i>Hey {{ request.user.username }}! Let's Add or Update The NX-OS NDNA Inventory ( ͡ᵔ ͜ʖ ͡ᵔ )</i></p></h6></div>
+   <!-- <h6 class="mt-3"><b><i><p style="color:red">Lets get started {{ request.user.username }}!</i></b></p></h6>  -->
+   <div class="mt-3"><h4><font color=green><i> Add or Update The NX-OS NDNA Inventory<br> <b>(Run Now)</b></i></font></h4></div>  
+   <!-- <div class=""text-center padding""><h2><font color=green><i> Free Form Automation</i></font></h2></div>   -->
+<form method="POST">
+<div class="row my-row">
+  
+
+    <div class="form-group col-md-6">  
+        <label for="Nodes"><font color="white">Nodes:</font></label>  
+        <textarea class="form-control col-lg-12" rows="1" id="nodes_list" name="nodes_list"></textarea>  
+    </div>  
+
+    <div class="form-group col-md-6">  </div> 
+
+        <div class="form-group col-lg-4">  
+        {% csrf_token %}
+        <button type="submit" class=" btn btn-primary padding-top btn-sm" name="btnform1">Submit to Run Now!</button>  
+        </div> 
+    </form>
+</div> 
+  
+  <div class="mt-3"><h4><font color=green><i> Schedule to Run Later!</i></font></h4></div>  
+  <form method="POST">
+    <div class="row my-row">
+    
+        <div class="form-group col-md-6">  
+            <label for="Nodes"><font color="white">Nodes:</font></label>  
+            <textarea class="form-control col-lg-12" rows="1" id="nodes_list" name="nodes_list"></textarea>  
+        </div>  
+
+        <div class="form-group col-md-6">  </div> 
+                                      
+        <div class="form-group col-md-6">  
+            <!-- This form has datetime field -->
+            {% csrf_token %}
+            {{ form.as_p }}
+            <label for="datetime"><font color="white">Enter the Date and Time <i>(<b>Note:</b> All times are in UTC for the Scheduler)</i></font></label></input>
+        </div>
+        <div class="form-group col-md-6">  </div>
+        
+        <div class="form-group col-lg-4">  
+        {% csrf_token %}
+        <button type="submit" class=" btn btn-success padding-top btn-sm" name="btnform2">Schedule for Later</button>  
+        </div> 
+        </div>  
+      </form>
+</div> 
+
+{% endblock content %}

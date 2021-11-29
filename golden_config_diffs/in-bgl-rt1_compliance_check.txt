@@ -1,0 +1,692 @@
+in-bgl-rt1#term len 0
+in-bgl-rt1#sh run
+Building configuration...
+
+Current configuration : 20167 bytes
+!
+! Last configuration change at 23:23:30 UTC Wed Jun 16 2021 by singhrox
+!
+version 16.3
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no platform punt-keepalive disable-kernel-core
+!
+hostname in-bgl-rt1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition Mgmt-intf
+!
+address-family ipv4
+exit-address-family
+!
+address-family ipv6
+exit-address-family
+!
+!
+aaa new-model
+!
+!
+aaa group server tacacs+ ISE
+server name in-ban-isetacacs1
+server name us-lvs-isetacacs1
+server name us-dnv-isetacacs1
+ip vrf forwarding Mgmt-intf
+!
+aaa authentication login default group ISE local
+aaa authorization config-commands
+aaa authorization exec default group ISE local
+aaa authorization commands 1 default group ISE local if-authenticated
+aaa authorization commands 15 default group ISE local if-authenticated
+aaa accounting exec default start-stop group ISE
+aaa accounting commands 1 default start-stop group ISE
+aaa accounting commands 15 default start-stop group ISE
+aaa accounting system default start-stop group ISE
+!
+!
+!
+!
+!
+aaa session-id common
+no ip source-route
+ip options drop
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+ip host relay.mcafee.com 10.44.93.54
+
+no ip domain lookup
+ip domain name corp.nai.org
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+!
+!
+!
+flow record wan
+match ipv4 tos
+match ipv4 protocol
+match ipv4 source address
+match ipv4 destination address
+match transport source-port
+match transport destination-port
+match interface input
+collect routing source as
+collect routing destination as
+collect routing next-hop address ipv4
+collect transport tcp flags
+collect interface output
+collect counter bytes
+collect counter packets
+collect timestamp sys-uptime first
+collect timestamp sys-uptime last
+!
+!
+flow exporter wan-to-SIEM
+description APAC-EXPORTER-TO-SIEM
+destination 10.254.16.192
+source Loopback10
+transport udp 2070
+!
+!
+flow monitor wan
+exporter wan-to-SIEM
+cache timeout active 60
+record wan
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+crypto pki trustpoint TP-self-signed-1322894467
+enrollment selfsigned
+subject-name cn=IOS-Self-Signed-Certificate-1322894467
+revocation-check none
+rsakeypair TP-self-signed-1322894467
+!
+!
+crypto pki certificate chain TP-self-signed-1322894467
+certificate self-signed 01
+30820330 30820218 A0030201 02020101 300D0609 2A864886 F70D0101 05050030
+31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274
+69666963 6174652D 31333232 38393434 3637301E 170D3136 31303231 30363133
+34365A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649
+4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D31 33323238
+39343436 37308201 22300D06 092A8648 86F70D01 01010500 0382010F 00308201
+0A028201 0100F40A DF3267F1 1DA84210 2199C71D F493F9B0 85FDA7AF 826D901B
+23EA9C08 84627D75 95210806 D4DDB6F6 7FBA6518 65AD340C E73D6D25 7CEAD459
+145FD018 695E423F 7EA9470E F06C3F09 2CD26BEF B5FF6DFA 06CA36FA F7B9C1C1
+1CFCC697 4925171A E8BA3CC4 81693EAB CEB9411E 70DA8D7A 48CB18E7 91F53269
+6DBB81A8 0DEE8A38 226D525B 037FBC0D 3ECFA467 2E015CA3 150420C9 0AF077B1
+CD89A098 F23EC140 0E2AB1E9 8071E8DD 2B499834 92620B95 B09C6215 7B80B84B
+1FE6E9A2 DB58B9F1 1C1381AA A9D4B4A0 F640378D D24BEEEF 726D1451 F372D921
+7AD4A7DC 3646AF80 5CFEB541 06177DD6 1EF1E69F ED076C6F E7C4901C B3E2590B
+D45A3092 A9870203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF
+301F0603 551D2304 18301680 14C4C004 1A022F3E E4EDE951 1FBA604D AC105063
+67301D06 03551D0E 04160414 C4C0041A 022F3EE4 EDE9511F BA604DAC 10506367
+300D0609 2A864886 F70D0101 05050003 82010100 7EAC042D 1584A7E0 96752B3B
+6BB3520B 0C06433C 63ACF5CD 282E8E12 D7DE6BAC C55848AB 0AD6ABC1 F218106F
+2328D9AB 70002D95 23C762AF 28A63D17 DC7A1CC2 D5ABD23F B1659614 656DC8BF
+D80F7453 12ED7264 FED7D831 5FAF08D4 66CBFF2F 30F8A12D A84863FE 2A8B9481
+F710D7B4 30ADC87B 3E9EAE6C F0D0620A 4CE0C9D5 1E9D8B61 511C2F7B B0471E0D
+4F5D6202 D28DC567 CA198737 79A9E8C4 C05103CC CB87CDF4 F14BBE29 DAD833B8
+75E92D64 E4BF530C AA62E3BA 9393A11C 2B0217B0 9791746D 36CD1228 97A20788
+EE986D09 7E717D6E E55B9826 25935D46 847E8086 B36E4FDC AB1CBC21 0CE071C2
+D32F7105 9FEA4E0B C7F33BEA 9784D25F 81910963
+	quit
+
+
+license udi pid ASR1001-HX sn JAE203905LA
+!
+spanning-tree extend system-id
+diagnostic bootup level minimal
+!
+username netauth privilege 15 secret 5 $1$B9GQ$WK7yTIWJC9pWKgh93D4ko.
+!
+redundancy
+mode none
+!
+!
+cdp run
+!
+track 101 list boolean or
+object 100
+object 200
+!
+!
+class-map match-any in-default
+match access-group name ms-teams-screen-sharing
+class-map match-any in-streaming
+match access-group name ms-teams-video
+class-map match-any in-voice
+match access-group name ms-teams-audio
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Null0
+no ip unreachables
+!
+interface Loopback0
+ip address 10.254.1.253 255.255.255.255
+!
+interface Loopback10
+ip address 10.128.125.162 255.255.255.255
+!
+interface GigabitEthernet0/0/0
+description Reliance-PTP1-CID:PINEV_IDC2_CIR_1C277733_KBBANGXXXXM002N67003 ETH S8-9 Mcafee Rack A04
+ip flow monitor wan output
+ip address 10.255.246.113 255.255.255.252
+no ip redirects
+no ip proxy-arp
+ip mtu 1496
+ip tcp adjust-mss 1350
+load-interval 30
+no negotiation auto
+cdp enable
+!
+interface GigabitEthernet0/0/1
+no ip address
+shutdown
+negotiation auto
+cdp enable
+!
+interface GigabitEthernet0/0/2
+no ip address
+shutdown
+negotiation auto
+cdp enable
+!
+interface GigabitEthernet0/0/3
+no ip address
+shutdown
+negotiation auto
+cdp enable
+!
+interface GigabitEthernet0/0/4
+no ip address
+shutdown
+negotiation auto
+cdp enable
+!
+interface GigabitEthernet0/0/5
+no ip address
+shutdown
+negotiation auto
+cdp enable
+!
+interface GigabitEthernet0/0/6
+no ip address
+shutdown
+negotiation auto
+cdp enable
+!
+interface GigabitEthernet0/0/7
+no ip address
+shutdown
+negotiation auto
+!
+interface TenGigabitEthernet0/1/0
+no ip address
+shutdown
+no negotiation auto
+cdp enable
+!
+interface TenGigabitEthernet0/1/1
+description IN-BGL-SW1_TE-1-0-1
+ip address 10.254.7.242 255.255.255.252
+ip ospf message-digest-key 1 md5 colo-bgl
+ip ospf network point-to-point
+ip ospf bfd
+load-interval 30
+cdp enable
+!
+interface TenGigabitEthernet0/1/2
+description IN-BGL-SW2_TE-1-0-1
+ip address 10.254.7.246 255.255.255.252
+ip ospf message-digest-key 1 md5 colo-bgl
+ip ospf network point-to-point
+ip ospf bfd
+load-interval 30
+cdp enable
+!
+interface TenGigabitEthernet0/1/3
+description IN-BGL-RT2_TE-0-3-0
+ip flow monitor wan output
+ip address 10.254.7.197 255.255.255.252
+no ip redirects
+ip ospf message-digest-key 1 md5 colo-bgl
+ip ospf network point-to-point
+ip ospf bfd
+load-interval 30
+cdp enable
+!
+interface TenGigabitEthernet0/1/4
+no ip address
+shutdown
+no negotiation auto
+cdp enable
+!
+interface TenGigabitEthernet0/1/5
+no ip address
+shutdown
+no negotiation auto
+cdp enable
+!
+interface TenGigabitEthernet0/1/6
+no ip address
+shutdown
+no negotiation auto
+cdp enable
+!
+interface TenGigabitEthernet0/1/7
+no ip address
+shutdown
+no negotiation auto
+cdp enable
+!
+interface GigabitEthernet0
+vrf forwarding Mgmt-intf
+ip address 10.254.0.15 255.255.255.0
+negotiation auto
+!
+router ospf 7754
+router-id 10.254.1.253
+area 0.0.0.0 authentication message-digest
+redistribute bgp 65308 metric 100001 subnets route-map BGP-TO-OSPF
+passive-interface default
+no passive-interface TenGigabitEthernet0/1/1
+no passive-interface TenGigabitEthernet0/1/2
+no passive-interface TenGigabitEthernet0/1/3
+network 10.254.1.253 0.0.0.0 area 0.0.0.0
+network 10.254.7.196 0.0.0.3 area 0.0.0.0
+network 10.254.7.240 0.0.0.3 area 0.0.0.0
+network 10.254.7.244 0.0.0.3 area 0.0.0.0
+default-information originate
+!
+router bgp 65308
+bgp router-id 10.254.1.254
+bgp log-neighbor-changes
+neighbor 10.254.1.254 remote-as 65308
+neighbor 10.254.1.254 description IN-BGL-RT2 iBGP peer
+neighbor 10.254.1.254 update-source Loopback0
+neighbor 10.255.246.114 remote-as 65307
+neighbor 10.255.246.114 description PTP_IN-BAN-RT1
+!
+address-family ipv4
+network 10.66.16.0 mask 255.255.252.0
+network 10.66.48.0 mask 255.255.252.0
+network 10.66.255.128 mask 255.255.255.224
+network 10.128.125.162 mask 255.255.255.255
+network 10.193.128.0 mask 255.255.255.0
+network 10.194.24.0 mask 255.255.248.0
+network 10.194.152.0 mask 255.255.248.0
+network 10.195.198.0 mask 255.255.254.0
+network 10.210.192.0 mask 255.255.224.0
+aggregate-address 10.254.0.0 255.255.128.0 summary-only
+aggregate-address 10.210.192.0 255.255.224.0 summary-only
+aggregate-address 10.195.198.0 255.255.254.0 summary-only
+aggregate-address 10.194.152.0 255.255.248.0 summary-only
+aggregate-address 10.194.24.0 255.255.248.0 summary-only
+aggregate-address 10.193.128.0 255.255.255.0 summary-only
+aggregate-address 10.66.255.128 255.255.255.224 summary-only
+aggregate-address 10.66.48.0 255.255.252.0 summary-only
+aggregate-address 10.66.16.0 255.255.252.0 summary-only
+aggregate-address 10.56.248.0 255.255.252.0 summary-only
+aggregate-address 10.56.224.0 255.255.255.0 summary-only
+aggregate-address 10.56.120.0 255.255.252.0 summary-only
+redistribute ospf 7754 route-map OSPF-TO-BGP
+neighbor 10.254.1.254 activate
+neighbor 10.254.1.254 next-hop-self
+neighbor 10.255.246.114 activate
+neighbor 10.255.246.114 soft-reconfiguration inbound
+neighbor 10.255.246.114 filter-list 9 out
+exit-address-family
+!
+ip forward-protocol nd
+!
+ip bgp-community new-format
+ip community-list 10 permit 65308:110
+ip as-path access-list 9 permit ^$
+ip http server
+ip http authentication local
+ip http secure-server
+ip tftp source-interface GigabitEthernet0
+ip route vrf Mgmt-intf 0.0.0.0 0.0.0.0 10.254.0.252
+ip tacacs source-interface GigabitEthernet0
+ip ssh version 2
+!
+ip access-list standard snmp_acl
+remark DNV_CACTI-10.44.68.96
+permit 10.44.68.96
+remark LVSAPPIPAM1-10.92.72.22
+permit 10.92.72.22
+remark LVSNetbrain02-10.92.68.28
+permit 10.92.68.28
+remark NETDISCO-10.95.64.26
+permit 10.95.64.26
+remark vRNI-10.212.78.219
+remark LVSPRDSWAP-10.92.1.68
+permit 10.92.1.68
+remark SMC_SNMP_HOST-10.68.2.90
+permit 10.68.2.90
+remark NetbrainProxy-10.44.8.30
+permit 10.44.8.30
+remark NetOpsCSPC-10.44.8.29
+permit 10.44.8.29
+remark NA_PRD-10.44.8.22
+permit 10.44.8.22
+remark DAL_PRTG-10.52.64.71
+permit 10.52.64.71
+remark DNVPRDUDP004-10.44.65.91
+permit 10.44.65.91
+remark LVS_STEALTH-SMC-10.32.7.18
+permit 10.32.7.18
+remark NA_DEV-10.44.8.104
+permit 10.44.8.104
+permit 10.212.78.219
+remark DNVPRDSWPE-10.93.8.6
+permit 10.93.8.6
+remark NTOP-NG-10.95.114.190
+permit 10.95.114.190
+remark NTOP-NPROBE-10.95.115.148
+permit 10.95.115.148
+remark LVSNetbrain01-10.92.64.165
+permit 10.92.64.165
+remark DNV_HP_NNMI_PRD-10.44.64.210
+permit 10.44.64.210
+remark DNV_HP_NNMI-10.44.64.160
+permit 10.44.64.160
+remark DNV_HP_NNMI_DEV-10.44.64.179
+permit 10.44.64.179
+remark DNV_MRTG-10.44.65.136
+permit 10.44.65.136
+remark FedRAMP_Monitoring-10.60.0.48
+permit 10.60.0.48 0.0.0.3
+!
+ip access-list extended ms-teams-audio
+permit udp any any range 50000 50019
+remark ms-teams audio
+ip access-list extended ms-teams-screen-sharing
+permit udp any any range 50040 50059
+remark ms-teams screen sharing
+ip access-list extended ms-teams-video
+remark ms-teams video
+permit udp any any range 50020 50039
+ip access-list extended vty
+remark Internal VTY access
+permit ip 10.0.0.0 0.255.255.255 any
+permit ip 198.175.91.0 0.0.0.255 any
+permit ip 198.175.95.0 0.0.0.255 any
+permit ip host 62.189.112.129 any
+permit ip host 67.97.80.5 any
+permit ip host 103.245.47.20 any
+permit ip 161.69.0.0 0.0.255.255 any
+permit ip host 208.69.158.11 any
+permit ip host 216.49.86.123 any
+deny   ip any any log
+!
+logging origin-id hostname
+logging facility local6
+logging source-interface Loopback10
+logging host 10.95.65.148
+logging host 10.93.8.6
+access-list 50 remark NA2
+access-list 50 permit 10.44.66.100
+access-list 50 permit 10.44.68.96
+access-list 50 remark snmp-ro-acl
+access-list 50 permit 10.68.2.90
+access-list 50 remark Cisco_KTN
+access-list 50 permit 10.44.8.30
+access-list 50 remark snmp_RO
+access-list 50 remark NA1
+access-list 50 permit 10.44.8.22
+access-list 50 permit 161.69.219.145
+access-list 50 permit 10.44.64.210
+access-list 50 permit 10.44.64.160
+access-list 50 remark DNV_HP_NNMI_OLD
+access-list 50 remark DNV_HP_NNMI_NEW
+access-list 50 remark DNV_MRTG
+access-list 50 permit 10.44.65.136
+access-list 50 deny   any log
+!
+!
+route-map OSPF-TO-BGP deny 10
+match tag 65308
+!
+route-map OSPF-TO-BGP permit 20
+set community 65308:110
+!
+route-map BGP-TO-OSPF deny 10
+match community 10
+!
+route-map BGP-TO-OSPF permit 20
+set tag 65308
+!
+route-map LOCALPREF-HIGH permit 25
+set local-preference 150
+!
+snmp-server view cutdown iso included
+snmp-server community McAfeeR0 RO snmp_acl
+snmp-server community Cacti0nlyString RO snmp_acl
+snmp-server trap-source Loopback10
+snmp-server location Bangalore, India
+snmp-server contact GOCNetOps 1.972.963.7600
+snmp-server enable traps snmp authentication linkdown linkup coldstart warmstart
+snmp-server enable traps vrrp
+snmp-server enable traps pfr
+snmp-server enable traps flowmon
+snmp-server enable traps ds1
+snmp-server enable traps entity-perf throughput-notif
+snmp-server enable traps call-home message-send-fail server-fail
+snmp-server enable traps tty
+snmp-server enable traps eigrp
+snmp-server enable traps ospf state-change
+snmp-server enable traps ospf errors
+snmp-server enable traps ospf retransmit
+snmp-server enable traps ospf lsa
+snmp-server enable traps ospf cisco-specific state-change nssa-trans-change
+snmp-server enable traps ospf cisco-specific state-change shamlink interface-old
+snmp-server enable traps ospf cisco-specific state-change shamlink neighbor
+snmp-server enable traps ospf cisco-specific errors
+snmp-server enable traps ospf cisco-specific retransmit
+snmp-server enable traps ospf cisco-specific lsa
+snmp-server enable traps casa
+snmp-server enable traps license
+snmp-server enable traps aaa_server
+snmp-server enable traps atm subif
+snmp-server enable traps bfd
+snmp-server enable traps bgp state-changes all
+snmp-server enable traps memory bufferpeak
+snmp-server enable traps config-copy
+snmp-server enable traps config
+snmp-server enable traps config-ctid
+snmp-server enable traps dhcp
+snmp-server enable traps dial
+snmp-server enable traps dlsw
+snmp-server enable traps dsp card-status
+snmp-server enable traps dsp oper-state
+snmp-server enable traps dsp video-usage
+snmp-server enable traps dsp video-out-of-resource
+snmp-server enable traps fru-ctrl
+snmp-server enable traps entity
+snmp-server enable traps event-manager
+snmp-server enable traps frame-relay multilink bundle-mismatch
+snmp-server enable traps frame-relay
+snmp-server enable traps frame-relay subif
+snmp-server enable traps hsrp
+snmp-server enable traps pimstdmib neighbor-loss invalid-register invalid-join-prune rp-mapping-change interface-election
+snmp-server enable traps ipmulticast
+snmp-server enable traps msdp
+snmp-server enable traps mvpn
+snmp-server enable traps ospfv3 state-change
+snmp-server enable traps ospfv3 errors
+snmp-server enable traps pim neighbor-change rp-mapping-change invalid-pim-message
+snmp-server enable traps pppoe
+snmp-server enable traps cpu threshold
+snmp-server enable traps pw vc
+snmp-server enable traps rsvp
+snmp-server enable traps ipsla
+snmp-server enable traps syslog
+snmp-server enable traps l2tun session
+snmp-server enable traps l2tun pseudowire status
+snmp-server enable traps pki
+snmp-server enable traps trustsec-sxp conn-srcaddr-err msg-parse-err conn-config-err binding-err conn-up conn-down binding-expn-fail oper-nodeid-change binding-conflict
+snmp-server enable traps adslline
+snmp-server enable traps vdsl2line
+snmp-server enable traps ethernet evc status create delete
+snmp-server enable traps ether-oam
+snmp-server enable traps ethernet cfm cc mep-up mep-down cross-connect loop config
+snmp-server enable traps ethernet cfm crosscheck mep-missing mep-unknown service-up
+snmp-server enable traps auth-framework sec-violation
+snmp-server enable traps entity-qfp mem-res-thresh throughput-notif
+snmp-server enable traps entity-state
+snmp-server enable traps lisp
+snmp-server enable traps entity-sensor
+snmp-server enable traps flash insertion removal
+snmp-server enable traps firewall serverstatus
+snmp-server enable traps netsync
+snmp-server enable traps sbc adj-status
+snmp-server enable traps sbc blacklist
+snmp-server enable traps sbc congestion-alarm
+snmp-server enable traps sbc h248-ctrlr-status
+snmp-server enable traps sbc media-source
+snmp-server enable traps sbc radius-conn-status
+snmp-server enable traps sbc sla-violation
+snmp-server enable traps sbc sla-violation-rev1
+snmp-server enable traps sbc svc-state
+snmp-server enable traps sbc qos-statistics
+snmp-server enable traps srp
+snmp-server enable traps isdn call-information
+snmp-server enable traps isdn layer2
+snmp-server enable traps isdn chan-not-avail
+snmp-server enable traps isdn ietf
+snmp-server enable traps cnpd
+snmp-server enable traps entity-diag boot-up-fail hm-test-recover hm-thresh-reached scheduled-test-fail
+snmp-server enable traps cef resource-failure peer-state-change peer-fib-state-change inconsistency
+snmp-server enable traps sonet
+snmp-server enable traps resource-policy
+snmp-server enable traps nhrp nhs
+snmp-server enable traps nhrp nhc
+snmp-server enable traps nhrp nhp
+snmp-server enable traps nhrp quota-exceeded
+snmp-server enable traps isis
+snmp-server enable traps ip local pool
+snmp-server enable traps mpls rfc ldp
+snmp-server enable traps mpls ldp
+snmp-server enable traps mpls rfc traffic-eng
+snmp-server enable traps mpls traffic-eng
+snmp-server enable traps mpls fast-reroute protected
+snmp-server enable traps bulkstat collection transfer
+snmp-server enable traps alarms informational
+snmp-server enable traps voice
+snmp-server enable traps vrfmib vrf-up vrf-down vnet-trunk-up vnet-trunk-down
+snmp-server enable traps ethernet cfm alarm
+snmp-server enable traps rf
+snmp-server enable traps transceiver all
+snmp-server enable traps mpls vpn
+snmp-server enable traps mpls rfc vpn
+snmp-server host 10.160.94.32 version 2c McAfeeR0
+snmp-server host 10.44.64.160 version 2c McAfeeR0
+snmp-server host 10.44.64.210 version 2c McAfeeR0
+snmp-server host 10.92.72.22 version 2c McAfeeR0
+snmp-server host 10.92.79.77 version 2c McAfeeR0
+snmp-server host 10.93.8.6 version 2c McAfeeR0
+!
+tacacs-server host 10.95.193.74
+tacacs-server directed-request
+tacacs server us-lvs-isetacacs1
+address ipv4 10.92.1.113
+key 7 030E51121E0C0D5B7B2D332C333D192B3E7F1F0003
+tacacs server us-dnv-isetacacs1
+address ipv4 10.93.8.113
+key 7 030E51121E0C0D5B7B2D332C333D192B3E7F1F0003
+tacacs server in-ban-isetacacs1
+address ipv4 10.212.24.133
+key 7 030E51121E0C0D5B7B2D332C333D192B3E7F1F0003
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+!
+!
+!
+banner login ^C
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==
+= THIS IS A PRIVATE COMPUTER SYSTEM FOR THE USE OF AUTHORIZED USERS ONLY.      =
+= Persons using this computer system without authority, or in excess of their  =
+= authority, are subject to having all of their activities on this system      =
+= monitored and recorded by system personnel. In the course of monitoring      =
+= persons improperly using this system, or in the course of system maintenance =
+= the activities of authorized users may also be monitored. Anyone using this  =
+= system expressly consents to such monitoring and is advised that if such     =
+= monitoring reveals possible evidence of criminal activity, system personnel  =
+= may provide the evidence of such monitoring to law enforcement officials.    =
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==
+^C
+alias clid-group s sh int br | exclude dow
+alias clid-group wr copy running-config startup-config
+alias clid-group r sh ip ro
+!
+line con 0
+stopbits 1
+line aux 0
+stopbits 1
+line vty 0 4
+access-class vty in vrf-also
+exec-timeout 30 0
+privilege level 15
+transport input ssh
+line vty 5 15
+access-class vty in vrf-also
+exec-timeout 30 0
+privilege level 15
+transport input ssh
+!
+!
+!
+!
+!
+event manager environment _email_to network_alerts@mcafee.com
+!
+end
+
+in-bgl-rt1#

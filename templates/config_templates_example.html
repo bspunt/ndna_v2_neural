@@ -1,0 +1,32 @@
+{% extends "datatables-base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<body style="background-color:#ebeef0;">
+
+  <div class="container mb-3 mt-3">
+
+    <div class="row my-row">
+      <div class="form-group col-md-12">  
+        <p>
+          <div class="text-left padding"><h6><p style="color:rgb(223, 238, 16)">
+            See below for an example of how to the csv (variables file) merges with the Jinja2 template (which is a full config that contains the variables)</p>
+            <p style="color:rgb(24, 187, 59)"><i>Within the same screenshot, first, you'll see the csv file format, then just below the csv example, you'll see an example of the jinja2 template format 
+            <br><br>Columns A and B are always the same, with A being the IP or Hostname that the Unique Automation
+          will use to connect to the node. Column B will always be the hostname without any DNS suffix, e.g. us-dal-sw1. 
+          <br><br>
+          Always use the exact header name as shown below for these two columns, e.g. ssh_host_name_or_ip and host_name<br><br>
+        After that, the other columns will depend on the variables in the jinja2 configuration template which will depend on the platform</i></p></h6>
+          </div>
+          <img src="{%static "neural/assets/img/j2-csv-example.jpg" %}" alt=""  class="rounded img-fluid">
+
+        </p>
+      </div>  
+    </div>
+  
+
+  <div class="text-left padding"><h4><a href="{% url 'generate_config_templates' %}"><i>Click here to get back to the config-gen page!</i></a></h4></div>
+  
+{% endblock %}

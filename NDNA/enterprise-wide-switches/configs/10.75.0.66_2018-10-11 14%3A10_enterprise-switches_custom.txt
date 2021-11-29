@@ -1,0 +1,24 @@
+ca-wat-torsw6#terminal len 0
+ca-wat-torsw6#
+ca-wat-torsw6#sh int trun
+
+Port        Mode             Encapsulation  Status        Native vlan
+Gi1/0/6     on               802.1q         trunking      999
+Gi1/0/7     on               802.1q         trunking      999
+Po1         on               802.1q         trunking      999
+
+Port        Vlans allowed on trunk
+Gi1/0/6     1-4094
+Gi1/0/7     1-4094
+Po1         99,105,600,3600-3608,3612,3800-3801
+
+Port        Vlans allowed and active in management domain
+Gi1/0/6     1,99,105,600,999,3600-3605,3608,3612,3801
+Gi1/0/7     1,99,105,600,999,3600-3605,3608,3612,3801
+Po1         99,105,600,3600-3605,3608,3612,3801
+
+Port        Vlans in spanning tree forwarding state and not pruned
+Gi1/0/6     1,99,105,600,999,3600-3605,3608,3612,3801
+Gi1/0/7     1,99,105,600,999,3600-3605,3608,3612,3801
+Po1         99,105,600,3600-3605,3608,3612,3801
+ca-wat-torsw6#

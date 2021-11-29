@@ -1,0 +1,117 @@
+
+ch-zur-sw1#terminal length 0
+ch-zur-sw1#sh cdp nei de
+-------------------------
+Device ID: ch-zur-ap1.corpzone.internalzone.com
+Entry address(es): 
+  IP address: 10.186.128.12
+  IPv6 address: FE80::4E4E:35FF:FEC7:1AE0  (link-local)
+Platform: cisco AIR-CAP3602I-E-K9,  Capabilities: Trans-Bridge Source-Route-Bridge IGMP 
+Interface: FiveGigabitEthernet1/0/22,  Port ID (outgoing port): GigabitEthernet0
+Holdtime : 173 sec
+
+Version :
+Cisco IOS Software, C3600 Software (AP3G2-K9W8-M), Version 15.3(3)JF10, RELEASE SOFTWARE (fc3)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2019 by Cisco Systems, Inc.
+Compiled Thu 13-Jun-19 16:36 by prod_rel_team
+
+advertisement version: 2
+Duplex: full
+Power drawn: 15.400 Watts
+Power request id: 31810, Power management id: 2
+Power request levels are:15400 13000 0 0 0 
+Management address(es): 
+  IP address: 10.186.128.12
+
+-------------------------
+Device ID: ch-zur-sdwanrt1
+Entry address(es): 
+  IP address: 10.129.141.2
+Platform: cisco ISR4331/K9,  Capabilities: Router Switch IGMP 
+Interface: FiveGigabitEthernet1/0/1,  Port ID (outgoing port): GigabitEthernet0/0/1
+Holdtime : 145 sec
+
+Version :
+Cisco IOS Software [Gibraltar], ISR Software (X86_64_LINUX_IOSD-UCMK9-M), Version 16.12.02r, RELEASE SOFTWARE (fc9)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2020 by Cisco Systems, Inc.
+Compiled Sun 05-Jan-20 03:31 by mcpre
+
+advertisement version: 2
+VTP Management Domain: ''
+Duplex: full
+Management address(es): 
+  IP address: 10.129.141.2
+
+-------------------------
+Device ID: CH-ZUR-AP02
+Entry address(es): 
+  IP address: 10.186.128.11
+  IPv6 address: FE80::B2FA:EBFF:FE88:73C7  (link-local)
+Platform: cisco AIR-CAP3602I-E-K9,  Capabilities: Trans-Bridge Source-Route-Bridge IGMP 
+Interface: FiveGigabitEthernet1/0/9,  Port ID (outgoing port): GigabitEthernet0
+Holdtime : 153 sec
+
+Version :
+Cisco IOS Software, C3600 Software (AP3G2-K9W8-M), Version 15.3(3)JF10, RELEASE SOFTWARE (fc3)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2019 by Cisco Systems, Inc.
+Compiled Thu 13-Jun-19 16:36 by prod_rel_team
+
+advertisement version: 2
+Duplex: full
+Power drawn: 15.400 Watts
+Power request id: 56201, Power management id: 3
+Power request levels are:15400 13000 0 0 0 
+Management address(es): 
+  IP address: 10.186.128.11
+
+
+Total cdp entries displayed : 3
+ch-zur-sw1#
+ch-zur-sdwanrt1#terminal length 0
+ch-zur-sdwanrt1#sh cdp nei de
+-------------------------
+Device ID: ch-zur-sw1.corpzone.internalzone.com
+Entry address(es): 
+  IP address: 10.129.141.1
+Platform: cisco C9300-48UN,  Capabilities: Router Switch IGMP 
+Interface: GigabitEthernet0/0/1,  Port ID (outgoing port): FiveGigabitEthernet1/0/1
+Holdtime : 177 sec
+
+Version :
+Cisco IOS Software [Gibraltar], Catalyst L3 Switch Software (CAT9K_IOSXE), Version 16.12.3a, RELEASE SOFTWARE (fc1)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2020 by Cisco Systems, Inc.
+Compiled Tue 28-Apr-20 09:37 by mcpre
+
+advertisement version: 2
+VTP Management Domain: 'ch-zur-sw1'
+Duplex: full
+Management address(es): 
+  IP address: 10.129.141.1
+
+-------------------------
+Device ID: ch-mceZUE846.cablecom.net
+Entry address(es): 
+  IP address: 84.72.224.233
+Platform: Cisco C892FSP-K9,  Capabilities: Router Source-Route-Bridge Switch IGMP 
+Interface: GigabitEthernet0/0/0,  Port ID (outgoing port): GigabitEthernet0
+Holdtime : 169 sec
+
+Version :
+Cisco IOS Software, C800 Software (C800-UNIVERSALK9-M), Version 15.4(3)M3, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2015 by Cisco Systems, Inc.
+Compiled Fri 05-Jun-15 16:04 by prod_rel_team
+
+advertisement version: 2
+Native VLAN: 1
+Duplex: full
+Management address(es): 
+  IP address: 84.72.224.233
+
+
+Total cdp entries displayed : 2
+ch-zur-sdwanrt1#
