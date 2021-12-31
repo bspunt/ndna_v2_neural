@@ -1,0 +1,126 @@
+{% extends "datatables-base.html" %}
+
+{% block content %}
+<!-- ========================================================================== -->
+<form method="POST" enctype="multipart/form-data">
+<div class="container mb-3 mt-3">
+   <div class="mt-3"><h4><p style="color:rgb(20, 144, 216)"><i> Grab Network Information Using NAPALM **Getters**</i></p></h4></div>  
+
+    <div class="row my-row">
+        <div class="form-group col-md-12">  
+    <div class="text-left padding"><h6><p style="color:rgb(223, 238, 16)"><i>Hey {{ request.user.username }}! Let's Grab Some Network Information ( ͡ᵔ ͜ʖ ͡ᵔ )</i></p></h6></div>
+
+   <br>
+   <div class="text-left padding"><h6><p style="color:rgb(20, 144, 216)"><i>
+NAPALM **Getters** Will grab specific information for analysis, and Neural will determine the OS/Vendor for you. You can search for and pick any of the supported OSs
+including the following: <br><br><font color = "red">""" ["eos", "ios", "junos", "nxos"] Note: *ios* is == [sdwan-ios,ios,ios-xe] """ </font><br><br>Just run a search and select your devices. You can combine OS types too, e.g. you can
+select NXOS and IOS</i></p></h6></div>
+   <br>
+    <table id="mydatatable" class="table table-striped table-bordered table-dark table-sm" style="width:100%">
+        <thead>
+            <tr>
+              <th><input type="checkbox" name="select-all" id="select-all" /></th>
+              <th>Hostname</th>
+              <th>Site</th>
+              <th>Device_Type</th>
+              <th>Region</th>
+              <th>OS</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for device in all_device %}
+            <tr>
+                {% csrf_token %}
+                <td><input type="checkbox" name="device" value="{{device.hostname}}" /></td>
+                <td>{{device.hostname}}</td>
+                <td>{{ device.site }}</td>
+                <td>{{ device.device_type }}
+                <td>{{ device.Region }}</td>
+                <td>{{ device.OS }}</td>
+                </td>
+            </tr>
+            {% endfor %}        
+        </tbody>
+    </table>
+</div>
+</div>
+
+        <div class="row my-row">
+        <div class="form-group col-md-6">  
+            <label for="get_var"><font color="white">Choose Your Getter</font></label></input>  
+            <select class="custom-select" id="get_var" name="get_var">
+                <option selected>Choose Your Getter...</option>
+                <option value=get_facts>get_facts</option>
+                <option value=get_environment>get_environment</option>
+                <option value=get_arp_table>get_arp_table</option>
+                <option value=get_bgp_config>get_bgp_config</option>
+                <option value=get_bgp_neighbors>get_bgp_neighbors</option>
+                <option value=get_interfaces>get_interfaces</option>
+                <option value=get_interfaces_counters>get_interfaces_counters</option>
+                <option value=get_interfaces_ip>get_interfaces_ip</option>
+                <option value=get_config>get_config</option>
+                <option value=get_mac_address_table>get_mac_address_table</option>
+                <option value=get_network_instances>get_network_instances</option>
+                <option value=get_ntp_peers>get_ntp_peers</option>
+                <option value=get_ntp_servers>get_ntp_servers</option>
+                <option value=get_ntp_stats>get_ntp_stats</option>
+                <option value=get_snmp_information>get_snmp_information</option>
+                <option value=is_alive>is_alive</option>
+            </select>
+        </div>  
+        <div class="col-md-6">  </div>  
+
+        <div class="form-group col-lg-12">  
+        {% csrf_token %}
+        <button type="submit" class=" btn btn-primary padding-top btn-sm" name="btnform1"><i class="fa fa-paper-plane" aria-hidden="true"></i>&nbspSubmit to Run Now!</button>  
+        </div> 
+    </form>
+</div> 
+</div>
+<!-- ========================================================================== -->
+</div>
+<!-- ========================================================================== -->
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.bootstrap4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.colVis.min.js"></script>
+<!-- ========================================================================== -->
+
+<script type="application/javascript">
+// Listen for click on toggle checkbox
+$('#select-all').click(function(event) {   
+    if(this.checked) {
+        // Iterate each checkbox
+        $(':checkbox').each(function() {
+            this.checked = true;                        
+        });
+    } else {
+        $(':checkbox').each(function() {
+            this.checked = false;                       
+        });
+    }
+});
+</script>
+
+<script type="application/javascript">
+$(document).ready(function() {
+    var table = $('#mydatatable').DataTable( {
+        lengthChange: true,
+	lengthMenu: [10, 15, 20, 50, 100, 200, 300],
+        buttons: [ 'copy', 'excel', 'pdf', 'csv', 'print', 'colvis' ]
+    } );
+ 
+    table.buttons().container()
+        .appendTo( '#mydatatable_wrapper .col-md-6:eq(0)' );
+} );
+</script>
+
+{% endblock %}

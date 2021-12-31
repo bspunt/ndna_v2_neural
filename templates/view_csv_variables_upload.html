@@ -1,0 +1,25 @@
+{% extends "automation-base.html" %}
+{% load static %}
+{% block content %}
+<br>
+<br>
+<br>
+<!-- =========================================================================================================== -->
+<div class="container my-container">  
+  <div class="mt-3"><h4><font color=Green><i>Here's your formatted CSV variables file..</i></font></h4></div>  
+
+  <div class="mt-3"><h6><a href="{% url 'generate_config_templates' %}">Let's go back to the Generate Config-Templating Page...</a></h6></div> 
+
+  <form method="POST">
+    <div class="row my-row">
+    <div class="col-md-12">  
+      <pre><font color="white">{{ x }}</font></pre>
+    </div>
+  </div> 
+</div> 
+<br>
+<br>
+<br>
+<br>
+<br>
+{% endblock content %}

@@ -1,0 +1,5 @@
+aaa group server tacacs+ ISE
+server name in-ban-isetacacs1
+server name us-lvs-isetacacs1
+server name us-dnv-isetacacs1
+ip vrf forwarding Mgmt-intf

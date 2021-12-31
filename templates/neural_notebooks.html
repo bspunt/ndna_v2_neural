@@ -1,0 +1,166 @@
+{% extends "automation-base.html" %}
+{% block content %}
+<br>
+<br>
+<br>
+<div class="container my-container">  
+    <div class="text-left padding"><h6><p style="color:rgb(223, 238, 16)"><i>Hey {{ request.user.username }}! Let's Run A NEURAL Notebook! ( ͡ᵔ ͜ʖ ͡ᵔ )</i></p></h6></div>
+   <!-- <h6 class="mt-3"><b><i><p style="color:red">Lets get started {{ request.user.username }}!</i></b></p></h6>  -->
+   <div class="mt-3"><h4><a href="{% url 'neural_notebooks' %}">Reload Neural Notebooks Main Page!</a></h4></div> 
+   <div class="mt-3"><h4><font color=green><i> NEURAL Notebooks (Run Now)</i></font></h4></div>  
+
+ 
+<form method="POST">
+<div class="row my-row">
+    
+    <div class="form-group col-md-12">  
+        <label for="neural_notebook"><font color="white">Choose A NEURAL Notebook</font></label></input>  
+        <select class="custom-select" id="neural_notebook" name="neural_notebook">
+            <option selected>Choose A NEURAL Notebook</option>
+            {% for notebook in all_notebooks %}
+            <option value="{{ notebook }}">{{ notebook }}</option>
+            {% endfor %}
+        </select>
+    </div>  
+
+    <div class="form-group col-md-12">  
+            <label for="neural_notebook_vars"><font color="white">Neural Notebook Variables:(Leave blank to use notebook default variables)</font></label>  
+            <textarea class="form-control col-lg-12" rows="8" id="neural_notebook_vars" name="neural_notebook_vars"></textarea>  
+        </div>  
+
+        <div class="form-group col-lg-4">  
+        {% csrf_token %}
+        <button type="submit" class=" btn btn-primary padding-top btn-sm" name="btnform1"><i class="fa fa-paper-plane" aria-hidden="true"></i>&nbspSubmit to Run Now!</button>  
+        </div> 
+    </form>
+</div> 
+<!-- ===========================================================================================================  -->
+<div class="mt-3"><h4><font color=Yellow><i>Load Up A Notebook's Task Names and Commands List/Configuration...</i></font></h4></div> 
+ 
+  <form method="POST">
+    <div class="row my-row">
+    <div class="form-group col-md-12">  
+        <label for="neural_notebook"><font color="white">Choose A NEURAL Notebook</font></label></input>  
+        <select class="custom-select" id="notebook_name" name="notebook_name">
+            <option selected>Choose A NEURAL Notebook</option>
+            {% for notebook in all_notebooks %}
+            <option value="{{ notebook }}">{{ notebook }}</option>
+            {% endfor %}
+        </select>
+    </div>  
+
+        <div class="form-group col-lg-4">  
+        <br>
+        {% csrf_token %}
+        <button type="submit" class=" btn btn-primary padding-top btn-sm" name="btnform2">
+            <i class="fa fa-database" aria-hidden="true"></i>&nbsp<i class="fas fa-file-export"></i>&nbspDisplay Commands List/Configuration!</button>  
+        </div> 
+    </form>
+    <div class="col-md-8"></div>
+
+    {% if notebook_command_list_output %}
+    <div class="form-group col-md-12">  
+      <label for="Notebook Config Output"><font color="white">Notebook Commands List/Configuration Output:</font></label>  
+            <textarea class="form-control col-lg-12" rows="20" id="displayconfig" name="displayconfig" 
+            {% for line in notebook_command_list_output %}
+                option value="header">{{ line }}
+            {% endfor %}
+          </textarea>
+        </div>  
+
+    {% else %}
+    {% endif %}
+   </div> 
+  </div> 
+<!-- ===========================================================================================================  -->
+
+
+<!-- ===========================================================================================================  -->
+<div class="container my-container"> 
+   <div class="mt-3"><h4><font color=Yellow><i>Load Up A Notebook's Nodes List Per Job...</i></font></h4></div>  
+
+  <form method="POST">
+    <div class="row my-row">
+    <div class="form-group col-md-12">  
+        <label for="neural_notebook"><font color="white">Choose A NEURAL Notebook</font></label></input>  
+        <select class="custom-select" id="notebook_name" name="notebook_name">
+            <option selected>Choose A NEURAL Notebook</option>
+            {% for notebook in all_notebooks %}
+            <option value="{{ notebook }}">{{ notebook }}</option>
+            {% endfor %}
+        </select>
+    </div>  
+
+        <div class="form-group col-lg-4">  
+        <br>
+        {% csrf_token %}
+        <button type="submit" class=" btn btn-success padding-top btn-sm" name="btnform3">
+            <i class="fa fa-database" aria-hidden="true"></i>&nbsp<i class="fas fa-file-export"></i>&nbspDisplay Nodes List Per Job!</button>  
+        </div> 
+    </form>
+    <div class="col-md-8"></div>
+
+    {% if notebook_nodes_list_output %}
+    <div class="form-group col-md-12">  
+      <label for="Notebook Nodes List Output"><font color="white">Notebook Nodes List Per Job Output:</font></label>  
+            <textarea class="form-control col-lg-12" rows="20" id="displaynodeslist" name="displaynodeslist" 
+            {% for line in notebook_nodes_list_output %}
+                option value="header">{{ line }}
+            {% endfor %}
+          </textarea>
+        </div>  
+
+    {% else %}
+    {% endif %}
+   </div> 
+   </div> 
+  
+<!-- ===========================================================================================================  -->
+
+<!-- ===========================================================================================================  -->
+<div class="container my-container"> 
+   <div class="mt-3"><h4><font color=Yellow><i>Load Up A Notebook's Default Variables...(To be used unless you specify new ones above...)</i></font></h4></div>  
+
+  <form method="POST">
+    <div class="row my-row">
+    <div class="form-group col-md-12">  
+        <label for="neural_notebook"><font color="white">Choose A NEURAL Notebook</font></label></input>  
+        <select class="custom-select" id="notebook_name" name="notebook_name">
+            <option selected>Choose A NEURAL Notebook</option>
+            {% for notebook in all_notebooks %}
+            <option value="{{ notebook }}">{{ notebook }}</option>
+            {% endfor %}
+        </select>
+    </div>  
+
+        <div class="form-group col-lg-4">  
+        <br>
+        {% csrf_token %}
+        <button type="submit" class=" btn btn-danger padding-top btn-sm" name="btnform5">
+            <i class="fa fa-database" aria-hidden="true"></i>&nbsp<i class="fas fa-file-export"></i>&nbspDisplay Variables!</button>  
+        </div> 
+    </form>
+    <div class="col-md-8"></div>
+
+    {% if notebook_vars_output %}
+    <div class="form-group col-md-12">  
+      <label for="Notebook Vars Output"><font color="white">Notebook Variables Output (All Command List Variables Use Index Numbers To Reference Items In The List):</font></label>  
+            <textarea class="form-control col-lg-12" rows="20" id="displayvars" name="displayvars" 
+            {% for line in notebook_vars_output %}
+                option value="header">{{ line }}
+            {% endfor %}
+          </textarea>
+        </div>  
+
+    {% else %}
+    {% endif %}
+   </div> 
+   </div> 
+   
+<!-- ===========================================================================================================  -->
+<br>
+<br>
+<br>
+<br>
+<br>
+{% endblock content %}

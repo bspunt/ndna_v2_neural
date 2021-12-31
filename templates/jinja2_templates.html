@@ -1,0 +1,68 @@
+{% extends "datatables-base.html" %}
+{% block content %}
+    <div class="container mb-3 mt-3">
+        <div class="text-left padding"><h6><p style="color:rgb(223, 238, 16)"><i>Hey {{ request.user.username }}! Download Jinja2 Templates to get your needed variables ( ͡ᵔ ͜ʖ ͡ᵔ )</i></p></h6></div>
+        <p><div class="text-left padding"><h6><a href="{% url 'generate_config_templates' %}">Take me to Generate Config Templates! <i><u>here</u></i></a></h6></div></p>
+
+        <table id="mydatatable" class="table table-striped table-bordered table-dark table-sm" style="width:100%"> 
+            <thead>
+                <tr>
+                    <th>Jinja2 Templates</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for file in files %}
+                <tr>
+                    <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <td>
+                        {{file}} 
+                        <button type="submit" class="btn btn-primary btn-sm float-right" name="config" value="{{file}}"><i class="fa fa-download"></i>&nbsp;Download</button>&nbsp; 
+                    </td>
+                    </form>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <!-- ===== tables format and search related ==== -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.bootstrap4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.colVis.min.js"></script>
+    
+    
+    <script type="application/javascript">
+    $(document).ready(function() {
+        var table = $('#mydatatable').DataTable( {
+            lengthChange: true,
+        lengthMenu: [5, 10, 25, 50],
+            buttons: [ 'copy', 'excel', 'pdf', 'csv', 'print', 'colvis' ]
+        } );
+        table.buttons().container()
+            .appendTo( '#mydatatable_wrapper .col-md-6:eq(0)' );
+    } );
+    </script>
+
+<br>
+<div class="container my-container">
+    <div class="row my-row">
+        <div class="col-6">
+            <h6><font color="white"><i>zip up and download all files!</i></font></h6>
+            <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <button type="submit" class=" btn btn-success padding-top" name="zipup">Download Zip!</button>  
+            </form>
+        </div>
+
+    </div>
+</div> 
+
+{% endblock %}

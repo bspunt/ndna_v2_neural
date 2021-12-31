@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+<br>
+<br>
+<br>
+{% load crispy_forms_tags %}
+
+{% block content %}
+<body style="background-color:#ebeef0;">
+<div class="container my-container">  
+  <br>
+  <br>
+  <br>
+  <div class="text-left padding"><h4><font color=green><i>Upload File for SCP transfer to a Network Node</i></font></h4></div>  
+  <div class="row my-row">
+    <div class="form-group col-sm-4">  
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form|crispy }}
+    
+    <button type="submit" id="scp_upload" class="spinner-button" name="scp_upload">Upload!</button>  
+    
+  </form>
+</div>  
+</div>
+
+<script>$(document).ready(function() {
+$("#scp_upload").click(function() {
+// add spinner to button
+$(this).html(
+'<i class="fa fa-circle-o-notch fa-spin"></i> loading...'
+);
+});
+});
+</script>
+
+{% endblock %}

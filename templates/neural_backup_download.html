@@ -1,0 +1,39 @@
+{% extends "datatables-base.html" %}
+{% block content %}
+    <div class="container mb-3 mt-3">
+        <div class="text-left padding"><h6><p style="color:rgb(223, 238, 16)"><i> Hey {{ request.user.username }}! Grab a backup of the NEURAL Server  ( ͡ᵔ ͜ʖ ͡ᵔ )
+            <br>
+        <br>===========================<br>
+        1. Copy and wait at least 10 seconds before submitting to download your backup. <br><br>
+        2. Hit the Download Zip! button. Then all files will then be zipped up and downloaded locally</i>
+        <br>===========================<br>
+        </p></h6>
+        </div>
+        
+    </div>
+<div class="container my-container">
+    <div class="row my-row">
+        <div class="col-12">
+            <br>
+            <h6><font color="white"><i>Copy backup to staging directory.......Only click once</h6>
+            <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <button type="submit" class=" btn btn-primary padding-top btn-sm" name="copy">Copy data to tmp dir!</button>  
+            <br><br>WAIT AT LEAST 10 SECONDS BEFORE PROCEEDING...</i></font></h6>
+            </form>
+        </div>
+        
+            <div class="col-12">
+                <br>
+                <br>
+                <h6><font color="white"><i>zip up and download!<br><br> Make sure you've waited 10 seconds after clicking the Copy button above!</i></font></h6>
+                <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <button type="submit" class=" btn btn-success padding-top btn-sm" name="zipup">Download Zip!</button>  
+                </form>
+            </div>
+        </div> 
+    </div>
+</div> 
+
+{% endblock %}

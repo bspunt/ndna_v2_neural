@@ -1,0 +1,3 @@
+term len 0
+sh cdp nei
+sh ver

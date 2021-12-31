@@ -1,0 +1,646 @@
+{% extends "automation-base.html" %}
+
+<script>
+{% block jquery %}
+var endpoint = '/log_chart_data/'
+var total_devices = []
+var total_completed = []
+var total_exceptions = []
+
+var total_type_ad_hoc_ndna = []
+var total_type_unique_automation = []
+var total_type_self_service = []
+var total_type_rest_api = []
+
+var labels = [];
+$.ajax({
+    method: "GET",
+    url: endpoint,
+    success: function(data){
+        labels = data.labels
+        total_devices = data.total_devices
+        total_completed = data.total_completed
+        total_exceptions = data.total_exceptions
+
+        total_type_ad_hoc_ndna = data.total_type_ad_hoc_ndna
+        total_type_unique_automation = data.total_type_unique_automation
+        total_type_self_service = data.total_type_self_service
+        total_type_rest_api = data.total_type_rest_api
+        setChart()
+    },
+    error: function(error_data){
+        console.log("error")
+        console.log(error_data)
+    }
+})
+
+function setChart(){
+    var totaldevices = document.getElementById("total_devices");   //totaldevices.style.backgroundColor = '#4F504B';
+    var totalcompleted = document.getElementById("total_completed");
+    var totalexceptions = document.getElementById("total_exceptions");
+
+    var alltypes = document.getElementById("all_types");
+
+
+    var alltotals = document.getElementById("total_devices_total_exceptions");  //alltotals.style.backgroundColor = '#4F504B';
+
+    var myChart = new Chart(totaldevices, {
+    type: 'bar',
+    data: {
+        labels: ["4_Weeks_Ago", "3_Weeks_Ago", "2_Weeks_Ago", "Last_7_Days", "Last_24_Hours"],
+        datasets: [{
+            label: 'Total Devices That Attempted to Run Automation',
+
+            data: total_devices,
+            backgroundColor: [
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        legend: {
+                labels: {
+                    fontColor: "white",
+                    //fontSize: 18
+                }
+            },
+        scales: {
+            yAxes: [{
+                ticks: {
+                    fontColor: "white",
+                    //fontColor: "white",
+                    //fontSize: 18,
+                    //stepSize: 1,
+                    beginAtZero: true
+                },
+                gridLines: {
+                    //color: 'rgba(171,171,171,1)',
+                    //color: '#08AC44',
+                    //color: 'rgb(84, 218, 124)',
+                    //color: 'rgb(102, 136, 112)',  
+                    color: 'rgb(118, 145, 126)',
+                    lineWidth: 1
+                }
+            }],
+            xAxes: [{
+                ticks: {
+                    fontColor: "white",
+                    //fontSize: 14,
+                    //stepSize: 1,
+                    beginAtZero: true
+                },
+                gridLines: {
+                    //color: 'rgb(84, 218, 124)',
+                    //color: 'rgb(102, 136, 112)',  
+                    color: 'rgb(118, 145, 126)',
+                    lineWidth: 1
+                }
+            }]
+        }
+    }
+});
+
+var myChart = new Chart(totalcompleted, {
+    type: 'line',
+    data: {
+        //labels: labels,
+        labels: ["4_Weeks_Ago", "3_Weeks_Ago", "2_Weeks_Ago", "Last_7_Days", "Last_24_Hours"],
+        datasets: [{
+            label: 'Total Devices Completed Without a Code Exception',
+            data: total_completed,
+            //backgroundColor: [
+                //'rgba(0, 0, 0, 0.1)',
+                //'rgba(0, 0, 0, 0.1)',
+                //'rgba(0, 0, 0, 0.1)',
+                //'rgba(0, 0, 0, 0.1)',
+                //'rgba(0, 0, 0, 0.1)',
+                //'rgba(0, 0, 0, 0.1)',
+            //],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        legend: {
+                labels: {
+                    fontColor: "white",
+                    //fontSize: 18
+                }
+            },
+        scales: {
+            yAxes: [{
+                ticks: {
+                    fontColor: "white",
+                    //fontSize: 18,
+                    //stepSize: 1,
+                    beginAtZero: true
+                },
+                gridLines: {
+                    //color: 'rgba(171,171,171,1)',
+                    //color: '#08AC44',
+                    //color: 'rgb(84, 218, 124)',
+                    //color: 'rgb(102, 136, 112)',  
+                    color: 'rgb(118, 145, 126)',
+                    lineWidth: 1
+                }
+            }],
+            xAxes: [{
+                ticks: {
+                    fontColor: "white",
+                    //fontSize: 14,
+                    //stepSize: 1,
+                    beginAtZero: true
+                },
+                gridLines: {
+                    //color: 'rgb(84, 218, 124)',
+                    //color: 'rgb(102, 136, 112)',  
+                    color: 'rgb(118, 145, 126)',
+                    lineWidth: 1
+                }
+            }]
+        }
+    }
+});
+
+var myChart = new Chart(totalexceptions, {
+    type: 'line',
+    data: {
+        //labels: labels,
+        labels: ["4_Weeks_Ago", "3_Weeks_Ago", "2_Weeks_Ago", "Last_7_Days", "Last_24_Hours"],
+        datasets: [{
+            label: 'Total Devices Not Completed Due to Code Exceptions',
+            data: total_exceptions,
+            //backgroundColor: [
+                //'rgba(0, 0, 0, 0.1)',
+                //'rgba(0, 0, 0, 0.1)',
+                //'rgba(0, 0, 0, 0.1)',
+                //'rgba(0, 0, 0, 0.1)',
+                //'rgba(0, 0, 0, 0.1)',
+                //'rgba(0, 0, 0, 0.1)',
+            //],
+            borderColor: [
+                // first one below is the only one that counts when using line chart! I've got it set to blue - this colors the legend and line!
+                //'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+
+        }]
+    },
+    options: {
+        legend: {
+                labels: {
+                    fontColor: "white",
+                    //fontSize: 18
+                }
+            },
+        scales: {
+            yAxes: [{
+                ticks: {
+                    fontColor: "white",
+                    //fontColor: "white",
+                    //fontSize: 18,
+                    //stepSize: 1,
+                    beginAtZero: true
+                },
+                gridLines: {
+                    //color: 'rgba(171,171,171,1)',
+                    //color: '#08AC44',
+                    //color: 'rgb(84, 218, 124)',
+                    //color: 'rgb(102, 136, 112)',  
+                    color: 'rgb(118, 145, 126)',
+                    lineWidth: 1
+                }
+            }],
+            xAxes: [{
+                ticks: {
+                    fontColor: "white",
+                    //fontSize: 14,
+                    //stepSize: 1,
+                    beginAtZero: true
+                },
+                gridLines: {
+                    //color: 'rgb(84, 218, 124)',
+                    //color: 'rgb(102, 136, 112)',  
+                    color: 'rgb(118, 145, 126)',
+                    lineWidth: 1
+                }
+            }]
+        }
+    }
+});
+
+
+var myChart = new Chart(alltypes, {
+    type: 'line',
+       data: {
+            labels: ["4_Weeks_Ago", "3_Weeks_Ago", "2_Weeks_Ago", "Last_7_Days", "Last_24_Hours"],
+            datasets: [{
+                label: 'ad_hoc_ndna',
+                data: total_type_ad_hoc_ndna,
+                //backgroundColor: "#D9DFA5",
+                borderColor: [
+                    // first one below is the only one that counts when using line chart! I've got it set to blue - this colors the legend and line!
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            },
+            {
+                label: 'unique',
+                data: total_type_unique_automation,
+                //backgroundColor: [
+                    //'rgba(0, 0, 0, 0.1)',
+                    //'rgba(0, 0, 0, 0.1)',
+                    //'rgba(0, 0, 0, 0.1)',
+                    //'rgba(0, 0, 0, 0.1)',
+                    //'rgba(0, 0, 0, 0.1)',
+                    //'rgba(0, 0, 0, 0.1)',
+                //],
+
+                borderColor: [
+                'rgba(54, 162, 235, 1)',
+                'rgba(75, 192, 192, 1)',
+                //'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            },
+            {
+                label: 'self service',
+                data: total_type_self_service,
+                //backgroundColor: [
+                    //'rgba(0, 0, 0, 0.1)',
+                    //'rgba(0, 0, 0, 0.1)',
+                    //'rgba(0, 0, 0, 0.1)',
+                    //'rgba(0, 0, 0, 0.1)',
+                    //'rgba(0, 0, 0, 0.1)',
+                    //'rgba(0, 0, 0, 0.1)',
+                //],
+
+                borderColor: [
+                'rgba(255, 159, 64, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                ],
+                borderWidth: 1
+            },
+            {
+                label: 'rest api',
+                data: total_type_rest_api,
+                //backgroundColor: [
+                    //'rgba(0, 0, 0, 0.1)',
+                    //'rgba(0, 0, 0, 0.1)',
+                    //'rgba(0, 0, 0, 0.1)',
+                    //'rgba(0, 0, 0, 0.1)',
+                    //'rgba(0, 0, 0, 0.1)',
+                    //'rgba(0, 0, 0, 0.1)',
+                //],
+
+                borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+
+            }]        
+     },
+     options: {
+        legend: {
+                labels: {
+                    fontColor: "white",
+                    //fontSize: 18
+                }
+            },
+        scales: {
+            yAxes: [{
+                ticks: {
+                    fontColor: "white",
+                    //fontColor: "white",
+                    //fontSize: 18,
+                    //stepSize: 1,
+                    beginAtZero: true
+                },
+                gridLines: {
+                    //color: 'rgba(171,171,171,1)',
+                    //color: '#08AC44',
+                    //color: 'rgb(84, 218, 124)',
+                    //color: 'rgb(102, 136, 112)',  
+                    color: 'rgb(118, 145, 126)',
+                    lineWidth: 1
+                }
+            }],
+            xAxes: [{
+                ticks: {
+                    fontColor: "white",
+                    //fontSize: 14,
+                    //stepSize: 1,
+                    beginAtZero: true
+                },
+                gridLines: {
+                    //color: 'rgb(84, 218, 124)',
+                    //color: 'rgb(102, 136, 112)',  
+                    color: 'rgb(118, 145, 126)',
+                    lineWidth: 1
+                }
+            }]
+        }
+    }
+});
+
+var myChart = new Chart(alltotals, {
+    type: 'line',
+       data: {
+            labels: ["4_Weeks_Ago", "3_Weeks_Ago", "2_Weeks_Ago", "Last_7_Days", "Last_24_Hours"],
+            datasets: [{
+                label: 'Total Devices',
+                data: total_devices,
+                //backgroundColor: "#D9DFA5",
+                borderColor: [
+                    // first one below is the only one that counts when using line chart! I've got it set to blue - this colors the legend and line!
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            },
+            {
+                label: 'No Exceptions Raised',
+                data: total_completed,
+                //backgroundColor: [
+                    //'rgba(0, 0, 0, 0.1)',
+                    //'rgba(0, 0, 0, 0.1)',
+                    //'rgba(0, 0, 0, 0.1)',
+                    //'rgba(0, 0, 0, 0.1)',
+                    //'rgba(0, 0, 0, 0.1)',
+                    //'rgba(0, 0, 0, 0.1)',
+                //],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            },
+            {
+                label: 'Exceptions Raised',
+                data: total_exceptions,
+                //backgroundColor: [
+                    //'rgba(0, 0, 0, 0.1)',
+                    //'rgba(0, 0, 0, 0.1)',
+                    //'rgba(0, 0, 0, 0.1)',
+                    //'rgba(0, 0, 0, 0.1)',
+                    //'rgba(0, 0, 0, 0.1)',
+                    //'rgba(0, 0, 0, 0.1)',
+                //],
+
+                borderColor: [
+                'rgba(54, 162, 235, 1)',
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            },
+            {
+                label: 'ad_hoc_ndna',
+                data: total_type_ad_hoc_ndna,
+                //backgroundColor: "#D9DFA5",
+                borderColor: [
+                    // first one below is the only one that counts when using line chart! I've got it set to blue - this colors the legend and line!
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            },
+            {
+                label: 'unique',
+                data: total_type_unique_automation,
+                //backgroundColor: [
+                    //'rgba(0, 0, 0, 0.1)',
+                    //'rgba(0, 0, 0, 0.1)',
+                    //'rgba(0, 0, 0, 0.1)',
+                    //'rgba(0, 0, 0, 0.1)',
+                    //'rgba(0, 0, 0, 0.1)',
+                    //'rgba(0, 0, 0, 0.1)',
+                //],
+
+                borderColor: [
+                'rgba(54, 162, 235, 1)',
+                'rgba(75, 192, 192, 1)',
+                //'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            },
+            {
+                label: 'self service',
+                data: total_type_self_service,
+                //backgroundColor: [
+                    //'rgba(0, 0, 0, 0.1)',
+                    //'rgba(0, 0, 0, 0.1)',
+                    //'rgba(0, 0, 0, 0.1)',
+                    //'rgba(0, 0, 0, 0.1)',
+                    //'rgba(0, 0, 0, 0.1)',
+                    //'rgba(0, 0, 0, 0.1)',
+                //],
+
+                borderColor: [
+                'rgba(255, 159, 64, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                ],
+                borderWidth: 1
+            },
+            {
+                label: 'rest api',
+                data: total_type_rest_api,
+                //backgroundColor: [
+                    //'rgba(0, 0, 0, 0.1)',
+                    //'rgba(0, 0, 0, 0.1)',
+                    //'rgba(0, 0, 0, 0.1)',
+                    //'rgba(0, 0, 0, 0.1)',
+                    //'rgba(0, 0, 0, 0.1)',
+                    //'rgba(0, 0, 0, 0.1)',
+                //],
+
+                borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]        
+     },
+     options: {
+        legend: {
+                labels: {
+                    fontColor: "white",
+                    //fontSize: 18
+                }
+            },
+        scales: {
+            yAxes: [{
+                ticks: {
+                    fontColor: "white",
+                    //fontColor: "white",
+                    //fontSize: 18,
+                    //stepSize: 1,
+                    beginAtZero: true
+                },
+                gridLines: {
+                    //color: 'rgba(171,171,171,1)',
+                    //color: '#08AC44',
+                    //color: 'rgb(84, 218, 124)',
+                    //color: 'rgb(102, 136, 112)',  
+                    color: 'rgb(118, 145, 126)',
+                    lineWidth: 1
+                }
+            }],
+            xAxes: [{
+                ticks: {
+                    fontColor: "white",
+                    //fontSize: 14,
+                    //stepSize: 1,
+                    beginAtZero: true
+                },
+                gridLines: {
+                    //color: 'rgb(84, 218, 124)',
+                    //color: 'rgb(102, 136, 112)',  
+                    color: 'rgb(118, 145, 126)',
+                    lineWidth: 1
+                }
+            }]
+        }
+    }
+});
+}
+{% endblock %}
+</script>
+
+{% block content %}
+    <br>
+    <br>
+    <br>
+<div class="container my-container" url-endpoint='{% url "log_chart_data" %}'>
+    <div class="text-center padding"><h4><font color=green> Log Charts </h2><i><h4>Historical Data (Last Four Weeks)</i></font></h4></div> 
+    <div class='row'>
+            <div class='col-sm-6'>
+                <br>
+                <div class="text-center padding"><h6><font color=orange> Total Devices Automation Ran On</font></h6></div> 
+                <canvas id="total_devices" width="400" height="300"></canvas>
+            </div>
+            <div class='col-sm-6'>
+                <br>
+                <div class="text-center padding"><h6><font color=orange> Total Devices Completed Without Code Exceptions</font></h6></div> 
+                <canvas id="total_completed" width="400" height="300"></canvas>
+            </div>
+            <div class='col-sm-12'>
+                <br>
+                <div class="text-center padding"><h6><font color=orange> Log Totals All Graph Metrics</font></h6></div> 
+                        <canvas id="total_devices_total_exceptions" width="400" height="150"></canvas>
+                    </div>
+            <div class='col-sm-6'>
+                <br>
+                <div class="text-center padding"><h6><font color=orange> Total Devices With Code Exceptions Raised</font></h6></div> 
+                <canvas id="total_exceptions" width="400" height="300"></canvas>
+            </div>
+            <div class='col-sm-6'>
+                <br>
+                <div class="text-center padding"><h6><font color=orange> Total Automation Ran (Per Type)</font></h6></div> 
+                <canvas id="all_types" width="400" height="300"></canvas>
+            </div>
+
+           <!-- <div class='col-sm-12'>
+                <br> 
+                <iframe src="http://192.168.6.137:3000/d/ngKBwZpMk/neural-job-results?orgId=1&refresh=5s&viewPanel=2" width="1100" height="450" frameborder="0"></iframe>
+                 <iframe src="http://192.168.6.137:3000/d/ngKBwZpMk/neural-job-results?orgId=1&refresh=5s&viewPanel=2" width="1100" height="450" frameborder="0"></iframe>
+        
+                    
+                <iframe src="http://192.168.6.137:3000/d/ngKBwZpMk/neural-job-results-v1?orgId=1&refresh=5s&viewPanel=2" width="1100" height="450" frameborder="0"></iframe>
+                <iframe src="http://192.168.6.137:3000/d/ngKBwZpMk/neural-job-results-v1?orgId=1&viewPanel=2" width="1100" height="450" frameborder="0"></iframe>
+                 <iframe src="http://192.168.6.137:3000/d-solo/CCLmqrDMk/new-dashboard-v2?orgId=1&panelId=2" width="1100" height="300" frameborder="0"></iframe> 
+               </div> -->
+
+    
+<!--
+	   <div class='col-sm-12'>
+		<br>
+                <iframe src="https://192.168.88.52:3000/d-solo/CCLmqrDMk/new-dashboard-v2?orgId=1&panelId=2" width="1100" height="300" frameborder="0"></iframe>
+	   </div> -->
+
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+{% endblock content %}

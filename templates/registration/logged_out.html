@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %} NEURAL Logged out {% endblock %}
+
+{% block content %}
+    <br>
+    <br>
+    <br>
+    <body style="background-color:#171b1d;"></body>
+    <!-- <body style="background-color:#cad1d1;"></body> -->
+
+    <div class="container" style="width: 500px; margin: auto">
+    <p><font color=white><b>You are now logged out. You can <a href="{% url 'login' %}">Log-in again</a></font></b></p>
+    </div>
+    
+{% endblock %}

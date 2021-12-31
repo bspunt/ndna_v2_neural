@@ -1,0 +1,198 @@
+{% extends "datatables-base.html" %}
+
+{% block content %}
+
+  <div class="container my-container"> 
+
+    <div class="row my-row">
+      <div class="col-md-12">
+          <br>
+          <h6><p style="color:rgb(223, 238, 16)"><i>Hey {{ request.user.username }}! Let's upload our file so we can *SCP* it to the network! <br>This will work on nodes w/ TACACS access- e.g. svcacct uses TACACS/ISE ( ͡ᵔ ͜ʖ ͡ᵔ )</i></p></h6>
+          <h5><font color=white><b>step 1: </b>Upload your file (Max Size == 2GB)<br><font color = red><i>(You can skip this step if you've already uploaded this file)</font></i></font></h5>
+
+          <a href="{% url 'upload_scp_file' %}" class="btn btn-success btn-sm" name="btnlink1">Upload a file to SCP</a>
+      </div>  
+    </div>
+
+    
+
+<form method="POST">
+    <div class="row my-row">
+      <div class="col-md-12">
+      <br>
+      <br>
+    <h5><font color=white><b>step 2: </b>Transfer File via SCP to an IOS Network Node.
+      </font></h5></div>
+    <div class="form-group col-md-4">  
+      <label for="node"><font color="white">Node:</font></label>  
+      <textarea class="form-control col-lg-12" rows="1" id="node" name="node"></textarea>  
+    </div>
+
+    <div class="form-group col-md-4">  
+        <label for="site_var"><font color="white">Choose your uploaded file</font></label></input>  
+        <select class="custom-select" id="scpupload" name="scpupload">
+            <option selected>Choose your uploaded file...</option>
+            {% for i in scpfiles %}
+            <option value="{{ i }}">{{ i }}</option>
+            {% endfor %}
+        </select>
+    </div>  
+
+    <div class="form-group col-md-4">  
+      <label for="Remote Path"><font color="white">Remote Path:</font></label>  
+      <textarea class="form-control col-lg-12" rows="1" id="remote_path" name="remote_path"></textarea>  
+    </div>
+
+
+    <div class="form-group col-lg-12">  
+      {% csrf_token %}
+      <button type="submit" id="scp_upload" class="spinner-button" name="scp_upload">Send Your file via SCP to an IOS Device</button>   
+    </div> 
+    </form>
+    </div> 
+    <br>
+    
+
+
+<form method="POST">
+    <div class="row my-row">
+      <div class="col-md-12">
+      <br>
+      <br>
+    <h5><font color=white><b>step 2: </b>Transfer File via SCP to an NXOS Network Node.
+      </font></h5></div>
+    <div class="form-group col-md-4">  
+      <label for="node"><font color="white">Node:</font></label>  
+      <textarea class="form-control col-lg-12" rows="1" id="node" name="node"></textarea>  
+    </div>
+
+    <div class="form-group col-md-4">  
+        <label for="site_var"><font color="white">Choose your uploaded file</font></label></input>  
+        <select class="custom-select" id="scpupload" name="scpupload">
+            <option selected>Choose your uploaded file...</option>
+            {% for i in scpfiles %}
+            <option value="{{ i }}">{{ i }}</option>
+            {% endfor %}
+        </select>
+    </div>  
+
+    <div class="form-group col-md-4">  
+      <label for="Remote Path"><font color="white">Remote Path:</font></label>  
+      <textarea class="form-control col-lg-12" rows="1" id="remote_path" name="remote_path"></textarea>  
+    </div>
+
+
+    <div class="form-group col-lg-12">  
+      {% csrf_token %}
+      <button type="submit" id="scp_nxos_upload" class="spinner-button" name="scp_nxos_upload">Send Your file via SCP to an NXOS Device</button>   
+    </div> 
+    </form>
+    </div> 
+    <br>
+    </div> 
+
+
+  <div class="container my-container2"> 
+  <div class="row my-row">
+  <div class="col-md-12"> 
+  <br>
+  <h4><font color=green><i>Manage Available files for SCP Transfer</i></font></h4>
+  
+  <table id="mydatatable" class="table table-striped table-bordered table-dark table-sm" style="width:100%">
+<thead>
+  <tr>
+    <th>scp_file_name</th>
+    <th>uploaded_by</th>
+    <th>delete</th>
+  </tr>
+</thead>
+<tbody>
+  {% for i in scp_files %}
+    <tr>
+      <td>{{ i.scp_file_name }}</td>
+      <td>{{ i.uploaded_by }}</td>
+      <td>
+        <form method="post" action="{% url 'delete_scp_file' i.pk %}">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger btn-sm">Delete SCP File</button>
+        </form>
+      </td>
+    </tr>
+  {% endfor %}
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<br>
+<br>
+
+
+ 
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.bootstrap4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.colVis.min.js"></script>
+
+
+<script type="application/javascript">
+$(document).ready(function() {
+    var table = $('#mydatatable').DataTable( {
+        lengthChange: true,
+  lengthMenu: [5, 10, 15],
+        buttons: [ 'copy', 'excel', 'pdf', 'csv', 'print', 'colvis' ]
+    } );
+  
+    table.buttons().container()
+        .appendTo( '#mydatatable_wrapper .col-md-6:eq(0)' );
+} );
+</script>
+
+<script>
+// return a new function to pass to document.ready
+// that has a timeout wrapper on it
+function timeoutFn(fn, t) {
+    var fired = false;
+    var timer;
+    function run() {
+        clearTimeout(timer);
+        timer = null;
+        if (!fired) {
+            fired = true;
+            fn();
+        }
+    }
+    timer = setTimeout(run, t);
+    return run;
+}
+
+$(document).ready(timeoutFn(function() {
+$("#scp_upload").click(function() {
+// add spinner to button
+$(this).html(
+'<i class="fa fa-circle-o-notch fa-spin"></i> Uploading Your File......'
+);
+});
+},72000000));
+</script>
+
+
+<script>$(document).ready(function() {
+$("#scp_nxos_upload").click(function() {
+// add spinner to button
+$(this).html(
+'<i class="fa fa-circle-o-notch fa-spin"></i> Uploading Your File......'
+);
+});
+});
+</script>
+
+{% endblock %}

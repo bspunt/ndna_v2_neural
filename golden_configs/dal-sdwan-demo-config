@@ -1,0 +1,4 @@
+
+aaa group server tacacs+ tacacs-1
+ip vrf forwarding 2
+ip tacacs source-interface Loopback10

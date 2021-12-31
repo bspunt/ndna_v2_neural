@@ -1,0 +1,57 @@
+{% extends "automation-base.html" %}
+{% block content %}
+<br>
+<br>
+<br>
+<div class="container my-container">  
+    <div class="text-left padding"><h6><p style="color:rgb(223, 238, 16)"><i>Hey {{ request.user.username }}! Let's run a port scan! ( ͡ᵔ ͜ʖ ͡ᵔ )</i></p></h6></div>
+   <!-- <h6 class="mt-3"><b><i><p style="color:red">Lets get started {{ request.user.username }}!</i></b></p></h6>  -->
+   <div class="mt-3"><h4><font color=green><i> Ad-Hoc/Free Form Automation (Run Now)</i></font></h4></div>  
+   <!-- <div class=""text-center padding""><h2><font color=green><i> Free Form Automation</i></font></h2></div>   -->
+ 
+<form method="POST">
+<div class="row my-row">
+  
+    <div class="form-group col-md-6">  
+        <label for="Node"><font color="white">Enter an IP Address</font></label>  
+        <textarea class="form-control col-lg-12" rows="1" id="ip_addr" name="ip_addr"></textarea>  
+    </div>  
+
+    <div class="form-group col-md-6">  
+        <label for="time_sleep"><font color="white">Enter a Scan Option</font></label></input>  
+        <select class="custom-select" id="resp" name="resp">
+            <option selected>Enter a Scan Option...</option>
+            <option value=1>SYN ACK Scan</option>
+            <option value=2>UDP Scan</option>
+            <option value=3>Comprehensive Scan</option>
+        </select>
+    </div>  
+
+    <div class="form-group col-lg-4">  
+        {% csrf_token %}
+        <button type="submit" class=" btn btn-primary padding-top btn-sm" name="btnform1">Submit to Run Now!</button>  
+        </div> 
+    </form>
+</div> 
+
+  
+<!-- ==================== -->
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<!-- Modal Hover If you want to use -->
+<script>
+    $(function() {
+    
+    $('[data-toggle="modal"]').hover(function() {
+      var modalId = $(this).data('target');
+      $(modalId).modal('show');
+    
+    });
+    
+    });
+    </script>
+{% endblock content %}

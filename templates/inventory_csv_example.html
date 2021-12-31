@@ -1,0 +1,176 @@
+{% extends "datatables-base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<body style="background-color:#ebeef0;">
+
+  <div class="container mb-3 mt-3">
+
+    <div class="row my-row">
+      <div class="form-group col-md-12">  
+        <p>
+          <div class="text-left padding"><h6><p style="color:rgb(223, 238, 16)">
+            See below for an example of how to build your inventory CSV file<br><br>NOTE: The column header names are case sensitive and must be exactly as shown below!</p>
+            </h6>
+          </div>
+          <img src="{%static "neural/assets/img/inventory.jpg" %}" alt=""  class="rounded img-fluid">
+
+        </p>
+      </div>  
+    </div>
+  
+  <font color=white>=====================</font>
+
+  <div class="text-left padding"><h6><a href="{% url 'inventory_templates' %}">Click here to get back to the upload inventory page!</a></h6></div>
+  
+  <font color=white>=====================
+    <br>
+  <div class="text-left padding"><h6>See below for the various options available. These are enforced and must be used or your inventory device will not be created. These are all case sensitive too. If any new options are needed for anything, e.g. 
+    OS, Region, device type, etc, submit a request on the form at the bottom of the home page!
+  </h6></div></font>
+  <br>
+
+  <div class="container mb-3 mt-3">
+        <div class="row my-row">
+          <div class="input-group col-2">
+            <select class="custom-select" id="device_type" name="device_type">
+              <option selected>device_type...</option>
+              <option value="access">access</option>
+              <option value="core">core</option>
+              <option value="distribution">distribution</option>
+              <option value="spine">spine</option>
+              <option value="leaf">leaf</option>
+              <option value="sdwan_control">sdwan_control</option>
+              <option value="sdwan_router">sdwan_router</option>
+              <option value="dmvpn_router">dmvpn_router</option>
+              <option value="mpls_router">mpls_router</option>
+              <option value="aws_csr_router">aws_csr_router</option>
+              <option value="edge_router">edge_router</option>
+              <option value="edge_router_no_object_group">edge_router_no_object_group</option>
+              <option value="edge_core">edge_core</option>
+              <option value="edge_svc_switch">edge_svc_switch</option>
+              <option value="db_core">db_core</option>
+              <option value="eng_core">eng_core</option>
+              <option value="pci_core">pci_core</option>
+              <option value="pub_core">pub_core</option>
+              <option value="pub_switch">pub_switch</option>
+              <option value="firewall">firewall</option>
+              <option value="saas">saas</option>
+              <option value="sip_router">sip_router</option>
+              <option value="vhert_router">vhert_router</option>
+              <option value="voip_router">voip_router</option>
+              <option value="vpn_switch">vpn_switch</option>
+              <option value="wlc">wlc</option>
+              <option value="avi load_balancer">avi load_balancer</option>
+              <option value="f5 load_balancer">f5 load_balancer</option>
+              <option value="asa_vpn_concentrator">asa_vpn_concentrator</option>
+              <option value="riverbed_wac">riverbed_wac</option>
+              <option value="ips">ips</option>
+              <option value="linux">linux</option>
+              <option value="mwg">mwg</option>
+              <option value="p2p_router">p2p_router</option>
+            </select>
+          </div>
+
+          <div class="input-group col-2">
+              <select class="custom-select" id="vendor" name="vendor">
+                <option selected>vendor...</option>
+                <option value="Cisco">cisco</option>
+                <option value="Juniper">juniper</option>
+                <option value="forcepoint">forcepoint</option>
+                <option value="riverbed">riverbed</option>
+                <option value="linux">linux</option>
+                <option value="mcafee">mcafee</option>
+                <option value="AVI">AVI</option>
+                <option value="F5">F5</option>
+              </select>
+            </div>
+
+            <div class="input-group col-2">
+              <select class="custom-select" id="OS" name="OS">
+                <option selected>OS...</option>
+                <option value="IOS">IOS</option>
+                <option value="NXOS">NXOS</option>
+                <option value="SDWAN-IOS">SDWAN-IOS</option>
+                <option value="viptela">viptela</option>
+                <option value="linux">linux</option>
+                <option value="mcafee">mcafee</option>
+                <option value="AVI">AVI</option>
+                <option value="F5">F5</option>
+                <option value="riverbed">riverbed</option>
+                <option value="JUNOS">JUNOS</option>
+              </select>
+            </div>
+
+            <div class="input-group col-2">
+              <select class="custom-select" id="Region" name="Region">
+                <option selected>Region...</option>
+                <option value="NASA">NASA</option>
+                <option value="EMEA">EMEA</option>
+                <option value="APAC">APAC</option>>
+              </select>
+            </div>
+
+            <div class="input-group col-2">
+              <select class="custom-select" id="site" name="site">
+                <option selected>site...</option>
+                <option value="">dal</option>
+                <option value="">res</option>
+                <option value="">lv2</option>
+                <option value="">dub</option>
+                <option value="">cba</option>
+                <option value="">mel</option>
+                <option value="">syd</option>
+                <option value="">sao</option>
+                <option value="">mar</option>
+                <option value="">wat</option>
+                <option value="">zur</option>
+                <option value="">bog</option>
+                <option value="">mun</option>
+                <option value="">rat</option>
+                <option value="">ban</option>
+                <option value="">mad</option>
+                <option value="">par</option>
+                <option value="">tbd</option>
+                <option value="">hst</option>
+                <option value="">cor</option>
+                <option value="">tel</option>
+                <option value="">bgl</option>
+                <option value="">hyd</option>
+                <option value="">mum</option>
+                <option value="">rom</option>
+                <option value="">osa</option>
+                <option value="">tok</option>
+                <option value="">seo</option>
+                <option value="">ldv</option>
+                <option value="">mex</option>
+                <option value="">ams</option>
+                <option value="">amv</option>
+                <option value="">joh</option>
+                <option value="">riy</option>
+                <option value="">sgp</option>
+                <option value="">sin</option>
+                <option value="">ayl</option>
+                <option value="">slo</option>
+                <option value="">cmd</option>
+                <option value="">dnv</option>
+                <option value="">hil</option>
+                <option value="">lvs</option>
+                <option value="">oak</option>
+                <option value="">sjc</option>
+                <option value="">smc</option>
+                <option value="">smc2</option>
+                <option value="">sdwan-aws-cloud</option>
+                <option value="">aws</option>
+                <option value="">jstephens</option>
+                <option value="">pav-pad</option>
+                <option value="">hlo</option>
+              </select>
+            </div>
+
+      </div>    
+    </div>
+    <br>
+{% endblock %}

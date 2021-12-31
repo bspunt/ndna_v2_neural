@@ -1,0 +1,48 @@
+{% extends "automation-base.html" %}
+{% load static %}
+{% block content %}
+<br>
+<br>
+<br>
+
+<div class="container my-container">  
+    <div class="text-left padding"><h4><p style="color:rgb(223, 238, 16)"><i>Hey {{ request.user.username }}!<br><br> Here's Your Results... ( ͡ᵔ ͜ʖ ͡ᵔ )</i></p></h4></div>
+  <form method="POST">
+    <div class="row my-row">
+
+   {% if gc_output_for_diffs %}
+    <div class="form-group col-md-12">  
+      <label for="Golden Config Output"><font color="white">Reference Golden Config:</font></label>  
+            <textarea class="form-control col-lg-12" rows="10" id="displayconfig" name="displayconfig" 
+            {% for line in gc_output_for_diffs %}
+                option value="header">{{ line }}
+            {% endfor %}
+          </textarea>
+        </div>  
+    {% else %}
+    {% endif %}
+
+    {% if diffs %}
+    <div class="form-group col-md-12">  
+      <!-- <h4><font color=Green><i>The following code is out of compliance and doesn't exist in the live configuraton, but does exist in the intended configuraton (The Golden Configuraton)...</i></font></h4> -->
+      <label for="diff_output"><font color="white">Diffs (Missing from Live Environment) - If There's Nothing Below...Then Good News! The Device Is Compliant</font></label>  
+            <textarea class="form-control col-lg-12" rows="10" id="diff_output" name="diff_output" 
+            {% for diff in diffs %}
+                option value="header">{{ diff }}
+            {% endfor %}
+          </textarea>
+        </div>  
+    {% else %}
+       <!-- <div class="mt-3 col-md-12"><h4><font color=Green><i>Good News! Device Is Compliant...</i></font></h4></div> -->
+    {% endif %}
+
+  </div> 
+</div> 
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+{% endblock content %}

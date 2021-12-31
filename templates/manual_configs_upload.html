@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+<br>
+<br>
+<br>
+
+{% block content %}
+<body style="background-color:#ebeef0;">
+<div class="container my-container">  
+  <br>
+  <br>
+  <br>
+  <div class="text-left padding"><h4><font color=red><i>Upload Manual Configs (With CSV) Zip File!<br><br>Make sure your zip file is named using *yourusername*-manual-ua.zip, e.g. bspunt-manual-ua.zip</i></font></h4></div>
+  <br>
+  <div class="text-left padding"><h6><i><a href="{% url 'unique_automation_manual_configs' %}"><b>After Upload is complete, you can go back to the automation page <u>here</b></u></i></a></h6></div> 
+  <div class="row my-row">
+    
+ <div class="form-group col-sm-4">  
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <br>
+
+    <div><input type="file" type="file" name="document">
+    <div class="form-group col-sm-8"> </div>
+    <div><button type="submit" class="btn btn-primary btn-sm">Upload Your Zip File</button></div>
+</form>
+
+    {% if url %}
+        <p><br>Your Upload is Complete: <a href="">{{ url }}</a></p>
+    {% endif %}
+
+    </div>
+  </div>
+</div>  
+{% endblock %}

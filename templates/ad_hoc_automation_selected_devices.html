@@ -1,0 +1,336 @@
+{% extends "datatables-base.html" %}
+
+
+{% block content %}
+
+{# Include FontAwesome; required for icon display #}
+<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css">
+<!-- django template tags -->
+{% load bootstrap4 %}       {# import bootstrap4/bootstrap3 #}
+{% bootstrap_css %}         {# Embed Bootstrap CSS #}
+{% bootstrap_javascript jquery='full' %}  {# Embed Bootstrap JS+jQuery #}
+{{ form.media }}            {# Adds date-picker required JS and CSS #}
+<!-- ========================================================================== -->
+<form method="POST" enctype="multipart/form-data">
+<div class="container mb-3 mt-3">
+    
+    <div class="row my-row">
+        <div class="form-group col-md-12">  
+    <div class="text-left padding"><h4><p style="color:rgb(223, 238, 16)"><i>Hey {{ request.user.username }}! Let's Run Some Database Driven Ad_Hoc Automation ( ͡ᵔ ͜ʖ ͡ᵔ )</i></p></h4></div>
+   <!-- <h6 class="mt-3"><b><i><p style="color:red">Lets get started {{ request.user.username }}!</i></b></p></h6>  -->
+   <div class="mt-3"><h6><p style="color:rgb(20, 144, 216)"><i> Ad-Hoc/Free Form Automation Based on Flexible Database Driven Device Inventory Selections (Run Now)</i></p></h6></div> 
+   <div class="mt-3"><h6><font color=red><i> The Program Will Only Run On Devices Shown In The Current Browser View, So Be Sure To Change The View To Include All Your Chosen Nodes On The Current Page</i></font></h6></div> 
+   <br>
+   <div class="text-left padding"><h6><p style="color:rgb(20, 144, 216)"><i>You Can Save The Nodes and Commands as a Job Task - Just Create A Name For Your Task<br><br>
+    Or If You Don't Want To Create a task, e.g. you just want to run automation, Just Leave it Blank!</i></p></h6></div>
+   <br>
+    <table id="mydatatable" class="table table-striped table-bordered table-dark table-sm" style="width:100%">
+        <thead>
+            <tr>
+              <th><input type="checkbox" name="select-all" id="select-all" /></th>
+              <th>Hostname</th>
+              <th>Site</th>
+              <th>Device_Type</th>
+              <th>Region</th>
+              <th>OS</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for device in all_device %}
+            <tr>
+                {% csrf_token %}
+                <td><input type="checkbox" name="device" value="{{device.hostname}}" /></td>
+                <td>{{device.hostname}}</td>
+                <td>{{ device.site }}</td>
+                <td>{{ device.device_type }}
+                <td>{{ device.Region }}</td>
+                <td>{{ device.OS }}</td>
+                </td>
+            </tr>
+            {% endfor %}        
+        </tbody>
+    </table>
+</div>
+</div>
+
+<!-- <div class="container mb-3 mt-3"> -->
+    <div class="row my-row">
+    <div class="form-group col-md-6">  
+        <label for="time_sleep"><font color="white">Time_Between_Commands</font></label></input>  
+        <select class="custom-select" id="time_sleep" name="time_sleep">
+            <option selected>Choose Time Sleep...</option>
+            <option value=1>1</option>
+            <option value=2>2</option>
+            <option value=4>4</option>
+            <option value=6>6</option>
+            <option value=8>8</option>
+            <option value=10>10</option>
+            <option value=12>12</option>
+            <option value=14>14</option>
+            <option value=16>16</option>
+            <option value=18>18</option>
+            <option value=20>20</option>
+            <option value=22>22</option>
+            <option value=24>24</option>
+            <option value=26>26</option>
+            <option value=28>28</option>
+            <option value=30>30</option>
+            <option value=32>32</option>
+            <option value=34>34</option>
+            <option value=36>36</option>
+            <option value=46>46</option>
+            <option value=60>60</option>
+            <option value=70>70</option>
+            <option value=80>80</option>
+            <option value=90>90</option>
+            <option value=120>120</option>
+        </select>
+    </div>  
+
+    <div class="form-group col-md-6">  
+            <label for="commands"><font color="white">Commands:</font></label>  
+            <textarea class="form-control col-lg-12" rows="1" id="command_list" name="command_list"></textarea>  
+        </div>  
+
+        <div class="form-group col-lg-12">  
+        {% csrf_token %}
+        <button type="submit" class=" btn btn-primary padding-top btn-sm" name="btnform1"><i class="fa fa-paper-plane" aria-hidden="true"></i>&nbspSubmit to Run Now!</button>  
+        <button type="submit" class=" btn btn-success padding-top btn-sm float-right" name="btnform10"><i class="fa fa-code" aria-hidden="true"></i>&nbspReview Commands & Nodes List!</button>
+        </div> 
+
+        <!-- ========================================================================== -->
+        <div class="form-group col-md-12">  
+        <label for="task_name"><font color="white">&nbspName And Save Your Job Task! (Or Leave Blank To Just Run Your Automation Job Above)</font></label>  
+        <textarea class="form-control col-lg-12" rows="1" id="task_name" name="task_name"></textarea>  
+        </div>  
+        <!-- ========================================================================== -->
+        <div class="form-group col-lg-12">  
+        {% csrf_token %}
+        <button type="submit" class="btn btn-warning padding-top btn-sm" name="btnform1000"><i class="fa fa-cogs" aria-hidden="true"></i>&nbspSubmit to Save This As A Task!</button>  
+        </div> 
+    </form>
+</div> 
+<!-- </div> -->
+<!-- ========================================================================== -->
+<!-- ========================================================================== -->
+<form method="POST" enctype="multipart/form-data">
+    <div class="row my-row">
+    <div class="form-group col-md-6">  
+        <label for="site"><font color="white">Run A Saved Job Task</font></label></input>  
+        <select class="custom-select" id="run_task" name="run_task">
+            <option selected>Choose A Saved Job Task...</option>
+            {% for t in tasks %}
+            <option value="{{ t }}">{{ t }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group col-md-6">  
+        <label for="time_sleep"><font color="white">Time_Between_Commands</font></label></input>  
+        <select class="custom-select" id="time_sleep" name="time_sleep">
+            <option selected>Choose Time Sleep...</option>
+            <option value=1>1</option>
+            <option value=2>2</option>
+            <option value=4>4</option>
+            <option value=6>6</option>
+            <option value=8>8</option>
+            <option value=10>10</option>
+            <option value=12>12</option>
+            <option value=14>14</option>
+            <option value=16>16</option>
+            <option value=18>18</option>
+            <option value=20>20</option>
+            <option value=22>22</option>
+            <option value=24>24</option>
+            <option value=26>26</option>
+            <option value=28>28</option>
+            <option value=30>30</option>
+            <option value=32>32</option>
+            <option value=34>34</option>
+            <option value=36>36</option>
+            <option value=46>46</option>
+            <option value=60>60</option>
+            <option value=70>70</option>
+            <option value=80>80</option>
+            <option value=90>90</option>
+            <option value=120>120</option>
+        </select>
+    </div>  
+
+        <div class="form-group col-lg-12">  
+        {% csrf_token %}
+        <button type="submit" class=" btn btn-warning padding-top btn-sm" name="btnform100"><i class="fa fa-paper-plane" aria-hidden="true"></i>&nbspSubmit to Run Saved Job Task Now!</button>  
+        <button type="submit" class=" btn btn-danger padding-top btn-sm float-right" name="btnform150"><i class="fa fa-trash-o" aria-hidden="true"></i>&nbspDelete Saved Job!</button>  
+    </div> 
+        <div class="form-group col-lg-12"> 
+            <button type="submit" class=" btn btn-info padding-top btn-sm float-left" name="btnform200"><i class="fa fa-code" aria-hidden="true"></i>&nbspReview Commands & Nodes List for Saved Job!</button>
+        </div> 
+    </form>
+</div>
+</div>
+<br>
+<!-- ========================================================================== -->
+<!-- ========================================================================== -->
+<form method="POST" enctype="multipart/form-data">
+<div class="container mb-3 mt-3">
+   <div class="mt-3"><h4><font color=green><i> Schedule to Run Later!</i></font></h4></div> 
+   <div class="row my-row">
+   <div class="form-group col-md-12"> 
+    <table id="mydatatable2" class="table table-striped table-bordered table-dark table-sm" style="width:100%">
+        <thead>
+            <tr>
+              <th><input type="checkbox" name="select-all2" id="select-all2" /></th>
+              <th>Hostname</th>
+              <th>Site</th>
+              <th>Device_Type</th>
+              <th>Region</th>
+              <th>OS</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for device in all_device %}
+            <tr>
+                {% csrf_token %}
+                <td><input type="checkbox" name="device" value="{{device.hostname}}" /></td>
+                <td>{{device.hostname}}</td>
+                <td>{{ device.site }}</td>
+                <td>{{ device.device_type }}
+                <td>{{ device.Region }}</td>
+                <td>{{ device.OS }}</td>
+                </td>
+            </tr>
+            {% endfor %}        
+        </tbody>
+    </table>
+</div>
+</div>
+
+<!-- <div class="container mb-3 mt-3"> -->
+    <div class="row my-row">
+    <div class="form-group col-md-6">  
+        <label for="time_sleep"><font color="white">Time_Between_Commands</font></label></input>  
+        <select class="custom-select" id="time_sleep" name="time_sleep">
+            <option selected>Choose Time Sleep...</option>
+            <option value=1>1</option>
+            <option value=2>2</option>
+            <option value=4>4</option>
+            <option value=6>6</option>
+            <option value=8>8</option>
+            <option value=10>10</option>
+            <option value=12>12</option>
+            <option value=14>14</option>
+            <option value=16>16</option>
+            <option value=18>18</option>
+            <option value=20>20</option>
+            <option value=22>22</option>
+            <option value=24>24</option>
+            <option value=26>26</option>
+            <option value=28>28</option>
+            <option value=30>30</option>
+            <option value=32>32</option>
+            <option value=34>34</option>
+            <option value=36>36</option>
+            <option value=46>46</option>
+            <option value=60>60</option>
+            <option value=70>70</option>
+            <option value=80>80</option>
+            <option value=90>90</option>
+            <option value=120>120</option>
+        </select>
+    </div>  
+
+  
+    <div class="form-group col-md-6">  
+            <label for="commands"><font color="white">Commands:</font></label>  
+            <textarea class="form-control col-lg-12" rows="1" id="command_list" name="command_list"></textarea>  
+        </div>  
+
+        <div class="form-group col-md-4">  
+            <!-- This form has datetime field -->
+            {% csrf_token %}
+            {{ form.as_p }}
+            <label for="datetime"><font color="white">Enter the Date and Time <i>(<b>Note:</b> All times are in UTC for the Scheduler)</i></font></label></input>
+        </div>
+        <div class="form-group col-md-12">
+         
+        {% csrf_token %}
+        <button type="submit" class=" btn btn-success padding-top btn-sm" name="btnform2"><i class="fa fa-calendar-check-o" aria-hidden="true"></i>&nbspSchedule for Later</button>  
+        </div> 
+    </div>
+      </form>
+    </div>  
+   </div>
+ 
+<!-- ========================================================================== -->
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.bootstrap4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.colVis.min.js"></script>
+<!-- ========================================================================== -->
+
+
+<script type="application/javascript">
+// Listen for click on toggle checkbox
+$('#select-all').click(function(event) {   
+    if(this.checked) {
+        // Iterate each checkbox
+        $('#mydatatable :checkbox').each(function() {
+            this.checked = true;                        
+        });
+    } else {
+        $('#mydatatable :checkbox').each(function() {
+            this.checked = false;                       
+        });
+    }
+});
+</script>
+
+<script type="application/javascript">
+// Listen for click on toggle checkbox
+$('#select-all2').click(function(event) {   
+    if(this.checked) {
+        // Iterate each checkbox
+        $('#mydatatable2 :checkbox').each(function() {
+            this.checked = true;                        
+        });
+    } else {
+        $('#mydatatable2 :checkbox').each(function() {
+            this.checked = false;                       
+        });
+    }
+});
+</script>
+
+<script type="application/javascript">
+$(document).ready(function() {
+    var table = $('#mydatatable').DataTable( {
+        lengthChange: true,
+	lengthMenu: [5, 50, 100, 500, 1000, 2000, 3000]
+    } );
+ 
+    table.buttons().container()
+        .appendTo( '#mydatatable_wrapper .col-md-6:eq(0)' );
+} );
+</script>
+
+<script type="application/javascript">
+$(document).ready(function() {
+    var table = $('#mydatatable2').DataTable( {
+        lengthChange: true,
+	lengthMenu: [5, 50, 100, 500, 1000, 2000, 3000]
+    } );
+ 
+    table.buttons().container()
+        .appendTo( '#mydatatable2_wrapper .col-md-6:eq(0)' );
+} );
+</script>
+
+{% endblock %}
