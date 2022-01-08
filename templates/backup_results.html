@@ -12,11 +12,11 @@
 <br>
 {% if job_result.status == 'completed' or job_result.status == 'failed' %}
 <div class="d-flex justify-content-center">
-<div><pre><b><a href="{% url 'network_configs' %}"><i class="fa fa-file-text-o" aria-hidden="true"></i>&nbsp<i class="fa fa-download" aria-hidden="true"></i> View All Config Backups</a><br>
+<div><pre><font color="white"><b><a href="{% url 'network_configs' %}"><i class="fa fa-file-text-o" aria-hidden="true"></i>&nbsp<i class="fa fa-download" aria-hidden="true"></i> View All Config Backups</a><br>
     Job Has Completed......</b><br><br>Start Time = {{ job_result.started }}<br>End Time = {{ job_result.completed }}
     <br>total_device_count = {{ job_result.total_device_count }}<br>completed_device_count = {{ job_result.completed_device_count }}
     <br>failed_device_count = {{ job_result.failed_device_count }}
-    <br>{{ job_result.messages }}<br>
+    <br>{{ job_result.messages }}<br></font>
 </pre></div>
 <!-- <div><pre><b>Job Has Completed......</b><br><br>Start Time = {{ job_result.started }}<br>End Time = {{ job_result.completed }}<br><br>total_device_count = {{ job_result.total_device_count }}<br>completed_device_count = {{ job_result.completed_device_count }}<br>failed_device_count = {{ job_result.failed_device_count }}<br><br>{{ job_result.messages }}<br><br>{{ job_result.output }}</pre></div> -->
 </div>
