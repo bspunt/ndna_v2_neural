@@ -1,28 +1,38 @@
 {% extends "datatables-base.html" %}
 {% block content %}
+    <form method="POST" enctype="multipart/form-data">
     <div class="container mb-3 mt-3">
+            <div class="row my-row">
+        <div class="form-group col-md-12">  
         <div class="text-left padding"><h6><p style="color:rgb(223, 238, 16)"><i> Hey Admin User {{ request.user.username }}! Manage Device Inventory ( ͡ᵔ ͜ʖ ͡ᵔ )</i></p></h6></div>
         <table id="mydatatable" class="table table-striped table-bordered table-dark table-sm" style="width:100%"> 
             <thead>
                 <tr>
+                    <th><input type="checkbox" name="select-all" id="select-all" /></th>
                     <th>admin_manage_inventory</th>
                 </tr>
             </thead>
 
-            <tbody>
-                {% for item in inventory %}
-                <tr>
-                    <form method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <td>{{item}} 
-                        <button type="submit" class="mt-3 btn btn-danger float-right btn-sm" name="delete" value="{{item}}">Delete!</button>
-                    </td>
-                    </form>
-                </tr>
-                {% endfor %}
-            </tbody>
+        <tbody>
+            {% for device in inventory %}
+            <tr>
+                {% csrf_token %}
+                <td><input type="checkbox" name="device" value="{{device.hostname}}" /></td>
+                <td>{{device.hostname}}</td>
+                </td>
+            </tr>
+            {% endfor %}        
+        </tbody>
         </table>
     </div>
+            <div class="form-group col-md-12">
+         
+        {% csrf_token %}
+        <button type="submit" class=" btn btn-danger padding-top btn-sm" name="btnform1"><i class="fa fa-trash-o" aria-hidden="true"></i>&nbspDelete</button>  
+ </div>
+ </div>
+      </form>
+       </div>
     <!-- ===== tables format and search related ==== -->
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
@@ -36,7 +46,22 @@
     <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.colVis.min.js"></script>
     
-    
+    <script type="application/javascript">
+    // Listen for click on toggle checkbox
+    $('#select-all').click(function(event) {   
+        if(this.checked) {
+            // Iterate each checkbox
+            $('#mydatatable :checkbox').each(function() {
+                this.checked = true;                        
+            });
+        } else {
+            $('#mydatatable :checkbox').each(function() {
+                this.checked = false;                       
+            });
+        }
+    });
+    </script>
+
     <script type="application/javascript">
     $(document).ready(function() {
         var table = $('#mydatatable').DataTable( {

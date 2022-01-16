@@ -2267,19 +2267,20 @@ class JobResultsData(APIView):
 @permission_required('neural.add_t3', raise_exception=True)
 def admin_manage_inventory(request):
 
-    inventory = Device.objects.order_by().values_list('hostname', flat=True).distinct()  
+    inventory = Device.objects.all()
         
     context = {
         'inventory': inventory,
     }
 
     """ delete devices from the database """
-    if request.method == "POST" and 'delete' in request.POST:
-        delete = request.POST['delete']
-        Device.objects.filter(hostname='%s' % delete).delete()
-
+    if request.method == "POST" and 'btnform1' in request.POST:
+        device = request.POST.getlist('device')
+        for d in device:
+            Device.objects.filter(hostname=d).delete()
     #return render(request, 'admin_manage_inventory.html', {'inventory': inventory})
     return render(request, 'admin_manage_inventory.html', context)
+
 ########################################
 @login_required
 @permission_required('neural.add_t3', raise_exception=True)
