@@ -161,9 +161,10 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-# LEAVE TIMEZONE IN PST
+# TIMEZONE
 LANGUAGE_CODE = 'en-us'
 USE_TZ = False
+#TIME_ZONE = 'UTC'
 TIME_ZONE = 'PST8PDT'
 USE_I18N = True
 USE_L10N = True
@@ -179,7 +180,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # this is needed for password reset to work properly
 DEFAULT_FROM_EMAIL = 'no-reply@neural.domainname.com'
-EMAIL_HOST = 'neural.domainname.com'
+EMAIL_HOST = 'smtp-relay-host-here'
 EMAIL_PORT = '25'
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = False
