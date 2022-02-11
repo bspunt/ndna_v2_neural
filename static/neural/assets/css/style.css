@@ -5,6 +5,17 @@
 * License: https://bootstrapmade.com/license/
 */
 
+
+/*--------------------------------------------------------------
+# Gradient banners
+--------------------------------------------------------------*/
+
+#grad1 {
+  height: 20px;
+  background-color: rgb(15, 15, 15); /* For browsers that do not support gradients */
+  background-image: linear-gradient(to right, red , green, purple, blue);
+}
+
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
