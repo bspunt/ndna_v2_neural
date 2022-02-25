@@ -699,10 +699,21 @@ def open_network_connection_compliance_check(username, svcacct_username, passwor
         session.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         session.connect(node, username = svcacct_username, password = password, look_for_keys=False)
         connection = session.invoke_shell()	
-        connection.send("term len 0\n")
-        time.sleep(3)
-        connection.send("sh run\n")
-        time.sleep(5)
+
+        """ disable pagination, grab running config """
+        OS = Device.objects.filter(hostname = node).order_by().values_list('OS', flat=True).distinct()
+        OS_STR = ''.join(OS)
+        if OS_STR == 'SDWAN-IOS' or OS_STR == 'IOS' or OS_STR == 'IOS-XE' or OS_STR == 'IOS-XR' \
+            or OS_STR == 'NXOS' or OS_STR == 'NX-OS' or OS_STR == 'Arista':
+            connection.send("term len 0\nshow run\n")
+            time.sleep(4)
+        elif OS_STR == 'ASA':
+            connection.send("term pager 0\nshow run\n")
+            time.sleep(4)
+        elif OS_STR == 'JUNOS':
+            connection.send("set cli screen-length 0\nshow configuration\n")
+            time.sleep(4)
+        """ keep adding additional for other vendors/other OSs as needed """
 #############################################################
         # Get around the 64K bytes (65535). paramiko limitation
         interval = 0.1
