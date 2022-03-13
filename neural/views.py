@@ -193,7 +193,12 @@ def devices(request):
         request.session['config'] = config # set 'config var' in the session
 
         return redirect('download_specific_files')
-    
+
+    """ add devices button """
+    if request.method == "POST" and 'adddevice' in request.POST:
+        return redirect('import_device_inventory')
+
+
         """ delete from inventory """
     if request.method == "POST" and 'delete' in request.POST:
         delete = request.POST['delete']

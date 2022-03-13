@@ -18,7 +18,7 @@
                         <th>OS</th>
                         <th>Region</th>
                         <!--<th>Delete Device</th>  -->
-                        <th>Get Config Backups and Run Diffs</th>
+                        <th>Get Config Backups/Run Diffs or Add A Device</th>
                     </tr>
                     </thead>
 
@@ -36,7 +36,8 @@
                 <td>{{ device.OS }}</td>
                 <td>{{ device.Region }}</td>
                 <!-- <td><button type="submit" class="ml-2 btn btn-danger float-left btn-sm" name="delete" value="{{device.hostname}}"><i class="fa fa-trash-o"></i></button></td>  -->
-                <td><button type="submit" class="ml-2 btn btn-info float-left btn-sm" name="config" value="{{device.hostname}}"><i class="fas fa-download"></i>&nbspGet Configs and Run Diffs!&nbsp<i class="fa fa-code" aria-hidden="true"></i></button>&nbsp;</td>
+                <td><button type="submit" class="ml-2 btn btn-info float-left btn-sm" name="config" value="{{device.hostname}}"><i class="fas fa-download"></i>&nbspGet Configs and Run Diffs!&nbsp<i class="fa fa-code" aria-hidden="true"></i></button>&nbsp;
+                <button type="submit" class="ml-2 btn btn-success float-left btn-sm" name="adddevice" value="{{device.hostname}}"><i class="fas fa-plus-square"></i>&nbspAdd a device!&nbsp</button>&nbsp;</td>
                 </td>
             </form>
 
