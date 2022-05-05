@@ -123,14 +123,14 @@ def setup(request):
         time.sleep(3)
 
         setup_domain_system_background_worker = r"""
-        grep -rl neural.domainname.com ./neural/background_worker.py | xargs sed -i 's/neural.domainname.com/%s/g'
+        grep -rl neural.domainname.com ./neural/*.py | xargs sed -i 's/neural.domainname.com/%s/g'
         """ % (changednsname)
 
         subprocess.Popen(setup_domain_system_background_worker, shell=True, stdout=subprocess.PIPE)
         time.sleep(3)
 
         setup_email_to = r"""
-        grep -rl notifications ./neural/background_worker.py | xargs sed -i 's/notifications/%s/g'
+        grep -rl notifications ./neural/*.py | xargs sed -i 's/notifications/%s/g'
         """ % (to_email_address)
 
         subprocess.Popen(setup_email_to, shell=True, stdout=subprocess.PIPE)
